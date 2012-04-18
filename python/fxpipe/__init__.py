@@ -1,4 +1,4 @@
-import platform
+import platform ,os
 
 '''
 Set the variables here how you want the paths to work
@@ -10,6 +10,21 @@ Set the paths for windows, osx, linux as you see fit here.
 win_jobpath = 'z:/job'
 osx_jobpath = '/Volumes/job'
 lin_jobpath = '/mnt/job'
+try:
+    job = os.environ['job']
+except:
+    print 'Job environment variable not set'
+    job = ''
+try:    
+    seq = os.environ['seq']
+except:
+    print 'Seq environment variable not set'
+    seq = ''
+try:
+    shot = os.environ['shot']
+except:
+    print 'Seq environment variable not set'
+    shot = ''
 
 ### DO NOT CHANGE BELOW THIS LINE ###
 
