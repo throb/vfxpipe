@@ -7,9 +7,25 @@ Set the paths for windows, osx, linux as you see fit here.
 
 '''
 
-win_jobpath = 'z:/job'
-osx_jobpath = '/Volumes/job'
-lin_jobpath = '/mnt/job'
+jobPathWin = 'z:/job'
+jobPathOsx = '/Volumes/job'
+jobPathLin = '/mnt/job'
+
+### END JOB PATH CUSTOMIZE
+
+'''
+Customize this for where your nuke scripts will be located that are show specific for each application
+this will work out to (for nuke) :
+jobPath + nukeJobPath = z:/job/myjobname/common/nuke
+This is where __init__ files should be placed
+'''
+
+jobPathNuke = 'common/nuke'
+jobPathMaya = 'common/maya'
+jobPathScripts = 'common/python'
+
+### END APP PATH CUSTOMIZE
+
 try:
     job = os.environ['job']
 except:
@@ -23,18 +39,18 @@ except:
 try:
     shot = os.environ['shot']
 except:
-    print 'Seq environment variable not set'
+    print 'Shot environment variable not set'
     shot = ''
 
 ### DO NOT CHANGE BELOW THIS LINE ###
 
 ### make sure we set the right path based on OS type
 if platform.system() == 'Windows':
-    jobPath = win_jobpath
+    jobPath = jobPathWin
 if platform.system() == 'Linux':
-    jobPath = lin_jobpath
+    jobPath = jobPathLin
 if platform.system() == 'Darwin':
-    jobPath = osx_jobpath
+    jobPath = jobPathOsx
 
 def fixPath(inputPath):
     '''
@@ -42,14 +58,14 @@ def fixPath(inputPath):
     returns the fixed path based on OS type
     '''
     if platform.system() == 'Windows':
-        newPath = inputPath.replace (lin_jobpath, win_jobpath)
-        newPath = inputPath.replace (osx_jobpath, win_jobpath)
+        newPath = inputPath.replace (jobPathLin, jobPathWin)
+        newPath = inputPath.replace (jobPathOsx, jobPathWin)
         return newPath
     if platform.system() == 'Linux':
-        newPath = inputPath.replace (win_jobpath, lin_jobpath)
-        newPath = inputPath.replace (osx_jobpath, lin_jobpath)
+        newPath = inputPath.replace (jobPathWin, jobPathLin)
+        newPath = inputPath.replace (jobPathOsx, jobPathLin)
         return newPath
     if platform.system() == 'Darwin':
-        newPath = inputPath.replace (lin_jobpath, osx_jobpath)
-        newPath = inputPath.replace (win_jobpath, osx_jobpath)
+        newPath = inputPath.replace (jobPathLin, jobPathOsx)
+        newPath = inputPath.replace (jobPathWin, jobPathOsx)
         return newPath
