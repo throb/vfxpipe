@@ -1,4 +1,4 @@
-import platform ,os
+import platform ,os, sys
 
 '''
 Set the variables here how you want the paths to work
@@ -26,20 +26,27 @@ jobPathScripts = 'common/python'
 
 ### END APP PATH CUSTOMIZE
 
+# test for what called the pipeline
+if 'maya' in sys.executable.lower() : 
+    curApp = 'maya'
+elif 'nuke' in sys.executable.lower() : 
+    curApp = 'nuke'
+else:
+    curApp = None
+
+
+
 try:
     job = os.environ['job']
 except:
-    print 'Job environment variable not set'
     job = ''
 try:    
     seq = os.environ['seq']
 except:
-    print 'Seq environment variable not set'
     seq = ''
 try:
     shot = os.environ['shot']
 except:
-    print 'Shot environment variable not set'
     shot = ''
 
 ### DO NOT CHANGE BELOW THIS LINE ###
