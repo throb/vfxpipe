@@ -12,8 +12,7 @@ def setupMayaPipe():
     if cmds.menu('fxpipeMenu', exists=1):
         cmds.deleteUI('fxpipeMenu')
 
-    fxpipeMenu = cmds.menu('fxpipeMenu', p='MayaWindow', to=1, aob=1, l='fxPipeline')
-    jobMenu = cmds.menuItem('jobMenu', p=fxpipeMenu, subMenu = 1, l="Jobs")
+    fxpipeMenu = cmds.menu('fxpipeMenu', p='MayaWindow', to=1, aob=1, l='Pipeline Tools')
     cmds.menuItem(p=fxpipeMenu, d=1)
     toolsMenu = cmds.menuItem(p=fxpipeMenu, subMenu = 1, l="Tools")
     vrayMenu = cmds.menuItem(p=toolsMenu, subMenu = 1, l='VRay')
