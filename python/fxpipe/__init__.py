@@ -6,6 +6,10 @@ Set the variables here how you want the paths to work
 Set the paths for windows, osx, linux as you see fit here.
 
 '''
+### have to declare global vars so maya, etc can see them and so the userSetup.py works transparently.
+### globals suck but such is life.
+
+global job, seq, shot, curApp, jobPath, jobPathLin, jobPathMaya, jobPathNuke,jobPathOsx, jobPathScripts, jobPathWin
 
 jobPathWin = 'z:/job'
 jobPathOsx = '/Volumes/job'
@@ -23,6 +27,8 @@ This is where __init__ files should be placed
 jobPathNuke = 'common/nuke'
 jobPathMaya = 'common/maya'
 jobPathScripts = 'common/python'
+
+
 
 ### END APP PATH CUSTOMIZE
 
@@ -58,6 +64,8 @@ if platform.system() == 'Linux':
     jobPath = jobPathLin
 if platform.system() == 'Darwin':
     jobPath = jobPathOsx
+
+
 
 def fixPath(inputPath):
     '''

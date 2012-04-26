@@ -11,7 +11,7 @@ def createBaseRenderSettings(job='', seq='', shot=''):
     cmds.setAttr('vraySettings.imgOpt_exr_bitsPerChannel', 16)
     cmds.setAttr('vraySettings.imgOpt_exr_autoDataWindow', 1)
     exrAttrs = ("job='%s';seq='%s';shot='%s'") % (job, seq, shot)
-    cmds.setAttr('vraySettings.imgOpt_exr_attributes', exrAttrs)
+    cmds.setAttr('vraySettings.imgOpt_exr_attributes', exrAttrs, type='string')
     cmds.setAttr('vraySettings.sRGBOn', 1)
     cmds.setAttr('vraySettings.vfbOn', 1)
     cmds.setAttr('vraySettings.aaFilterType', 6)
