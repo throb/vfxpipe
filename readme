@@ -1,4 +1,20 @@
 This is the template for a basic VFX pipeline.
 Current support is limited to Maya/VRay and Nuke.
 
+In order to use the pipeline you will need to set some environment variables :
+
+The Windows syntax is used here but if you're on Linux or OSX you can sort this out.
+set FXPIPEPATH=z:\software\devl_vfxpipe
+set PYTHONPATH=%PYTHONPATH%;%FXPIPEPATH%\python;%FXPIPEPATH%\maya
+set NUKE_PATH=%NUKE_PATH%;%FXPIPEPATH%\nuke
+
+Additionally, the pipeline listens to (and wants!) other variables:
+set job=yourjobname
+set seq=sequencename
+set shot=shotnumber
+
+These variables will allow the system to automatically load Nuke and Maya tools for the show.
+
+look in the fxpipe/__init__.py file for the information you need to modify for your custom setup
+
 Author : Robert Nederhorst - http://throb.net
