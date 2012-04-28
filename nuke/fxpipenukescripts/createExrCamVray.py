@@ -1,4 +1,5 @@
 import math
+import nuke
 
 
 def createExrCamVray( node ):
