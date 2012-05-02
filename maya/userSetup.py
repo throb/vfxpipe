@@ -18,7 +18,7 @@ def setupMayaPipe():
     vrayMenu = cmds.menuItem(p=toolsMenu, subMenu = 1, l='VRay')
     
     # Tools Menu
-    
+    cmds.menuItem(p=toolsMenu, l='Remove Namespaces', c='from removeNamespaces import removeNamespaces;removeNamespaces()')
     # VRay Menu
     # please note that even though we have imported vrayUtils, we need to do it again in the commands as it loses context.
     cmds.menuItem(p=vrayMenu, l='Set up basic render settings', c='import vrayUtils;vrayUtils.createBaseRenderSettings()')
