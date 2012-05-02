@@ -9,7 +9,7 @@ def vrayAddGamma():
     '''
     #import maya.cmds as cmds	
     #import maya.mel as mel
-    import time, os
+    import os
     allFileNodes = cmds.ls(type='file') # look for file nodes
     nonFloatFiles = []
     for curFile in allFileNodes:
@@ -21,7 +21,7 @@ def vrayAddGamma():
             if fileExt != 'exr' or fileExt != '.hdr': # test for hdr and exr
                 nonFloatFiles.append(curFile)
                 mel.eval('vray addAttributesFromGroup ' + curFile + ' vray_file_gamma 1') # add the proper vray stuff to the attribs
-    #time.sleep(5) # have to sleep because maya is a pain in the asssssssssss!!!
+
     allFileNodes = cmds.ls(type='file') # look for file nodes
     for curFile in nonFloatFiles:
         if cmds.objExists(curFile + '.vrayFileGammaEnable'):
