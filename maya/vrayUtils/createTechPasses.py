@@ -4,16 +4,10 @@ import maya.mel as mel
 def createTechPasses():
     '''
     Creates tech passes for rendering
-    zdepth, xyz, normals, gi, spec, reflection, lighting, top/down
+    zdepth, xyz, normals, gi, spec, reflection, lighting, uv, top/down
     TODO : topdown not working well due to strange creation methods
-    TODO : add UV
     '''
 
-    # variables we need
-    radioColl = mel.eval ('radioCollection;')
-    radioNoPlacement = 'radioButton -label "No Placement" -data 0;'
-    radio2dPlacement = 'radioButton -label "2d Placement" -data 2;'
-    radio3dPlacement = 'radioButton -label "3d Placement" -data 3;'
     # first we make the sampler node as we will use this twice
     samplerNode = cmds.shadingNode('samplerInfo', asUtility=True)    
     # now we make the xyz point render element
@@ -35,10 +29,10 @@ def createTechPasses():
     cmds.connectAttr (samplerNode + '.uvCoord.vCoord', 'uv.vray_texture_extratex.vray_texture_extratexG')
     cmds.setAttr('uv.vray_filtering_extratex', 0)
     # add zdepth unclamped and unfiltered
-    renderElement = mel.eval('vrayAddRenderElement zdepthChannel;')
-    renderElement = cmds.rename (renderElement, 'zdepth')
-    cmds.setAttr(renderElement + '.vray_depthClamp', 0)
-    cmds.setAttr(renderElement + '.vray_filtering_zdepth', 0)
+    #renderElement = mel.eval('vrayAddRenderElement zdepthChannel;')
+    #renderElement = cmds.rename (renderElement, 'zdepth')
+    #cmds.setAttr(renderElement + '.vray_depthClamp', 0)
+    #cmds.setAttr(renderElement + '.vray_filtering_zdepth', 0)
     # add zdepth filtered
     renderElement = mel.eval('vrayAddRenderElement zdepthChannel;')
     renderElement = cmds.rename (renderElement, 'zdepthAA')
@@ -54,14 +48,28 @@ def createTechPasses():
     renderElement = cmds.rename (renderElement, 'reflection')
     renderElement = mel.eval('vrayAddRenderElement specularChannel;')
     renderElement = cmds.rename (renderElement, 'specular')
-    # create top down
+    # create top down -- CURRENTLY NOT ACTIVE DUE TO CREATION ISSUE
+    '''
     renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
-    renderElement = cmds.rename (renderElement,'topdown_tex')
+    renderElement = cmds.rename (renderElement,'topdown')
     cmds.setAttr (renderElement + '.vray_explicit_name_extratex', 'topdown', type = 'string')
     # now create the vray plugin with no placement on UV (0 = none, 1 = 2d, 2 = 3d)
-    newNode = mel.eval('vrayCreateNodeFromDll ("TopDown", "texture", "TexFalloff", "radioCollection -q -select 0");')
-    newNode = cmds.rename('TopDown', 'topdowntex')
+    newNode = mel.eval('vrayCreateNodeFromDll ("topdown_tex", "texture", "TexFalloff", 2);')
+    newNode = cmds.rename('topdown_tex','topdown_tex')
     cmds.setAttr (newNode + '.direction_type', 2)
     cmds.setAttr (newNode + '.color1', 1, 0, 0, type='double3')
     cmds.setAttr (newNode + '.color2', 0, 1, 0, type='double3')
-    cmds.connectAttr (newNode + '.outColor', renderElement + '.vray_texture_extratex')  
+    cmds.connectAttr ('topdown_textex.outColor', renderElement + '.vray_texture_extratex')  
+    '''
+    # create AO
+    renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
+    renderElement = cmds.rename (renderElement,'ao')
+    cmds.setAttr (renderElement + '.vray_explicit_name_extratex', 'ao', type = 'string')
+    newNode = cmds.shadingNode('VRayDirt', name = 'ao_tex', asTexture=True)
+    cmds.connectAttr ('topdown_textex.outColor', renderElement + '.vray_texture_extratex')
+    cmds.setAttr (newNode + '.invertNormal', 1)
+    cmds.setAttr (newNode + '.ignoreForGi', 0)
+    cmds.setAttr (newNode + '.blackColor', -0.5 ,-0.5 ,-0.5, type='double3')
+    cmds.setAttr (newNode + '.falloff', 5)
+    
+    
