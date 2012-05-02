@@ -1,5 +1,5 @@
 This is the template for a basic VFX pipeline.
-Current support is limited to Maya/VRay and Nuke.
+Current support is limited to Maya 2013/VRay (daily build as of May 03 2012) and Nuke.
 
 In order to use the pipeline you will need to set some environment variables :
 
