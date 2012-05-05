@@ -1,5 +1,6 @@
 import maya.mel as mel
 import maya.cmds as cmds
+import math
 
 def addObjectID():
     
@@ -47,7 +48,7 @@ def addObjectID():
         if cmds.getAttr('%s.vrayClassType' % element) == 'MultiMatteElement':
             multiMatteElements.append(element)
     
-    if len(multiMatteElements) < 1: #no multimattes?  add one and add it to the list
+    if len(multiMatteElements) < int(math.modf((newObjectID+2)/3)[1]) : # check amount of multi matte elements against how many we can fit in a render element
         newMMate = mel.eval('vrayAddRenderElement MultiMatteElement') # add the element
         cmds.setAttr('%s.vray_considerforaa_multimatte' % newMMate, 1) #make sure it has AA on it...
         multiMatteElements.append(newMMate)
@@ -58,4 +59,4 @@ def addObjectID():
                 addedID = True
             if cmds.getAttr('%s.%s' % (element, multimatte)) == 0 and addedID == False : # didn't find anything eh?  good.  we add the id to the multimatte.
                 cmds.setAttr('%s.%s' % (element, multimatte), newObjectID)
-                addedID = True    
+                addedID = True
