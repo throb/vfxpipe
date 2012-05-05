@@ -25,6 +25,8 @@ def setupMayaPipe():
     cmds.menuItem(p=vrayMenu, l='Add Gamma to file nodes', c='import vrayUtils;vrayUtils.vrayAddGamma()')
     cmds.menuItem(p=vrayMenu, l='Add tech render passes', c='import vrayUtils;vrayUtils.createTechPasses()')
     cmds.menuItem(p=vrayMenu, l='Add Light Select Render Element', c='import vrayUtils;vrayUtils.createLightSelect()')
+    cmds.menuItem(p=vrayMenu, l='Add Subdivision to selected objects', c='import vrayUtils;vrayUtils.addSubdivision()')
+    cmds.menuItem(p=vrayMenu, l='Add Object ID to Selected Objects', c='import vrayUtils;vrayUtils.addObjectID()') 
     
     
     if fxpipe.job != '':

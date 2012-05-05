@@ -8,3 +8,5 @@ from vrayAddGamma import *
 from createBaseRenderSettings import *
 from createTechPasses import *
 from createLightSelect import *
+from addSubdivision import *
+from addObjectID import *
