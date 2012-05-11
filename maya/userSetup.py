@@ -26,7 +26,8 @@ def setupMayaPipe():
     cmds.menuItem(p=vrayMenu, l='Add tech render passes', c='import vrayUtils;vrayUtils.createTechPasses()')
     cmds.menuItem(p=vrayMenu, l='Add Light Select Render Element', c='import vrayUtils;vrayUtils.createLightSelect()')
     cmds.menuItem(p=vrayMenu, l='Add Subdivision to selected objects', c='import vrayUtils;vrayUtils.addSubdivision()')
-    cmds.menuItem(p=vrayMenu, l='Disable Subdivision on selected objects', c='import vrayUtils;vrayUtils.remSubdivision()')    
+    cmds.menuItem(p=vrayMenu, l='Disable Subdivision on selected objects', c='import vrayUtils;vrayUtils.remSubdivision()')  
+    cmds.menuItem(p=vrayMenu, l='Enable Subdivision on selected objects', c='import vrayUtils;vrayUtils.enableSubdivision()') 
     cmds.menuItem(p=vrayMenu, l='Add Object ID to Selected Objects', c='import vrayUtils;vrayUtils.addObjectID()') 
     
     
