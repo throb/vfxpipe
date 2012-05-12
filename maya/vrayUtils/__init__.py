@@ -22,3 +22,4 @@ from addSubdivision import *
 from addObjectID import *
 from remSubdivision import *
 from enableSubdivision import *
+from vrayConvertToTiledEXR import *
