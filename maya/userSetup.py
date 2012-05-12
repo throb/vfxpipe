@@ -29,7 +29,7 @@ def setupMayaPipe():
     cmds.menuItem(p=vrayMenu, l='Disable Subdivision on selected objects', c='import vrayUtils;vrayUtils.remSubdivision()')  
     cmds.menuItem(p=vrayMenu, l='Enable Subdivision on selected objects', c='import vrayUtils;vrayUtils.enableSubdivision()') 
     cmds.menuItem(p=vrayMenu, l='Add Object ID to Selected Objects', c='import vrayUtils;vrayUtils.addObjectID()') 
-    cmds.menuItem(p=vrayMenu, l='Convert files to tiled EXRs', c='import vrayUtils;vrayConvertToTiledEXR()')
+    cmds.menuItem(p=vrayMenu, l='Convert files to tiled EXRs', c='import vrayUtils;vrayUtils.vrayConvertToTiledEXR()')
     
     if fxpipe.job != '':
         mayaJobPath = (os.path.join(fxpipe.jobPath, fxpipe.job, fxpipe.jobPathMaya))
