@@ -10,16 +10,21 @@ try:
     cmds.pluginInfo('vrayformaya', edit=True, autoload=True)
     # change renderer to vray
     cmds.setAttr('defaultRenderGlobals.ren', 'vray', type='string')
+    
+    from exportVRScene import *
+    from vrayAddGamma import *
+    from createBaseRenderSettings import *
+    from createTechPasses import *
+    from createLightSelect import *
+    from addSubdivision import *
+    from addObjectID import *
+    from remSubdivision import *
+    from enableSubdivision import *
+    from vrayConvertToTiledEXR import *    
+    
+    #utils.executeDeferred('createBaseRenderSettings.createBaseRenderSettings()') # may as well set up the vray settings by default right?
+    
 except :
     print 'VRay not loaded'
     
-from exportVRScene import *
-from vrayAddGamma import *
-from createBaseRenderSettings import *
-from createTechPasses import *
-from createLightSelect import *
-from addSubdivision import *
-from addObjectID import *
-from remSubdivision import *
-from enableSubdivision import *
-from vrayConvertToTiledEXR import *
+    
