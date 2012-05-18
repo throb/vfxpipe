@@ -1,11 +1,12 @@
 import platform ,os, sys
 
-'''
+"""
 Set the variables here how you want the paths to work
 
 Set the paths for windows, osx, linux as you see fit here.
 
-'''
+"""
+
 ### have to declare global vars so maya, etc can see them and so the userSetup.py works transparently.
 ### globals suck but such is life.
 
