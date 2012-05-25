@@ -3,6 +3,10 @@ import fxpipenukescripts
 
 # add to main nuke menu
 menubar = nuke.menu("Nuke");
+
+# add shift-z for delete
+menubar.addCommand( 'Edit/Delete Node(s)', 'nukescripts.node_delete(popupOnError=True)', 'shift+z')
+
 # menu is...
 m = menubar.addMenu("&Pipeline Tools")
 
