@@ -9,7 +9,7 @@ def vrayConvertToTiledEXR():
 
     import os, sys, subprocess, platform, re
     
-    mayaVersion = re.search('[0-9]+',re.search('maya[0-9]+',sys.argv[0]).group(0)).group(0) # look for the 2012 or 2013 etc in path name
+    mayaVersion = re.search('[0-9]+',re.search('maya[0-9]+',sys.argv[0].lower()).group(0)).group(0) # look for the 2012 or 2013 etc in path name
     pathToVRayTools = os.path.normpath(os.environ['VRAY_TOOLS_MAYA%s_x64' % (mayaVersion)]) # make sure we have the right vray tools path
     allFileNodes = cmds.ls(type='file') # look for file nodes
     nonFloatFiles = []
