@@ -4,9 +4,10 @@ import httplib
 from pprint import pprint
 from shotgun_api3 import Shotgun
 
-# load up the config here.
+#################### CONFIG LOADING
 config_file = 'shotgun_config.py'
 config_path = "%s/%s" % ( os.path.dirname(__file__), config_file)
+print config_path
 if not os.path.exists( config_path ):
     raise Exception( "Could not locate %s, please create." % (config_file) )
 from shotgun_config import *
@@ -17,15 +18,19 @@ for key in required_config:
     if not key in globals():
         raise Exception( "%s must define a value for %s." % ( key, ) )
 
-try:
+try: #get a connection to see if the URL is even valid.
     conn = httplib.HTTPSConnection(URL)
     conn.request('HEAD','')
 except ValueError, e:
     print 'Shotgun config info not correct:\n%s' % (e)
+    
+#################### END CONFIG LOADING    
+    
+    
 '''
-import sgu
-sg = sgu.sgUtils()
-project = sg.project('after earth')
+import shotgunUtils
+sg = shotgunUtils.genericUtils()
+project = sg.project('my movie')
 shot = sg.shot(project, 'fn013_020')
 notes = sg.notesFindLatest(shot)
 
@@ -49,6 +54,7 @@ class genericUtils:
         '''Gets the Shotgun project name and ID
         '''
         retFields = self.getFields('Project')
+        project = project.replace('_', ' ')
         return self.sg.find_one("Project", [["name", "is", project]], retFields )   
 
     def sequence (self, project, sequence):

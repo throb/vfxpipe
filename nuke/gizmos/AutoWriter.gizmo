@@ -1,0 +1,100 @@
+#! c:/Program Files/Nuke6.3v8/Nuke6.3.exe -nx
+version 6.3 v8
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 channels T writeEXRFull.channels}
+ addUserKnob {41 first l "frame range" T writeEXRFull.first}
+ addUserKnob {41 last l "" -STARTLINE T writeEXRFull.last}
+ addUserKnob {41 use_limit 0 "limit to range" T writeEXRFull.use_limit}
+ addUserKnob {26 "" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -160
+  ypos -58
+ }
+ Reformat {
+  name Reformat1
+  xpos -160
+  ypos -18
+ }
+set Nc5dedf0 [stack 0]
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos -5
+  ypos -18
+ }
+ Vectorfield {
+  vfield_file "\[python fxpipenukescripts.setAutoPaths.setLutPath()]"
+  version 3
+  file_type cube
+  name Vectorfield1
+  xpos -5
+  ypos 44
+ }
+ Vectorfield {
+  vfield_file Z:/job/after_earth/common/nuke/luts/Viewing_LUTs/AE_RRT_ODT-rec709v2_full_log.cub
+  version 3
+  file_type cub
+  colorspaceOut sRGB
+  name Vectorfield2
+  xpos -5
+  ypos 68
+ }
+set Nc693ee0 [stack 0]
+ Write {
+  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
+  file_type jpeg
+  _jpeg_quality 1
+  _jpeg_sub_sampling 4:4:4
+  render_order {{writeEXRFull.render_order+1 i}}
+  first {{writeEXRFull.first i}}
+  last {{writeEXRFull.last i}}
+  use_limit {{writeEXRFull.use_limit i}}
+  checkHashOnRead false
+  version 1
+  name writeEXRFull1
+  xpos -5
+  ypos 140
+ }
+push $Nc693ee0
+ Reformat {
+  type scale
+  scale 0.5
+  name Reformat2
+  xpos 119
+  ypos 68
+ }
+ Write {
+  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
+  file_type jpeg
+  _jpeg_quality 1
+  _jpeg_sub_sampling 4:4:4
+  render_order {{writeEXRFull.render_order+2 i}}
+  first {{writeEXRFull.first i}}
+  last {{writeEXRFull.last i}}
+  use_limit {{writeEXRFull.use_limit i}}
+  checkHashOnRead false
+  version 1
+  name writeEXRHalf
+  xpos 119
+  ypos 214
+ }
+push $Nc5dedf0
+ Write {
+  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
+  file_type exr
+  use_limit true
+  version 1
+  name writeEXRFull
+  xpos -160
+  ypos 42
+ }
+ Output {
+  name Output1
+  xpos -160
+  ypos 142
+ }
+end_group
