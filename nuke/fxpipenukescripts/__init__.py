@@ -12,3 +12,4 @@ from createLightSelectShuffles import *
 from createLayerShuffles import *
 from setAutoPaths import *
 from syncFrameRangeWithShotgun import *
+from getShotNotes import *

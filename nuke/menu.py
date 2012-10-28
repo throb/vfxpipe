@@ -22,3 +22,4 @@ cl.addCommand('Create Light Select shuffles', 'fxpipenukescripts.createLightSele
 cl.addCommand('Create Shuffles for all layers', 'fxpipenukescripts.createLayerShuffles(nuke.selectedNode())')
 sgMenu = m.addMenu('Shotgun')
 sgMenu.addCommand('Sync Frame Range with Shotgun', 'fxpipenukescripts.syncFrameRangeWithShotgun()')
+sgMenu.addCommand('Get Current Notes from Shotgun', 'fxpipenukescripts.getShotNotes()')
