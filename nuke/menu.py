@@ -20,3 +20,5 @@ m.addCommand('Enable Postage Stamp on Reads', 'fxpipenukescripts.postageStampCon
 cl = m.addMenu('Channel-Layer')
 cl.addCommand('Create Light Select shuffles', 'fxpipenukescripts.createLightSelectShuffles(nuke.selectedNode())')
 cl.addCommand('Create Shuffles for all layers', 'fxpipenukescripts.createLayerShuffles(nuke.selectedNode())')
+sgMenu = m.addMenu('Shotgun')
+sgMenu.addCommand('Sync Frame Range with Shotgun', 'fxpipenukescripts.syncFrameRangeWithShotgun()')

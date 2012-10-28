@@ -1,12 +1,20 @@
-#! c:/Program Files/Nuke6.3v8/Nuke6.3.exe -nx
+#! c:/program files/Nuke6.3v8/Nuke6.3.exe -nx
 version 6.3 v8
+add_layer {rgb rgb.red rgb.green rgb.blue}
 Gizmo {
- addUserKnob {20 User}
+ note_font Verdana
+ mapsize {0.15 0.15}
+ addUserKnob {20 User l "Output Info"}
  addUserKnob {41 channels T writeEXRFull.channels}
+ addUserKnob {26 renderR l "Render Range Options"}
+ addUserKnob {26 info l "Info :" T "Node will render to current global range unless this is set"}
+ addUserKnob {41 use_limit l "imit to range" T writeEXRFull.use_limit}
  addUserKnob {41 first l "frame range" T writeEXRFull.first}
  addUserKnob {41 last l "" -STARTLINE T writeEXRFull.last}
- addUserKnob {41 use_limit 0 "limit to range" T writeEXRFull.use_limit}
- addUserKnob {26 "" +STARTLINE}
+ addUserKnob {20 lutArea l "Lut Control"}
+ addUserKnob {41 shotLUT l "Shot LUT" T lutShot.vfield_file}
+ addUserKnob {22 populateShotLUT l "Auto Set LUT Path" T "import os\npathName = nuke.root()\['name'].getValue()\npathItems = pathName.split('/')\njob = pathItems\[2]\nseq = pathItems\[4]\nshot = pathItems\[5]    \nlutPath = 'z:/job/%s/shots/%s/%s/lut/%s.cube' % (job, seq, shot, shot)\nif os.path.exists(lutPath):\n\tnuke.thisNode()\['shotLUT'].setValue(lutPath)\nelse:\n\tnuke.thisNode()\['shotLUT'].setValue('')" +STARTLINE}
+ addUserKnob {41 vfield_file_1 l "Show Display" T lutShow.vfield_file}
 }
  Input {
   inputs 0
@@ -19,7 +27,8 @@ Gizmo {
   xpos -160
   ypos -18
  }
-set Nc5dedf0 [stack 0]
+set N22675f90 [stack 0]
+add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water}
  Log2Lin {
   operation lin2log
   name Log2Lin1
@@ -27,39 +36,25 @@ set Nc5dedf0 [stack 0]
   ypos -18
  }
  Vectorfield {
-  vfield_file "\[python fxpipenukescripts.setAutoPaths.setLutPath()]"
-  version 3
+  version 12
   file_type cube
-  name Vectorfield1
+  name lutShot
   xpos -5
   ypos 44
+  disable {{"\[string length \[knob vfield_file]] > 0 ? 0: 1" i}}
  }
  Vectorfield {
   vfield_file Z:/job/after_earth/common/nuke/luts/Viewing_LUTs/AE_RRT_ODT-rec709v2_full_log.cub
-  version 3
+  version 10
   file_type cub
   colorspaceOut sRGB
-  name Vectorfield2
+  name lutShow
+  selected true
   xpos -5
   ypos 68
+  disable {{"\[string length \[knob vfield_file]] > 0 ? 0: 1" i}}
  }
-set Nc693ee0 [stack 0]
- Write {
-  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
-  file_type jpeg
-  _jpeg_quality 1
-  _jpeg_sub_sampling 4:4:4
-  render_order {{writeEXRFull.render_order+1 i}}
-  first {{writeEXRFull.first i}}
-  last {{writeEXRFull.last i}}
-  use_limit {{writeEXRFull.use_limit i}}
-  checkHashOnRead false
-  version 1
-  name writeEXRFull1
-  xpos -5
-  ypos 140
- }
-push $Nc693ee0
+set N22676920 [stack 0]
  Reformat {
   type scale
   scale 0.5
@@ -82,19 +77,70 @@ push $Nc693ee0
   xpos 119
   ypos 214
  }
-push $Nc5dedf0
+push $N22675f90
  Write {
   file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
   file_type exr
-  use_limit true
   version 1
   name writeEXRFull
   xpos -160
   ypos 42
  }
+push $N22676920
+ Write {
+  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
+  file_type jpeg
+  _jpeg_quality 1
+  _jpeg_sub_sampling 4:4:4
+  render_order {{writeEXRFull.render_order+1 i}}
+  first {{writeEXRFull.first i}}
+  last {{writeEXRFull.last i}}
+  use_limit {{writeEXRFull.use_limit i}}
+  checkHashOnRead false
+  version 1
+  name writeEXRFull1
+  xpos -5
+  ypos 133
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos -549
+  ypos 59
+ }
+ Text {
+  message "Output has not happened yet or there is an error on this frame : \[format %04d \[frame]]"
+  font C:/Windows/Fonts/arial.ttf
+  xjustify center
+  yjustify center
+  Transform 1
+  box {{int(input.width/2/10) i} {int(input.height/2/10) i} {input.width-int(input.width/2/10) i} {input.height-int(input.height/2/10) i}}
+  center {1024 540}
+  name Text2
+  xpos -549
+  ypos 142
+ }
+ Read {
+  inputs 0
+  file "\[filename writeEXRFull]"
+  first {{parent.use_limit==false?root.first_frame:writeEXRFull.first i}}
+  last {{parent.use_limit==false?root.last_frame:writeEXRFull.last i}}
+  origset true
+  name ReadFromEXR
+  xpos -363
+  ypos 19
+ }
+ Switch {
+  inputs 2
+  which {{"\[value ReadFromEXR.error]" i}}
+  name Switch1
+  xpos -363
+  ypos 142
+ }
  Output {
   name Output1
-  xpos -160
-  ypos 142
+  xpos -363
+  ypos 211
  }
 end_group
