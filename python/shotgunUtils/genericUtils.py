@@ -7,7 +7,7 @@ from shotgun_api3 import Shotgun
 #################### CONFIG LOADING
 config_file = 'shotgun_config.py'
 config_path = "%s/%s" % ( os.path.dirname(__file__), config_file)
-print config_path
+
 if not os.path.exists( config_path ):
     raise Exception( "Could not locate %s, please create." % (config_file) )
 from shotgun_config import *
