@@ -121,8 +121,9 @@ def createExcelFromPlaylist (projectName, playlistName):
             
             
             
-                    
-    excelFile = 'z:/job/after_earth/prod/io/client/client_out/%s/FROM_%s/%s/%s_submission_report_%s.xls' % (compactDate, vendorName, compactDate, vendorName, compactDate)
+                   
+     
+    excelFile = fxpipe.fixPath('z:/job/after_earth/prod/io/client/client_out/%s/FROM_%s/%s/%s_submission_report_%s.xls' % (compactDate, vendorName, compactDate, vendorName, compactDate))
     if not os.path.exists(os.path.dirname(excelFile)) :
         os.makedirs(os.path.dirname(excelFile))
     wbk.save(excelFile)
