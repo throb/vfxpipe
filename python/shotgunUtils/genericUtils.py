@@ -221,9 +221,25 @@ class genericUtils:
             data['self.sg_source_file'] = sourceFile
     
         return self.sg.create('Version',data)
+    # look for specific version
+    def versionFind(self, versionID):
+        '''Find all versions in a shot with most recent first
+        Parameters : (shotID)
+        Output : Version data:
+        ['sg_version_type', 'open_notes_count', 'code', 'playlists', 'sg_task', 'image',
+        'updated_at', 'sg_output', 'sg_path_to_frames', 'tasks', 'frame_range', 'id', 
+        'description', 'sg_uploaded_movie_webm', 'open_notes', 'tank_published_file', 
+        'task_template', 'created_by', 'sg_movie_type', 'sg_status_list', 'notes', 
+        'sg_client_name', 'sg_uploaded_movie_mp4', 'updated_by', 'sg_send_for_final', 
+        'user', 'sg_uploaded_movie_frame_rate', 'entity', 'step_0', 'sg_client_version', 
+        'sg_uploaded_movie_transcoding_status', 'created_at', 'sg_qt', 'project', 
+        'filmstrip_image', 'tag_list', 'frame_count', 'flagged']        
+        '''        
+        retFields = self.getFields('Version')
+        return self.sg.find('Version',[['id','is',versionID]],retFields,[{'field_name':'created_at','direction':'desc'}])[0]
     
     # look for versions in a shot:
-    def versionFind(self, shotID):
+    def versionFindShot(self, shotID):
         '''Find all versions in a shot with most recent first
         Parameters : (shotID)
         Output : Version data:
