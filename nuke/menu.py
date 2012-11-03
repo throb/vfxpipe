@@ -11,7 +11,8 @@ menubar.addCommand( 'Edit/Delete Node(s)', 'nukescripts.node_delete(popupOnError
 m = menubar.addMenu("&Pipeline Tools")
 
 # add pipeline menu items here
-m.addCommand('Auto Write','nuke.createNode("AutoWriter")','w')
+m.addCommand('Auto Write','nuke.createNode("AutoWriter")','')
+m.addCommand('Quick Overlays','nuke.createNode("QuickOverlays")','')
 m.addCommand("Camera Data from EXR (Vray)", "fxpipenukescripts.createExrCamVray(nuke.selectedNode())")
 m.addCommand('Create Read(s) from Write(s)','fxpipenukescripts.readFromWrite()', 'alt+r')
 m.addCommand('Disable unselected Write Nodes', 'fxpipenukescripts.disableDeselectedWrites()')

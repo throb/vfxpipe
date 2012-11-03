@@ -1,0 +1,66 @@
+#! c:/program files/Nuke6.3v8/Nuke6.3.exe -nx
+version 6.3 v8
+Gizmo {
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -511
+  ypos 64
+ }
+set Ncaf4920 [stack 0]
+add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water}
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle1
+  xpos -511
+  ypos 97
+ }
+ Text {
+  message "\[format %04d \[frame]]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{int(parent.input.width/41) i}}
+  xjustify right
+  yjustify bottom
+  Transform 1
+  box {{int(parent.input.width*.015) i} {int(parent.input.width*.015) i} {parent.input.width-int(parent.input.width*.015) i} 100}
+  center {1024 778}
+  name Text1
+  selected true
+  xpos -511
+  ypos 121
+ }
+ Text {
+  message "\[string trim \[file tail \[knob root.name]] \".nk\"]"
+  font C:/Windows/Fonts/arial.ttf
+  size {{int(parent.input.width/41) i}}
+  yjustify bottom
+  Transform 1
+  box {{int(parent.input.width*.015) i} {int(parent.input.width*.015) i} {parent.input.width-int(parent.input.width*.015) i} 100}
+  center {1024 778}
+  name Text3
+  xpos -511
+  ypos 169
+ }
+ FilterErode {
+  size -1
+  name FilterErode1
+  xpos -511
+  ypos 193
+ }
+push $Ncaf4920
+ AddMix {
+  inputs 2
+  name AddMix1
+  xpos -375
+  ypos 199
+ }
+ Output {
+  name Output1
+  xpos -511
+  ypos 301
+ }
+end_group
