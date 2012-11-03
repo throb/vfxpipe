@@ -10,10 +10,14 @@ def setOutputPath(extension='exr'):
     shot = pathItems[5]
     task = pathItems[6]
     resolution = '%sx%s' % (nuke.thisNode().width(),nuke.thisNode().height())
-    version = re.search('v[0-9]+',pathName.lower()).group(0)[1:]
-    version = '%03d' % (int(version))
+    try:
+        version = re.search('v[0-9]+',pathName.lower()).group(0)[1:]
+        version = '%03d' % (int(version))
+        newPath = 'z:/job/%s/shots/%s/%s/%s/images/v%s/%s/%s/%s_%s_v%s.####.%s' % (job, seq, shot, task, version, resolution,extension, shot, task, version, extension)
+    except:
+        print 'Version problem'
+        newPath = ''
 
-    newPath = 'z:/job/%s/shots/%s/%s/%s/images/v%s/%s/%s/%s_%s_v%s.####.%s' % (job, seq, shot, task, version, resolution,extension, shot, task, version, extension)
     return  newPath
 
 def setLutPath():
