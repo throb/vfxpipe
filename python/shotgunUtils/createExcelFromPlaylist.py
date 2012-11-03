@@ -23,7 +23,7 @@ def createHeader(headerData, sheet):
     for headerItem in headerData:
         sheet.write(row, column, headerItem, xlwt.easyxf('font: bold 1; font: color white; pattern: pattern solid, back_color black;'))
         #sheet.col(col).width = 30
-        sheet.col(column).width = 256 * (len(headerItem) + 10)
+        sheet.col(column).width = 256 * (len(headerItem) + 20)
         #curCol = sheet.col(column)
         #curCol.width = 1024* len(headerItem) + 10
         column += 1
@@ -33,6 +33,7 @@ def getVersions(playlist):
     versionPaths = []    
     for item in playlist['versions']:
         versionData = sg.versionFind(item['id'])
+        #print versionData
         versionPaths.append({'file' : versionData['sg_path_to_frames'], 'range' : versionData['sg_last_frame'] - versionData['sg_first_frame'] + 1})
     return versionPaths
 
@@ -92,23 +93,28 @@ def createExcelFromPlaylist (projectName, playlistName):
     clientVersions = versionPrep(versions)
     
     row = 2
-    fileTypes = 'exr','dpx','avid_mov','photo jpg_mov'
+    fileTypes = 'exr','dpx_log','dpx_p3','mov_avid','mov_photo jpg'
     for version in clientVersions:
         for fileType in fileTypes:
             sheet.write(row,0,vendorName)
             sheet.write(row,1,humanDate)
             sheet.write(row,2,version['shot'])
             sheet.write(row,3,version['length'])
-            if 'photo' not in fileType:
-                sheet.write(row,4,version['filename'])
-            else:
-                sheet.write(row,4,version['filename'] + '_CC')
+            fileName = version['filename'].upper()
+            fileName = fileName.replace('_COMP','')
             if 'mov' not in fileType:
+                if len(fileType.split('_')) > 1:
+                    fileName = '%s_%s' % (version['filename'], fileType.split('_')[1].upper())
+                sheet.write(row,4,fileName)                
                 sheet.write(row,5,'image')
-                sheet.write(row,6,fileType.lower())
+                sheet.write(row,6,fileType.split('_')[0].lower())
                 sheet.write(row,7,'2048x1080')
             else:
-                movType = fileType.split('_')[0].upper()
+                if 'photo' not in fileType:    
+                    sheet.write(row,4,fileName)
+                else :
+                    sheet.write(row,4,fileName + '_CC')
+                movType = fileType.split('_')[1].upper()
                 sheet.write(row,5,movType)
                 sheet.write(row,6,'mov')
                 if 'avid' in fileType:
@@ -123,7 +129,7 @@ def createExcelFromPlaylist (projectName, playlistName):
             
                    
      
-    excelFile = fxpipe.fixPath('z:/job/after_earth/prod/io/client/client_out/%s/FROM_%s/%s/%s_submission_report_%s.xls' % (compactDate, vendorName, compactDate, vendorName, compactDate))
+    excelFile = fxpipe.fixPath('z:/job/after_earth/prod/io/client/client_out/%s/FROM_%s/%s/%s_submission_report_%s_TEMP.xls' % (compactDate, vendorName, compactDate, vendorName, compactDate))
     if not os.path.exists(os.path.dirname(excelFile)) :
         os.makedirs(os.path.dirname(excelFile))
     wbk.save(excelFile)
