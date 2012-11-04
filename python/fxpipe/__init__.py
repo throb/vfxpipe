@@ -13,7 +13,7 @@ Set the paths for windows, osx, linux as you see fit here.
 global job, seq, shot, curApp, jobPath, jobPathLin, jobPathMaya, jobPathNuke,jobPathOsx, jobPathScripts, jobPathWin
 
 jobPathWin = 'z:/job'
-jobPathOsx = '/Volumes/job'
+jobPathOsx = '/Volumes/work/job'
 jobPathLin = '/mnt/job'
 
 ### END JOB PATH CUSTOMIZE

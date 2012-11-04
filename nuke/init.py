@@ -1,6 +1,7 @@
 import nuke
 import fxpipe
 import fxpipenukescripts
+import filenameFilters
 import os 
 '''
 The template for the nuke setup
@@ -18,9 +19,3 @@ nuke.load('formats.py')
 
 ### Make sure we create write directories automatically
 nuke.addBeforeRender(fxpipenukescripts.createWriteDir)
-
-
-
-
-
-
