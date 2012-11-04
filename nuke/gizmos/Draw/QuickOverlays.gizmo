@@ -9,7 +9,6 @@ Gizmo {
   ypos 64
  }
 set Ncaf4920 [stack 0]
-add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water}
  Shuffle {
   red black
   green black
