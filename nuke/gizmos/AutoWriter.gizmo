@@ -6,6 +6,7 @@ Gizmo {
  mapsize {0.15 0.15}
  addUserKnob {20 User l "Output Info"}
  addUserKnob {41 channels T writeEXRFull.channels}
+ addUserKnob {41 render_order l "render order" T writeEXRFull.render_order}
  addUserKnob {26 renderR l "Render Range Options"}
  addUserKnob {26 info l "Info :" T "Node will render to current global range unless this is set"}
  addUserKnob {41 use_limit l "imit to range" T writeEXRFull.use_limit}
@@ -16,92 +17,6 @@ Gizmo {
  addUserKnob {22 populateShotLUT l "Auto Set LUT Path" T "import os\npathName = nuke.root()\['name'].getValue()\npathItems = pathName.split('/')\njob = pathItems\[2]\nseq = pathItems\[4]\nshot = pathItems\[5]    \nlutPath = 'z:/job/%s/shots/%s/%s/lut/%s.cube' % (job, seq, shot, shot)\nif os.path.exists(lutPath):\n\tnuke.thisNode()\['shotLUT'].setValue(lutPath)\nelse:\n\tnuke.thisNode()\['shotLUT'].setValue('')" +STARTLINE}
  addUserKnob {41 vfield_file_1 l "Show Display" T lutShow.vfield_file}
 }
- Input {
-  inputs 0
-  name Input1
-  xpos -160
-  ypos -58
- }
- Reformat {
-  name Reformat1
-  xpos -160
-  ypos -18
- }
-set N22675f90 [stack 0]
-add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water}
- Log2Lin {
-  operation lin2log
-  name Log2Lin1
-  xpos -5
-  ypos -18
- }
- Vectorfield {
-  version 12
-  file_type cube
-  name lutShot
-  xpos -5
-  ypos 44
-  disable {{"\[string length \[knob vfield_file]] > 0 ? 0: 1" i}}
- }
- Vectorfield {
-  vfield_file Z:/job/after_earth/common/nuke/luts/Viewing_LUTs/AE_RRT_ODT-rec709v2_full_log.cub
-  version 10
-  file_type cub
-  colorspaceOut sRGB
-  name lutShow
-  selected true
-  xpos -5
-  ypos 68
-  disable {{"\[string length \[knob vfield_file]] > 0 ? 0: 1" i}}
- }
-set N22676920 [stack 0]
- Reformat {
-  type scale
-  scale 0.5
-  name Reformat2
-  xpos 119
-  ypos 68
- }
- Write {
-  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
-  file_type jpeg
-  _jpeg_quality 1
-  _jpeg_sub_sampling 4:4:4
-  render_order {{writeEXRFull.render_order+2 i}}
-  first {{writeEXRFull.first i}}
-  last {{writeEXRFull.last i}}
-  use_limit {{writeEXRFull.use_limit i}}
-  checkHashOnRead false
-  version 1
-  name writeEXRHalf
-  xpos 119
-  ypos 214
- }
-push $N22675f90
- Write {
-  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
-  file_type exr
-  version 1
-  name writeEXRFull
-  xpos -160
-  ypos 42
- }
-push $N22676920
- Write {
-  file "\[python fxpipenukescripts.setAutoPaths.setOutputPath(nuke.thisNode().knob('file_type').value())]"
-  file_type jpeg
-  _jpeg_quality 1
-  _jpeg_sub_sampling 4:4:4
-  render_order {{writeEXRFull.render_order+1 i}}
-  first {{writeEXRFull.first i}}
-  last {{writeEXRFull.last i}}
-  use_limit {{writeEXRFull.use_limit i}}
-  checkHashOnRead false
-  version 1
-  name writeEXRFull1
-  xpos -5
-  ypos 133
- }
  Constant {
   inputs 0
   channels rgb
@@ -109,6 +24,7 @@ push $N22676920
   xpos -549
   ypos 59
  }
+add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water}
  Text {
   message "Output has not happened yet or there is an error on this frame : \[format %04d \[frame]]"
   font C:/Windows/Fonts/arial.ttf
@@ -129,7 +45,7 @@ push $N22676920
   origset true
   name ReadFromEXR
   xpos -363
-  ypos 19
+  ypos 23
  }
  Switch {
   inputs 2
@@ -142,5 +58,104 @@ push $N22676920
   name Output1
   xpos -363
   ypos 211
+ }
+ Text {
+  inputs 0
+  message "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value input.width]x\[value input.height]/exr/\[string trim \[file tail \[knob root.name]] \".nk\"].%04d.exr\n\n/\[value input.width]x\[value input.width]\n\n\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5].cube"
+  font C:/Windows/Fonts/arial.ttf
+  size 43
+  yjustify center
+  box {56 270 2180 810}
+  center {1024 540}
+  name Text1
+  selected true
+  xpos -550
+  ypos 11
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -160
+  ypos -58
+ }
+ Reformat {
+  name Reformat1
+  xpos -160
+  ypos -18
+ }
+set N1f4ffb30 [stack 0]
+ Write {
+  file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value input.width]x\[value input.height]/\[knob file_type]/\[string trim \[file tail \[knob root.name]] \".nk\"].%04d.\[knob file_type]"
+  file_type exr
+  render_order 1000
+  version 1
+  name writeEXRFull
+  xpos -160
+  ypos 42
+ }
+push $N1f4ffb30
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos -5
+  ypos -24
+ }
+ Vectorfield {
+  vfield_file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/lut/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5].cube"
+  version 13
+  file_type cube
+  name lutShot
+  xpos -5
+  ypos 44
+  disable {{"\[string length \[knob vfield_file]] > 0 ? 0: 1" i}}
+ }
+ Vectorfield {
+  vfield_file Z:/job/after_earth/common/nuke/luts/Viewing_LUTs/AE_RRT_ODT-rec709v2_full_log.cub
+  version 11
+  file_type cub
+  colorspaceOut sRGB
+  name lutShow
+  xpos -5
+  ypos 68
+  disable {{"\[string length \[knob vfield_file]] > 0 ? 0: 1" i}}
+ }
+set N1f5e8840 [stack 0]
+ Write {
+  file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value input.width]x\[value input.height]/\[knob file_type]/\[string trim \[file tail \[knob root.name]] \".nk\"].%04d.\[knob file_type]"
+  file_type jpeg
+  _jpeg_quality 1
+  _jpeg_sub_sampling 4:4:4
+  render_order {{writeEXRFull.render_order+1 i}}
+  first {{writeEXRFull.first i}}
+  last {{writeEXRFull.last i}}
+  use_limit {{writeEXRFull.use_limit i}}
+  checkHashOnRead false
+  version 1
+  name writeJPGFull
+  xpos -5
+  ypos 133
+ }
+push $N1f5e8840
+ Reformat {
+  type scale
+  scale 0.5
+  name Reformat2
+  xpos 119
+  ypos 68
+ }
+ Write {
+  file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value input.width]x\[value input.height]/\[knob file_type]/\[string trim \[file tail \[knob root.name]] \".nk\"].%04d.\[knob file_type]"
+  file_type jpeg
+  _jpeg_quality 1
+  _jpeg_sub_sampling 4:4:4
+  render_order {{writeEXRFull.render_order+2 i}}
+  first {{writeEXRFull.first i}}
+  last {{writeEXRFull.last i}}
+  use_limit {{writeEXRFull.use_limit i}}
+  checkHashOnRead false
+  version 1
+  name writeJPGHalf
+  xpos 119
+  ypos 214
  }
 end_group
