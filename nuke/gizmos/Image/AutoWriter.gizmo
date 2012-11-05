@@ -8,6 +8,7 @@ Gizmo {
  addUserKnob {41 channels T writeEXRFull.channels}
  addUserKnob {1 extraData l "Additional Label" t "Use this to add a label to the comp, etc.\neg :\n\"bg\" would make it write to :\nnuke_script_name_v001_bg.%04d.img\nIt will also write it in a subfolder to keep directories clean."}
  addUserKnob {6 generateJPG l "Generate JPGs" +STARTLINE}
+ generateJPG true
  addUserKnob {41 render_order l "render order" T writeEXRFull.render_order}
  addUserKnob {26 renderR l "Render Range Options"}
  addUserKnob {26 info l "Info :" T "Node will render to current global range unless this is set"}
@@ -89,7 +90,7 @@ add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water rgba.warper rg
   extraData test
  }
  Viewer {
-  frame 114
+  frame 120
   name Viewer1
   xpos 177
   ypos -72
