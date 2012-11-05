@@ -12,6 +12,7 @@ m = menubar.addMenu("&Pipeline Tools")
 
 # add pipeline menu items here
 m.addCommand('Auto Write','nuke.createNode("AutoWriter")','')
+m.addCommand('Viewer Input','nuke.createNode("VIEWER_INPUT")','')
 m.addCommand('Quick Overlays','nuke.createNode("QuickOverlays")','')
 m.addCommand("Camera Data from EXR (Vray)", "fxpipenukescripts.createExrCamVray(nuke.selectedNode())")
 m.addCommand('Create Read(s) from Write(s)','fxpipenukescripts.readFromWrite()', 'alt+r')

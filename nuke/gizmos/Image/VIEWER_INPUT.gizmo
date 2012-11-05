@@ -1,0 +1,50 @@
+#! C:/Program Files/Nuke6.3v8/Nuke6.3.exe -nx
+version 6.3 v8
+Gizmo {
+ tile_color 0xce00b1ff
+ gl_color 0xff
+ note_font_size 15
+ note_font_color 0xffffffff
+ addUserKnob {20 User l "LUT Control"}
+ addUserKnob {6 useShotLut l "Use Shot Lut" +STARTLINE}
+ useShotLut true
+ name VIEWER_INPUT
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -422
+  ypos 27
+ }
+add_layer {rgb rgb.red rgb.green rgb.blue}
+add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water}
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos -422
+  ypos 91
+ }
+ Vectorfield {
+  vfield_file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/lut/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5].cube"
+  version 5
+  file_type cube
+  name VectorfieldShot
+  xpos -422
+  ypos 143
+  disable {{!parent.useShotLut i}}
+ }
+ Vectorfield {
+  vfield_file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/common/nuke/luts/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2].cub"
+  version 5
+  file_type cub
+  colorspaceOut sRGB
+  name Vectorfield2
+  xpos -422
+  ypos 179
+ }
+ Output {
+  name Output1
+  xpos -422
+  ypos 227
+ }
+end_group
