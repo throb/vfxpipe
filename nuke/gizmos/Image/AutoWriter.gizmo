@@ -1,4 +1,4 @@
-#! c:/program files/Nuke6.3v8/Nuke6.3.exe -nx
+#! C:/Program Files/Nuke6.3v8/Nuke6.3.exe -nx
 version 6.3 v8
 add_layer {rgb rgb.red rgb.green rgb.blue rgb.UV rgb.alpha}
 Gizmo {
@@ -20,48 +20,7 @@ Gizmo {
  addUserKnob {22 populateShotLUT l "Auto Set LUT Path" T "import os\npathName = nuke.root()\['name'].getValue()\npathItems = pathName.split('/')\njob = pathItems\[2]\nseq = pathItems\[4]\nshot = pathItems\[5]    \nlutPath = 'z:/job/%s/shots/%s/%s/lut/%s.cube' % (job, seq, shot, shot)\nif os.path.exists(lutPath):\n\tnuke.thisNode()\['shotLUT'].setValue(lutPath)\nelse:\n\tnuke.thisNode()\['shotLUT'].setValue('')" +STARTLINE}
  addUserKnob {41 vfield_file_1 l "Show Display" T lutShow.vfield_file}
 }
- Constant {
-  inputs 0
-  channels rgb
-  name Constant1
-  xpos -549
-  ypos 59
- }
 add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water rgba.warper rgba.Z}
- Text {
-  message "Output has not happened yet or there is an error on this frame : \[format %04d \[frame]]"
-  font C:/Windows/Fonts/arial.ttf
-  xjustify center
-  yjustify center
-  Transform 1
-  box {{int(input.width/2/10) i} {int(input.height/2/10) i} {input.width-int(input.width/2/10) i} {input.height-int(input.height/2/10) i}}
-  center {1024 540}
-  name Text2
-  xpos -549
-  ypos 142
- }
- Read {
-  inputs 0
-  file "\[filename writeEXRFull]"
-  first {{parent.use_limit==false?root.first_frame:writeEXRFull.first i}}
-  last {{parent.use_limit==false?root.last_frame:writeEXRFull.last i}}
-  origset true
-  name ReadFromEXR
-  xpos -363
-  ypos 23
- }
- Switch {
-  inputs 2
-  which {{"\[value ReadFromEXR.error]" i}}
-  name Switch1
-  xpos -363
-  ypos 142
- }
- Output {
-  name Output1
-  xpos -363
-  ypos 211
- }
  Text {
   inputs 0
   message "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value input.width]x\[value input.height]/exr/\[string trim \[file tail \[knob root.name]] \".nk\"].%04d.exr\n\n/\[value input.width]x\[value input.width]\n\n\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5].cube"
@@ -95,6 +54,47 @@ add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water rgba.warper rg
   xpos 177
   ypos -72
  }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos -549
+  ypos 59
+ }
+ Text {
+  message "Output has not happened yet or there is an error on this frame : \[format %04d \[frame]]"
+  font C:/Windows/Fonts/arial.ttf
+  xjustify center
+  yjustify center
+  Transform 1
+  box {{int(input.width/2/10) i} {int(input.height/2/10) i} {input.width-int(input.width/2/10) i} {input.height-int(input.height/2/10) i}}
+  center {1024 540}
+  name Text2
+  xpos -549
+  ypos 142
+ }
+ Read {
+  inputs 0
+  file "\[filename writeEXRFull]"
+  first {{parent.use_limit==false?root.first_frame:writeEXRFull.first i}}
+  last {{parent.use_limit==false?root.last_frame:writeEXRFull.last i}}
+  origset true
+  name ReadFromEXR
+  xpos -363
+  ypos 23
+ }
+ Switch {
+  inputs 2
+  which {{"\[value ReadFromEXR.error]" i}}
+  name Switch1
+  xpos -363
+  ypos 142
+ }
+ Output {
+  name Output1
+  xpos -363
+  ypos 233
+ }
  Input {
   inputs 0
   name Input1
@@ -106,7 +106,18 @@ add_layer {rgba redguard1.glow rgba.edgeblur rgba.beta rgba.water rgba.warper rg
   xpos -160
   ypos -18
  }
-set N22db4cb0 [stack 0]
+set Nc6b6fb0 [stack 0]
+ Write {
+  file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value parent.extraData]\[if \{\[string length \[value extraData]] > 0\} \{return \"/\"\} else \{ return \"\"\}]\[value input.width]x\[value input.height]/\[knob file_type]/\[string trim \[file tail \[knob root.name]] \".nk\"]\[if \{\[string length \[value extraData]] > 0\} \{return \"_\"\} else \{ return \"\"\}]\[value extraData].%04d.\[knob file_type]"
+  file_type exr
+  render_order 1000
+  version 1
+  name writeEXRFull
+  xpos -160
+  ypos 42
+  disable {{parent.disable i}}
+ }
+push $Nc6b6fb0
  Log2Lin {
   operation lin2log
   name Log2Lin1
@@ -115,7 +126,7 @@ set N22db4cb0 [stack 0]
  }
  Vectorfield {
   vfield_file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/lut/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5].cube"
-  version 14
+  version 15
   file_type cube
   name lutShot
   xpos -5
@@ -124,7 +135,7 @@ set N22db4cb0 [stack 0]
  }
  Vectorfield {
   vfield_file Z:/job/after_earth/common/nuke/luts/Viewing_LUTs/AE_RRT_ODT-rec709v2_full_log.cub
-  version 12
+  version 13
   file_type cub
   colorspaceOut sRGB
   name lutShow
@@ -132,7 +143,7 @@ set N22db4cb0 [stack 0]
   ypos 68
   disable {{"\[string length \[knob vfield_file]] > 0 ? 0: 1" i}}
  }
-set N22db5970 [stack 0]
+set Nc6b7940 [stack 0]
  Write {
   file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value input.width]x\[value input.height]/\[knob file_type]/\[string trim \[file tail \[knob root.name]] \".nk\"].%04d.\[knob file_type]"
   file_type jpeg
@@ -147,9 +158,9 @@ set N22db5970 [stack 0]
   name writeJPGFull
   xpos -5
   ypos 133
-  disable {{!parent.generateJPG i}}
+  disable {{"!parent.generateJPG || parent.disable" i}}
  }
-push $N22db5970
+push $Nc6b7940
  Reformat {
   type scale
   scale 0.5
@@ -169,19 +180,9 @@ push $N22db5970
   checkHashOnRead false
   version 1
   name writeJPGHalf
+  selected true
   xpos 119
   ypos 214
-  disable {{!parent.generateJPG i}}
- }
-push $N22db4cb0
- Write {
-  file "z:/job/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 2]/shots/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 4]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 5]/\[lindex \[split \[file dirname \[knob root.name]] \"/\"] 6]/images/v\[version_get \[file tail \[knob root.name]] \"v\"]/\[value parent.extraData]\[if \{\[string length \[value extraData]] > 0\} \{return \"/\"\} else \{ return \"\"\}]\[value input.width]x\[value input.height]/\[knob file_type]/\[string trim \[file tail \[knob root.name]] \".nk\"]\[if \{\[string length \[value extraData]] > 0\} \{return \"_\"\} else \{ return \"\"\}]\[value extraData].%04d.\[knob file_type]"
-  file_type exr
-  render_order 1000
-  version 1
-  name writeEXRFull
-  selected true
-  xpos -160
-  ypos 42
+  disable {{"!parent.generateJPG || parent.disable" i}}
  }
 end_group
