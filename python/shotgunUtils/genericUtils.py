@@ -143,54 +143,80 @@ class genericUtils:
         noteID = self.sg.create('Note',data)
         return noteID
     
-    def versionCreate(self, project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName='', sourceFile=''):
+    def versionCreate2(self, project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None, user=None):
         '''Create a version
-        Parameters : (project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName='', sourceFile='')
+        Parameters : (project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None)
         Output : versionID
         '''
         data = {'project': project,
                 'code': verName,
                 'description': description,
-                'self.sg_path_to_frames': framePath,
+                'sg_path_to_frames': framePath,
                 'frame_range': str(firstFrame) + '-' + str(lastFrame),
-                'self.sg_first_frame' : int(firstFrame),
-                'self.sg_last_frame' : int(lastFrame),
-                #'self.sg_uploaded_movie': '/Users/throb/Downloads/test.m4v',
-                #'self.sg_first_frame': int(firstFrame),
-                #'self.sg_last_frame': int(lastFrame),
-                'self.sg_status_list': 'rev',
+                'sg_first_frame' : int(firstFrame),
+                'sg_last_frame' : int(lastFrame),
+                'sg_status_list': 'rev',
                 'entity': shotID}
+        #if user != None:
+            #data['user']
+        if task != None:
+            filters = [['content','is',task],['entity','is',shotID]]
+            taskID = self.sg.find_one('Task',filters)  
+            data['sg_task']=taskID 
+        return self.sg.create('Version',data)
+    '''
+    del sys.modules['shotgunUtils']
+    del sys.modules['shotgunUtils.genericUtils']
+    import shotgunUtils
+    sg = shotgunUtils.genericUtils()
+    '''
+    
+    def versionCreate(self, project, shot, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None, user=None):
+        '''Create a version
+        Parameters : (project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None)
+        Output : versionID
+        '''
+          
+        data = {'project': project,
+                'code': verName,
+                'description': description,
+                'sg_path_to_frames': framePath,
+                #'sg_frame_range': str(firstFrame) + '-' + str(lastFrame),
+                'sg_first_frame' : int(firstFrame),
+                'sg_last_frame' : int(lastFrame),
+                'sg_status_list': 'rev',
+                'entity': shot}
+        #if user != None:
+            #data['user']
+        if task != None:
+            filters = [['content','is',task],['entity','is',shot]]
+            taskID = self.sg.find_one('Task',filters)  
+            data['sg_task']=taskID
+            
         # in case we're putting a client version in here we need this code.
         # we are expecting a field called self.sg_client_name in the version table.
         # please make sure you create this in the shotgun setup
         # read the schema and if the client_name is not found, create it.
-        tmp = self.sg.schema_field_read('Version')
-        try:
-            tmp2 = {}
-            tmp2 = tmp['self.sg_client_name']
-        except:
+        versionFields = self.sg.schema_field_read('Version')
+        if 'sg_client_name' not in versionFields and clientName != None:
             newField = self.sg.schema_field_create('Version','text','Client Name')
+        if clientName != None :
+            data['sg_client_name'] =  clientName
     
-        if clientName != '' :
-            data['self.sg_client_name'] =  clientName
-    
-                #'user': {'type':'HumanUser', 'id':165} }
+        #'user': {'type':'HumanUser', 'id':165} }
         # here we need to create a field for storing the source file that created this version.
         # if it's not there, create the field, and if it's there just update it.
-    
-        try:
-            tmp2 = {}
-            tmp2 = tmp['self.sg_source_file']
-        except:
+        
+        if 'sg_source_file' not in versionFields and sourceFile != None:
             newField = self.sg.schema_field_create('Version','text','Source File')
-        if sourceFile != '':
-            data['self.sg_source_file'] = sourceFile
-    
+        if sourceFile != None:
+            data['sg_source_file'] = sourceFile
         return self.sg.create('Version',data)
     
     #add a task version to the system
     def versionCreateTask(self, project, shot, verName, description, framePath, firstFrame, lastFrame, task, sourceFile = ''):
         '''
+        DEPRECATED : USE versionCreate instead with the task='TASKNAME'
         Parameters : (project, shot, verName, description, framePath, firstFrame, lastFrame, task, sourceFile = '')
         Output : Version ID
         '''
