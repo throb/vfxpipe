@@ -13,6 +13,7 @@ m = menubar.addMenu("&Pipeline Tools")
 # add pipeline menu items here
 m.addCommand('Auto Write','nuke.createNode("AutoWriter")','')
 m.addCommand('Viewer Input','nuke.createNode("VIEWER_INPUT")','')
+m.addSeparator()
 m.addCommand('Quick Overlays','nuke.createNode("QuickOverlays")','')
 m.addCommand("Camera Data from EXR (Vray)", "fxpipenukescripts.createExrCamVray(nuke.selectedNode())")
 m.addCommand('Create Read(s) from Write(s)','fxpipenukescripts.readFromWrite()', 'alt+r')
@@ -25,3 +26,5 @@ cl.addCommand('Create Shuffles for all layers', 'fxpipenukescripts.createLayerSh
 sgMenu = m.addMenu('Shotgun')
 sgMenu.addCommand('Sync Frame Range with Shotgun', 'fxpipenukescripts.syncFrameRangeWithShotgun()')
 sgMenu.addCommand('Get Current Notes from Shotgun', 'fxpipenukescripts.getShotNotes()')
+m.addSeparator()
+m.addCommand('Submit Shot to Client','fxpipenukescripts.submitShotToClient.processWriteNode()')
