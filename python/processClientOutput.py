@@ -38,7 +38,7 @@ def processClientOutput():
     firstFrame = int(options.frameRange.split('-')[0])
     lastFrame = int(options.frameRange.split('-')[1])
     
-    nukeArgs = '-x'
+    nukeArgs = '-Vx'
     
     if options.openNuke == True:
         nukeArgs = ''
