@@ -143,35 +143,7 @@ class genericUtils:
         noteID = self.sg.create('Note',data)
         return noteID
     
-    def versionCreate2(self, project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None, user=None):
-        '''Create a version
-        Parameters : (project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None)
-        Output : versionID
-        '''
-        data = {'project': project,
-                'code': verName,
-                'description': description,
-                'sg_path_to_frames': framePath,
-                'frame_range': str(firstFrame) + '-' + str(lastFrame),
-                'sg_first_frame' : int(firstFrame),
-                'sg_last_frame' : int(lastFrame),
-                'sg_status_list': 'rev',
-                'entity': shotID}
-        #if user != None:
-            #data['user']
-        if task != None:
-            filters = [['content','is',task],['entity','is',shotID]]
-            taskID = self.sg.find_one('Task',filters)  
-            data['sg_task']=taskID 
-        return self.sg.create('Version',data)
-    '''
-    del sys.modules['shotgunUtils']
-    del sys.modules['shotgunUtils.genericUtils']
-    import shotgunUtils
-    sg = shotgunUtils.genericUtils()
-    '''
-    
-    def versionCreate(self, project, shot, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None, user=None):
+    def versionCreate(self, project, shot, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None, user=None, final=False):
         '''Create a version
         Parameters : (project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None)
         Output : versionID
@@ -192,7 +164,7 @@ class genericUtils:
             filters = [['content','is',task],['entity','is',shot]]
             taskID = self.sg.find_one('Task',filters)  
             data['sg_task']=taskID
-            
+        #if final == True and 'send
         # in case we're putting a client version in here we need this code.
         # we are expecting a field called self.sg_client_name in the version table.
         # please make sure you create this in the shotgun setup
@@ -338,13 +310,13 @@ class genericUtils:
         # upload that mother
         if entity.lower() == 'shot':
             try:
-                result = self.sg.upload (entity, itemID['id'], path,'self.sg_qt')
+                result = self.sg.upload (entity, itemID['id'], path,'sg_qt')
             except:
                 newField = self.sg.schema_field_create('Shot', 'url', 'QT')
-                result = self.sg.upload (entity, itemID['id'], path,'self.sg_qt')
+                result = self.sg.upload (entity, itemID['id'], path,'sg_qt')
     
         elif entity.lower() == 'version':
-            result = self.sg.upload (entity, itemID['id'], path,'self.sg_uploaded_movie')
+            result = self.sg.upload (entity, itemID['id'], path,'sg_uploaded_movie')
         return result
     
  
