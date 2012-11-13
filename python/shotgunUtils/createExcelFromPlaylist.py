@@ -93,7 +93,7 @@ def createExcelFromPlaylist (projectName, playlistName):
     clientVersions = versionPrep(versions)
     
     row = 2
-    fileTypes = 'exr','dpx_log','dpx_p3','mov_avid','mov_photo jpg'
+    fileTypes = 'exr','dpx_nolut','dpx_ ','mov_avid','mov_photo jpg'
     for version in clientVersions:
         for fileType in fileTypes:
             sheet.write(row,0,vendorName)
@@ -101,15 +101,19 @@ def createExcelFromPlaylist (projectName, playlistName):
             sheet.write(row,2,version['shot'])
             sheet.write(row,3,version['length'])
             fileName = version['filename'].upper()
-            fileName = fileName.replace('_COMP','')
             if 'mov' not in fileType:
                 if len(fileType.split('_')) > 1:
                     fileName = '%s_%s' % (version['filename'], fileType.split('_')[1].upper())
+                
+                fileName = fileName.replace('_COMP','')
+                fileName = fileName.replace('_comp','')                    
                 sheet.write(row,4,fileName)                
-                sheet.write(row,5,'image')
-                sheet.write(row,6,fileType.split('_')[0].lower())
+                sheet.write(row,6,'image')
+                sheet.write(row,5,fileType.split('_')[0].lower())
                 sheet.write(row,7,'2048x1080')
             else:
+                fileName = fileName.replace('_COMP','')
+                fileName = fileName.replace('_comp','')                   
                 if 'photo' not in fileType:    
                     sheet.write(row,4,fileName)
                 else :
@@ -129,7 +133,7 @@ def createExcelFromPlaylist (projectName, playlistName):
             
                    
      
-    excelFile = fxpipe.fixPath('z:/job/after_earth/prod/io/client/client_out/%s/FROM_%s/%s/%s_submission_report_%s_TEMP.xls' % (compactDate, vendorName, compactDate, vendorName, compactDate))
+    excelFile = fxpipe.fixPath('z:/job/after_earth/prod/io/client/client_out/%s/%s_submission_report_%s_TEMP.xls' % (compactDate, vendorName, compactDate))
     if not os.path.exists(os.path.dirname(excelFile)) :
         os.makedirs(os.path.dirname(excelFile))
     wbk.save(excelFile)
