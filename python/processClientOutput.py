@@ -13,7 +13,7 @@ timeStamp = datetime.date.isoformat(datetime.datetime.now()).replace('-','')
 nukePath = 'Z:/software/nuke/Nuke6.3v8/nuke6.3.exe'
 clientScript = 'Z:/job/after_earth/common/nuke/scripts/clientOutput_v001.nk'
 nukeArgs = ' -x'
-baseWritePath = 'Z:/job/after_earth/prod/io/client/client_out/%s/FROM_SVENGALI/%s' % (timeStamp,timeStamp)
+baseWritePath = 'Z:/job/after_earth/prod/io/client/client_out/%s' % (timeStamp)#,timeStamp)
 ffmpegExec = 'z:/software/ffmpeg/ffmpeg.exe'
 
 ################### END VARS

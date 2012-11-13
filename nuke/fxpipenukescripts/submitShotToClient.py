@@ -88,7 +88,7 @@ def createDeadlineJobFiles (outputPath, status, frameRange):
 
     pluginInfoFile = deadlineTemp + ("/python_plugin_info.job" )# % jobCount)
     fileHandle = open( pluginInfoFile, "w" )    
-    fileHandle.write( 'ScriptFile=Z:\\software\\swdevl\\vfxpipe\\python\\processClientOutput.py\n')
+    fileHandle.write( 'ScriptFile=Z:\\software\\vfxpipe\\python\\processClientOutput.py\n')
     fileHandle.write( 'Arguments=-f %s -i %s -s %s\n' % (frameRange, outputPath, status))
     fileHandle.write( 'Version=2.6\n')
     fileHandle.close()
