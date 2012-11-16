@@ -7,6 +7,9 @@ menubar = nuke.menu("Nuke");
 # add shift-z for delete
 menubar.addCommand( 'Edit/Delete Node(s)', 'nukescripts.node_delete(popupOnError=True)', 'shift+z')
 
+# add send to playback
+menubar.addCommand('Render/Send to Playback','fxpipenukescripts.sendToPlaybackRV()','')
+
 # menu is...
 m = menubar.addMenu("&Pipeline Tools")
 
