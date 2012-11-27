@@ -73,15 +73,17 @@ def processClientOutput():
         subprocess.call(qtAvidCmd)
         subprocess.call(qtCinesyncCmd)
         
-        createVersion(clientName, options.inputPath, firstFrame, lastFrame)
+        createVersion(clientName, options.inputPath, firstFrame, lastFrame, jpgOutputPath, cinesyncOutputPath)
 
-def createVersion(versionName, filePath, firstFrame, lastFrame):
+def createVersion(versionName, filePath, firstFrame, lastFrame, jpgPath='', qtPath=''):
     sg = shotgunUtils.genericUtils()
     project = sg.project(filePath.split('/')[2])
     shot = sg.shot(project, filePath.split('/')[5])
-    
+    #thumbFrame = (firstFrame+lastFrame)/2
     try:
-        versionData = sg.versionCreate(project, shot, versionName, '', filePath, firstFrame, lastFrame, task='Comp')
+        versionData = sg.versionCreate(project, shot, versionName, 'For Client Review', filePath, firstFrame, lastFrame, task='Comp',makeThumb=True,makeThumbShot=True)
+        sg.sg.upload('Version',version['id'],qtPath,'sg_uploaded_movie')
+        sg.sg.update('Shot',shot['id'],qtPath,'sg_uploaded_movie')
         return versionData
     except IOError as e:
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
