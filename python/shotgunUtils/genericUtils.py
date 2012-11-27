@@ -169,6 +169,7 @@ class genericUtils:
         # we are expecting a field called self.sg_client_name in the version table.
         # please make sure you create this in the shotgun setup
         # read the schema and if the client_name is not found, create it.
+        '''
         versionFields = self.sg.schema_field_read('Version')
         if 'sg_client_name' not in versionFields and clientName != None:
             newField = self.sg.schema_field_create('Version','text','Client Name')
@@ -183,6 +184,7 @@ class genericUtils:
             newField = self.sg.schema_field_create('Version','text','Source File')
         if sourceFile != None:
             data['sg_source_file'] = sourceFile
+        '''
         return self.sg.create('Version',data)
     
     #add a task version to the system
@@ -298,25 +300,27 @@ class genericUtils:
         return result
     
 
-    def uploadQT (self, entity,itemID,path):
+    def uploadQT (self, entityType, item, path):
         '''Upload a file to shotgun in the 'self.sg_qt' field.
         If you do this for a shot, you will need to add this to a field
         the field should be called 'qt' as shotgun will add the self.sg_ to it
         Shotgun provides the self.sg_qt for versions automatically
-        Parameters: (entity,itemID,path)
+        Parameters: (entity,item,path)
+        uploadQT ('Version',versionData, '/my/file.mov')
         '''
         # Make sure first letter is capitalized
-        entity = entity[:1].upper() + entity[1:]
+        entity = entityType.capitalize()
+
         # upload that mother
         if entity.lower() == 'shot':
             try:
-                result = self.sg.upload (entity, itemID['id'], path,'sg_qt')
+                result = self.sg.upload (entity, item['id'], path,'sg_qt')
             except:
                 newField = self.sg.schema_field_create('Shot', 'url', 'QT')
-                result = self.sg.upload (entity, itemID['id'], path,'sg_qt')
+                result = self.sg.upload (entity, item['id'], path,'sg_qt')
     
         elif entity.lower() == 'version':
-            result = self.sg.upload (entity, itemID['id'], path,'sg_uploaded_movie')
+            result = self.sg.upload (entity, item['id'], path,'sg_uploaded_movie')
         return result
     
  
