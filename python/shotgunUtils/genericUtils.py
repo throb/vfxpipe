@@ -1,8 +1,10 @@
 import sys, os
 import httplib
+import fxpipe
 
 from pprint import pprint
 from shotgun_api3 import Shotgun
+
 
 #################### CONFIG LOADING
 config_file = 'shotgun_config.py'
