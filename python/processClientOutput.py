@@ -83,7 +83,7 @@ def createVersion(versionName, filePath, firstFrame, lastFrame, jpgPath='', qtPa
     try:
         versionData = sg.versionCreate(project, shot, versionName, 'For Client Review', filePath, firstFrame, lastFrame, task='Comp',makeThumb=True,makeThumbShot=True)
         sg.sg.upload('Version',version['id'],qtPath,'sg_uploaded_movie')
-        sg.sg.update('Shot',shot['id'],qtPath,'sg_uploaded_movie')
+        sg.sg.upload('Shot',shot['id'],qtPath,'sg_uploaded_movie')
         return versionData
     except IOError as e:
         print "I/O error({0}): {1}".format(e.errno, e.strerror)
