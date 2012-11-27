@@ -1,4 +1,4 @@
-import platform ,os, sys
+import platform ,os, sys, re
 
 """
 Set the variables here how you want the paths to work
@@ -29,9 +29,50 @@ jobPathNuke = 'common/nuke'
 jobPathMaya = 'common/maya'
 jobPathScripts = 'common/python'
 
-
-
 ### END APP PATH CUSTOMIZE
+
+### Here you can customize how to get your show/shot/sequence/version information
+
+def showName(inputPath):
+    inputPath = inputPath.replace('\\','/')
+    return inputPath.split('/')[2]
+
+def seqName(inputPath):
+    inputPath = inputPath.replace('\\','/')
+    return inputPath.split('/')[4]
+
+def shotName(inputPath):
+    inputPath = inputPath.replace('\\','/')
+    return inputPath.split('/')[5]
+
+def versionNumber(inputPath):
+    versionData = re.search('v[0-9]+',inputPath)
+    if not versionData :
+        versionData = re.search('V[0-9]+',inputPath)
+    if not versionData :
+        versionData = 'v000'
+    else:
+        versionData = versionData.group(0)
+    return versionData
+
+def framePad(inputPath):
+    pattern = re.compile(r'%[0-9]+d')
+    framePadData = pattern.findall(inputPath)
+    if framePadData:
+        out = framePadData[0]
+        outFormat = out
+    
+    if not framePadData:
+        pattern = re.compile(r'#')
+        framePadData = pattern.findall(inputPath)
+        out = ''
+        for n in range(len(framePadData)):
+            out = out + framePadData[n]
+        outFormat = '%' + '0%0dd' % (len(framePadData))
+
+    return out, outFormat
+
+### END DATA Collection
 
 # test for what called the pipeline
 if 'maya' in sys.executable.lower() : 
