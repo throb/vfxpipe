@@ -143,7 +143,7 @@ class genericUtils:
         noteID = self.sg.create('Note',data)
         return noteID
     
-    def versionCreate(self, project, shot, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None, user=None, final=False):
+    def versionCreate(self, project, shot, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None, user=None, final=False, makeThumb=False, makeThumbShot=False):
         '''Create a version
         Parameters : (project, shotID, verName, description, framePath, firstFrame, lastFrame, clientName=None, sourceFile=None, task=None)
         Output : versionID
@@ -185,8 +185,19 @@ class genericUtils:
         if sourceFile != None:
             data['sg_source_file'] = sourceFile
         '''
-        return self.sg.create('Version',data)
-    
+        
+        versionData = self.sg.create('Version',data)
+        # handle the thumbnail grabbing here
+        middleFrame = (int(firstFrame) + int(lastFrame)) / 2
+        padding, padString = fxpipe.framePad(framePath)
+        paddedFrame = padString % (middleFrame)
+        if makeThumb == True:
+            thumbData = self.sg.upload_thumbnail('Version', versionData['id'], framePath.replace(padding,paddedFrame))
+        if makeThumbShot == True:
+            thumbData = self.sg.upload_thumbnail('Shot', shot['id'], framePath.replace(padding,paddedFrame))   
+        return versionData      
+
+   
     #add a task version to the system
     def versionCreateTask(self, project, shot, verName, description, framePath, firstFrame, lastFrame, task, sourceFile = ''):
         '''
