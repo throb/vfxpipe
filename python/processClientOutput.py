@@ -73,15 +73,15 @@ def processClientOutput():
         subprocess.call(qtAvidCmd)
         subprocess.call(qtCinesyncCmd)
         
-        createVersion(clientName, options.inputPath, firstFrame, lastFrame, jpgOutputPath, cinesyncOutputPath)
+        createVersion(clientName, options.inputPath, firstFrame, lastFrame, jpgOutputPath, cinesyncOutputPath, options.status)
 
-def createVersion(versionName, filePath, firstFrame, lastFrame, jpgPath='', qtPath=''):
+def createVersion(versionName, filePath, firstFrame, lastFrame, jpgPath='', qtPath='', versionStatus = ''):
     sg = shotgunUtils.genericUtils()
     project = sg.project(filePath.split('/')[2])
     shot = sg.shot(project, filePath.split('/')[5])
     #thumbFrame = (firstFrame+lastFrame)/2
     try:
-        versionData = sg.versionCreate(project, shot, versionName, 'For Client Review', filePath, firstFrame, lastFrame, task='Comp',makeThumb=True,makeThumbShot=True)
+        versionData = sg.versionCreate(project, shot, versionName, 'For Client Review (' + versionStatus.upper() + ')', jpgPath, firstFrame, lastFrame, task='Comp',makeThumb=True,makeThumbShot=True)
         sg.sg.upload('Version',versionData['id'],qtPath,'sg_uploaded_movie')
         sg.sg.upload('Shot',shot['id'],qtPath,'sg_uploaded_movie')
         return versionData
