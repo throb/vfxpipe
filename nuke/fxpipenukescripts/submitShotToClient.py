@@ -50,7 +50,7 @@ def processWriteNode():
     elif n.Class() == 'Read' or n.Class == 'Write':
         outputFile = nuke.filename(curNode)
     else:
-        nuke.mesage('Error:\nThis node is not an AutoWrite, Read, or Write')
+        nuke.message('Error:\nThis node is not an AutoWrite, Read, or Write')
         return
 
     if checkPath(outputFile) == True:
