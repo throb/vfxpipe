@@ -20,8 +20,9 @@ def createWriteDir():
         if len(outputFilename) < 1:
             outputFilename.append(originalFileName)
         for fileName in outputFilename:
-            dir = os.path.dirname( fileName )
-            osdir = nuke.callbacks.filenameFilter( dir )
-            if not os.path.exists( osdir ):
-                os.makedirs( osdir )
-                print 'Created : %s' % (osdir)
+            if fileName != '':
+                dir = os.path.dirname( fileName )
+                osdir = nuke.callbacks.filenameFilter( dir )
+                if not os.path.exists( osdir ):
+                    os.makedirs( osdir )
+                    print 'Created : %s' % (osdir)
