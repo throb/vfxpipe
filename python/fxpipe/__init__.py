@@ -69,8 +69,12 @@ def framePad(inputPath):
         for n in range(len(framePadData)):
             out = out + framePadData[n]
         outFormat = '%' + '0%0dd' % (len(framePadData))
-
     return out, outFormat
+
+def framePadReplace(inputPath, replaceNumber):
+    padString, padFormat = framePad(inputPath)
+    paddedNumber = padFormat % (int(replaceNumber))
+    return (inputPath.replace(padString, paddedNumber))
 
 ### END DATA Collection
 
