@@ -23,6 +23,9 @@ def sendData():
                 outputFile = nuke.filename(curNode)
                 frameFirst = int(nuke.root()['first_frame'].value())
                 frameLast = int(nuke.root()['last_frame'].value())
+                if os.path.exists(fxpipe.framePadReplace(outputFile, frameLast)) == False: 
+                    nuke.message('Error : this output does not exist')
+                    return
                 #frameFirst = int(nuke.root()['first_frame'].getValue())-1
                 #frameLast = int(nuke.root()['last_frame'].getValue())
                 progressTask = nuke.ProgressTask("Sending to Review Room")
@@ -38,7 +41,7 @@ def sendData():
                 project = sgu.project(fxpipe.showName(outputFile))
                 shot = sgu.shot(project,fxpipe.shotName(outputFile))
                 try:
-                    vData = sgu.versionCreate(project, shot, fxpipe.shotName(outputFile) + '_' + fxpipe.versionNumber(outputFile), 'Sent for Review', outputFile, frameFirst, frameLast, makeThumb=True, task='Comp')
+                    vData = sgu.versionCreate(project, shot, fxpipe.shotName(outputFile) + '_' + fxpipe.versionNumber(outputFile), 'Sent for Review', outputFile, frameFirst, frameLast,  task='Comp', makeThumb=True,)
                 except:
                     vData = None
                 progressTask.setProgress(100)
@@ -54,4 +57,4 @@ def sendData():
 
 
 def sendToPlaybackRV():
-    threading.Thread(None, sendToPlaybackRV())
+    threading.Thread(None, sendData())
