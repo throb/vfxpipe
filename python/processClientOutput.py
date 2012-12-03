@@ -49,7 +49,8 @@ def processClientOutput():
         logging.info(nkCmdLine)
     else:
         subprocess.call(nkCmdLine)
-        return
+        if options.openNuke == True:
+            return
     
     logging.debug(options.openNuke)
     
