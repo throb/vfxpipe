@@ -1,0 +1,47 @@
+#! C:/Program Files/Nuke6.3v8/Nuke6.3.exe -nx
+version 6.3 v8
+Gizmo {
+ addUserKnob {20 gateWeaver l "Gate Weaver"}
+ addUserKnob {6 xOn l "Weave in X?" -STARTLINE}
+ xOn true
+ addUserKnob {6 yOn l "Weave in Y?" -STARTLINE}
+ yOn true
+ addUserKnob {20 TweakTown l "Tweak Parameters"}
+ addUserKnob {41 xLow l "X Low End" T Transform1.xLow}
+ addUserKnob {41 xHigh l "X High End" T Transform1.xHigh}
+ addUserKnob {41 yLow l "Y Low End" T Transform1.yLow}
+ addUserKnob {41 yHigh l "Y High End" T Transform1.yHigh}
+ addUserKnob {7 gateFreq l "Weave Frequency"}
+ gateFreq 0.3
+ addUserKnob {41 filter T Transform1.filter}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -121
+  ypos -5
+ }
+ Transform {
+  translate {{(xLow+random(frame/(1/parent.gateFreq))*(xHigh-xLow))*parent.xOn i} {"(yLow + random((frame+100)/(1/parent.gateFreq)) * (yHigh-yLow))*parent.yOn" i}}
+  scale 1.001
+  center {1024 778}
+  name Transform1
+  selected true
+  xpos -121
+  ypos 35
+  addUserKnob {20 User}
+  addUserKnob {7 xLow l "X Low End"}
+  xLow 0.1
+  addUserKnob {7 xHigh l "X High End"}
+  xHigh 0.8
+  addUserKnob {7 yLow l "Y Low End"}
+  yLow 0.2
+  addUserKnob {7 yHigh l "Y High End"}
+  yHigh 0.5
+ }
+ Output {
+  name Output1
+  xpos -121
+  ypos 135
+ }
+end_group
