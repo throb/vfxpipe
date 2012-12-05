@@ -4,6 +4,9 @@ import fxpipenukescripts
 # add to main nuke menu
 menubar = nuke.menu("Nuke");
 
+# add Read/Write Panel to File Menu
+menubar.addCommand('File/Display Read-Write Nodes','fxpipenukescripts.showReadWrite()','shift-q')
+
 # add shift-z for delete
 menubar.addCommand( 'Edit/Delete Node(s)', 'nukescripts.node_delete(popupOnError=True)', 'shift+z')
 
