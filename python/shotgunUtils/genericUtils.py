@@ -404,3 +404,16 @@ class genericUtils:
         #for items in data:
          #   versionData.append({'name':items['code'],'desc':items['description'],'first_frame':items['self.sg_first_frame})
         return data        
+    
+    def getTimeShot(self, shot):
+        '''Given shot (as dict) return total time on shot as [0] and other times for each task on shot
+        '''
+        outputData = []
+        retFields = ['content','time_logs_sum']
+        totalTime = 0
+        for curTask in shot['tasks']:
+            taskData = self.sg.find_one('Task',[['id','is',curTask['id']]],fields=retFields)
+            totalTime += taskData['time_logs_sum']
+            outputData.append({'name':taskData['content'],'time':taskData['time_logs_sum']})
+        outputData.insert(0,{'name':shot['code'],'time':totalTime})
+        return outputData
