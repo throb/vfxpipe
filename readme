@@ -4,9 +4,24 @@ Current support is limited to Maya 2013/VRay (daily build as of May 03 2012) and
 In order to use the pipeline you will need to set some environment variables :
 
 The Windows syntax is used here but if you're on Linux or OSX you can sort this out.
+You can create a batch file with the following entries:
+echo -----------------------------------------------------------
+REM - this is the location of the root of the vfxpipe folder
 set FXPIPEPATH=z:\software\devl_vfxpipe
+
+REM - don't change the following 3 lines
 set PYTHONPATH=%PYTHONPATH%;%FXPIPEPATH%\python;%FXPIPEPATH%\maya
 set NUKE_PATH=%NUKE_PATH%;%FXPIPEPATH%\nuke
+set MAYA_SCRIPT_PATH=%FXPIPEPATH%\maya
+
+REM - these are optional here
+set job=myjob
+set seq=sequencename
+set shot=0001
+REM - end of optional variables
+
+"c:\program files\autodesk\maya2012\bin\maya.exe"
+
 
 Additionally, the pipeline listens to (and wants!) other variables:
 set job=yourjobname
