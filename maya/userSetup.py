@@ -24,6 +24,7 @@ def setupMayaPipe():
     # VRay Menu
     # please note that even though we have imported vrayUtils, we need to do it again in the commands as it loses context.
     cmds.menuItem(p=vrayMenu, l='Set up basic render settings', c='import vrayUtils;vrayUtils.createBaseRenderSettings()')
+    cmds.menuItem(p=vrayMenu, l='Add VRST output',c='import vrayUtils; vrayUtils.addDeepRenderOption()')
     cmds.menuItem(p=vrayMenu, l='Add Gamma to file nodes', c='import vrayUtils;vrayUtils.vrayAddGamma()')
     cmds.menuItem(p=vrayMenu, l='Add tech render passes', c='import vrayUtils;vrayUtils.createTechPasses()')
     cmds.menuItem(p=vrayMenu, l='Add Light Select Render Element', c='import vrayUtils;vrayUtils.createLightSelect()')
