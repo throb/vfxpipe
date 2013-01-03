@@ -16,7 +16,10 @@ def processFiles(fileList, ext):
     Process files in list
     '''
     ffmpegPath = 'z:/software/ffmpeg/ffmpeg'
+
     for curFile in fileList:
+        if os.path.exists(os.path.dirname(curFile.replace(ext,'m4v'))) == False:
+            os.makedirs(os.path.dirname(curFile.replace(ext,'m4v')))        
         ffOpts = ' -y -i %s -vcodec libx264 -b:v 2000k -threads 0 -an %s' % (curFile, curFile.replace(ext,'m4v'))
         subprocess.call(ffmpegPath + ffOpts)
         #print ffmpegPath + ffOpts + '\n'
