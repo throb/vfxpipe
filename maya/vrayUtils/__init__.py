@@ -22,7 +22,7 @@ try:
     from enableSubdivision import *
     from vrayConvertToTiledEXR import *
     from createMaterialSelect import *
-    from ddDeepRenderOption import *
+    from addDeepRenderOption import *
     
     #utils.executeDeferred('createBaseRenderSettings.createBaseRenderSettings()') # may as well set up the vray settings by default right?
     
