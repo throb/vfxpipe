@@ -24,10 +24,9 @@ def createTechPasses():
     # now we make the normals render element
     layerToMake = 'normals'
     if not cmds.objExists(layerToMake) :
-        renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
+        renderElement = mel.eval ('vrayAddRenderElement normalsChannel;')
         cmds.rename (renderElement,layerToMake)
-        cmds.setAttr (layerToMake + '.vray_explicit_name_extratex', 'normals', type = 'string')
-        cmds.connectAttr (samplerNode + '.normalCamera', layerToMake + '.vray_texture_extratex')    
+        cmds.setAttr(layerToMake + '.vray_filtering_normals', 0)
     # uv render element
     layerToMake = 'uv'
     if not cmds.objExists(layerToMake) :
