@@ -6,7 +6,7 @@ import nuke
 import os
 import datetime
 
-shotDate = True
+shotData = True
 
 class archiveInterface():
 
@@ -15,10 +15,6 @@ class archiveInterface():
         scriptName = os.path.basename(nuke.value('root.name'))
         date = datetime.date.today()
         formattedDate = '%s%02d%02d' % (date.year, int(date.month), int(date.day))
-        if shotData == True:
-            archivePath = 'z:/job/%s/prod/io/client/client_out/%s/NAR_%s/%s_%s/' % (getJob(nuke.value('root.name')), formattedDate, formattedDate, getSeq(nuke.value('root.name')), getShot(nuke.value('root.name')))
-        else:
-            archivePath = '/'
         archivePath = 'z:/job/after_earth/prod/io/archive/%s/%s/' % (formattedDate, scriptName.replace('.nk',''))
         self.panel = nukescripts.PythonPanel('Archive script 1.01')
         self.file = nuke.File_Knob('Output','Output folder:')
