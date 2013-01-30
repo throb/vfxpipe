@@ -61,6 +61,8 @@ def processClientOutput():
     
     qtAvidCmd = '%s -start_number %d -f image2 -r 23.98 -i %s -y -s 1920x1080 -vcodec dnxhd -b 115M -minrate 115M -maxrate 115M %s' % (ffmpegExec, firstFrame, jpgOutputPath, avidOutputPath)#, firstFrame, lastFrame, totalFrames, outputName)
     qtCinesyncCmd = '%s -start_number %d -f image2 -r 23.98 -i %s -y -s 1280x720 -vcodec mjpeg -qscale 8 %s' % (ffmpegExec, firstFrame, jpgOutputPath, cinesyncOutputPath)#, firstFrame, lastFrame, totalFrames, outputName)
+    if options.status == 'final' :
+        qtCinesyncCmd = '%s -start_number %d -f image2 -r 23.98 -i %s -y -s 1920x1080 -vcodec mjpeg -qscale 8 %s' % (ffmpegExec, firstFrame, jpgOutputPath, cinesyncOutputPath)#, firstFrame, lastFrame, totalFrames, outputName)
     
     if options.debug == True:
         logging.info('\n' + jpgOutputPath)
