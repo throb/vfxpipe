@@ -121,13 +121,13 @@ class archiveInterface():
 
         for p in fbxList:
 
-
-
-            if os.path.exists(FBX) == False:
-                os.makedirs(FBX)
+			folder = os.path.dirname(p).split('/')[-1] + '/'
+			
+            if os.path.exists(FBX + folder ) == False:
+                os.makedirs(FBX + folder)
 
             #shutil.copy( p , FBX  + os.path.basename(p) )	
-            self.copyDic[p] = [FBX	+ os.path.basename(p),os.path.getsize(p)]
+            self.copyDic[p] = [FBX	+ folder + os.path.basename(p),os.path.getsize(p)]
 
         for p in writeToCopy:
 
