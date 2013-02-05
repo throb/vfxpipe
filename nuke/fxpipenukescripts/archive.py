@@ -85,6 +85,15 @@ class archiveInterface():
                         if n.knob('disable').value() == False:
                             fbxList.append(nuke.filenameFilter(n.knob('file').value()))
 
+        for p in fbxList:
+            if os.path.exists(os.path.dirname(p)):
+                for f in os.listdir(os.path.dirname(p)):
+                    if os.path.splitext(f)[-1] == os.path.splitext(p)[-1]:
+
+                        if len(f.split('.')[0]) == len(os.path.basename(p).split('.')[0]):
+                            path = '/'.join([os.path.dirname(p),os.path.basename(f)])
+                            if os.path.isfile(path):
+                                fbxToCopy.append(path)
 
 
         #Write
@@ -119,10 +128,9 @@ class archiveInterface():
 
 
 
-        for p in fbxList:
+        for p in fbxToCopy:
 
-			folder = os.path.dirname(p).split('/')[-1] + '/'
-			
+            folder = os.path.dirname(p).split('/')[-1] + '/'
             if os.path.exists(FBX + folder ) == False:
                 os.makedirs(FBX + folder)
 
