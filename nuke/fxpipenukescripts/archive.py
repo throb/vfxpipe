@@ -48,6 +48,7 @@ class archiveInterface():
 
         readToCopy=		[]
         writeToCopy=  []
+        fbxToCopy = []
         self.scriptRoot = '''[file dirname [knob root.name]]'''
 
         DESTINATION = self.file.value()
