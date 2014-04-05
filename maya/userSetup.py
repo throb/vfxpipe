@@ -7,6 +7,7 @@ def setupMayaPipe():
 
     import fxpipe # generic and should already be loaded!
     import vrayUtils # for vray mojo
+    import mayaUtils
 
     # let's create the menus
     if cmds.menu('fxpipeMenu', exists=1):
@@ -16,10 +17,11 @@ def setupMayaPipe():
     cmds.menuItem(p=fxpipeMenu, d=1)
     toolsMenu = cmds.menuItem(p=fxpipeMenu, subMenu = 1, l="Tools")
     vrayMenu = cmds.menuItem(p=toolsMenu, subMenu = 1, to =1, l='VRay')
-    
+    mayaMenu = cmds.menuItem(p=toolsMenu, subMenu = 1, to = 1, l='Maya')
     # Tools Menu
-    cmds.menuItem(p=toolsMenu, l='Remove Namespaces', c='from removeNamespaces import removeNamespaces;removeNamespaces()')
-    cmds.menuItem(p=toolsMenu, l='Create Divider', c='from createDividerGroup import createDividerGroup;createDividerGroup()')
+    cmds.menuItem(p=mayaMenu, l='Remove Namespaces', c='from removeNamespaces import removeNamespaces;removeNamespaces()')
+    cmds.menuItem(p=mayaMenu, l='Create Divider', c='from createDividerGroup import createDividerGroup;createDividerGroup()')
+    cmds.menuItem(p=mayaMenu, l='Create BBox from Selected', c='import mayaUtils;mayaUtils.createBBoxFromSelected()')
     
     # VRay Menu
     # please note that even though we have imported vrayUtils, we need to do it again in the commands as it loses context.
