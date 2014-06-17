@@ -30,6 +30,12 @@ set shot=shotnumber
 
 These variables will allow the system to automatically load Nuke and Maya tools for the show.
 
+OSX Variable information here:
+export FXPIPEPATH=/Users/robn/vfxpipe 
+export PYTHONPATH=$PYTHONPATH:$FXPIPEPATH/python:$FXPIPEPATH/maya
+export NUKE_PATH=$NUKE_PATH:$FXPIPEPATH/nuke
+export MAYA_SCRIPT_PATH=$FXPIPEPATH/maya
+
 look in the fxpipe/__init__.py file for the information you need to modify for your custom setup
 
 Author : Robert Nederhorst - http://throb.net

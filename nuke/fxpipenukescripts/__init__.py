@@ -13,7 +13,9 @@ from createLayerShuffles import *
 from setAutoPaths import *
 from syncFrameRangeWithShotgun import *
 from getShotNotes import *
-from submitShotToClient import *
+#from submitShotToClient import *
 from sendToPlaybackRV import *
 from showReadWrite import *
 from archive import *
+from updateAutowrite import *
+from createAutowrite import *

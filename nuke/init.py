@@ -19,3 +19,6 @@ nuke.load('formats.py')
 
 ### Make sure we create write directories automatically
 nuke.addBeforeRender(fxpipenukescripts.createWriteDir)
+
+### add the autowrite update code
+nuke.addUpdateUI(fxpipenukescripts.updateAutowrite)

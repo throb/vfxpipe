@@ -18,7 +18,7 @@ menubar.addCommand('Render/Send to Playback','fxpipenukescripts.sendToPlaybackRV
 m = menubar.addMenu("&Pipeline Tools")
 
 # add pipeline menu items here
-m.addCommand('Auto Write','nuke.createNode("AutoWriter")','')
+m.addCommand('Auto Write','fxpipenukescripts.createAutowrite()','alt+w')
 m.addCommand('Viewer Input','nuke.createNode("VIEWER_INPUT")','')
 m.addSeparator()
 m.addCommand('Quick Overlays','nuke.createNode("QuickOverlays")','')
