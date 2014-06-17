@@ -1,0 +1,358 @@
+#! /Applications/Nuke8.0v4/Nuke8.0v4.app/Contents/MacOS/libnuke-8.0.v4.dylib -nx
+version 8.0 v4
+Gizmo {
+ addUserKnob {20 lit l "Main Lighting"}
+ addUserKnob {4 view_layer l "Select Layer to view" M {"Final Output" Diffuse GI Specular Reflection ZDepth "" ""}}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint T GradeLIT.blackpoint}
+ addUserKnob {41 whitepoint T GradeLIT.whitepoint}
+ addUserKnob {41 black l lift T GradeLIT.black}
+ addUserKnob {41 white l gain T GradeLIT.white}
+ addUserKnob {41 multiply T GradeLIT.multiply}
+ addUserKnob {41 add l offset T GradeLIT.add}
+ addUserKnob {41 gamma T GradeLIT.gamma}
+ addUserKnob {20 gi l GI}
+ addUserKnob {41 view_layer_1 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint_1 l blackpoint T GradeGI.blackpoint}
+ addUserKnob {41 whitepoint_1 l whitepoint T GradeGI.whitepoint}
+ addUserKnob {41 black_1 l lift T GradeGI.black}
+ addUserKnob {41 white_1 l gain T GradeGI.white}
+ addUserKnob {41 multiply_1 l multiply T GradeGI.multiply}
+ addUserKnob {41 add_1 l offset T GradeGI.add}
+ addUserKnob {41 gamma_1 l gamma T GradeGI.gamma}
+ addUserKnob {20 spec l Specular}
+ addUserKnob {41 view_layer_2 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint_3 l blackpoint T GradeSPEC.blackpoint}
+ addUserKnob {41 whitepoint_3 l whitepoint T GradeSPEC.whitepoint}
+ addUserKnob {41 black_3 l lift T GradeSPEC.black}
+ addUserKnob {41 white_3 l gain T GradeSPEC.white}
+ addUserKnob {41 multiply_3 l multiply T GradeSPEC.multiply}
+ addUserKnob {41 add_3 l offset T GradeSPEC.add}
+ addUserKnob {41 gamma_3 l gamma T GradeSPEC.gamma}
+ addUserKnob {20 refl l Reflection}
+ addUserKnob {41 view_layer_3 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint_2 l blackpoint T GradeREFL.blackpoint}
+ addUserKnob {41 whitepoint_2 l whitepoint T GradeREFL.whitepoint}
+ addUserKnob {41 black_2 l lift T GradeREFL.black}
+ addUserKnob {41 white_2 l gain T GradeREFL.white}
+ addUserKnob {41 multiply_2 l multiply T GradeREFL.multiply}
+ addUserKnob {41 add_2 l offset T GradeREFL.add}
+ addUserKnob {41 gamma_2 l gamma T GradeREFL.gamma}
+ addUserKnob {20 glow l "Ref Diffusion"}
+ addUserKnob {41 disable_2 l disable T GlowDiffuse.disable}
+ addUserKnob {41 tint T GlowDiffuse.tint}
+ addUserKnob {41 tolerance T GlowDiffuse.tolerance}
+ addUserKnob {41 brightness T GlowDiffuse.brightness}
+ addUserKnob {41 saturation T GlowDiffuse.saturation}
+ addUserKnob {41 size_1 l size T GlowDiffuse.size}
+ addUserKnob {20 bloom l "Ref Bloom"}
+ addUserKnob {41 disable_3 l disable T GlowBloom.disable}
+ addUserKnob {41 tint_1 l tint T GlowBloom.tint}
+ addUserKnob {41 tolerance_1 l tolerance T GlowBloom.tolerance}
+ addUserKnob {41 brightness_1 l brightness T GlowBloom.brightness}
+ addUserKnob {41 saturation_1 l saturation T GlowBloom.saturation}
+ addUserKnob {41 size_2 l size T GlowBloom.size}
+ addUserKnob {20 zblur l "Z Blur"}
+ addUserKnob {41 view_layer_4 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {26 ""}
+ addUserKnob {41 disable_1 l disable T ZBlur2.disable}
+ addUserKnob {41 Zchan l Z T ZBlur2.Zchan}
+ addUserKnob {41 setup_mode l "focal-plane setup" T ZBlur2.setup_mode}
+ addUserKnob {41 center l "focus plane (C)" T ZBlur2.center}
+ addUserKnob {41 dof l depth-of-field T ZBlur2.dof}
+ addUserKnob {41 size T ZBlur2.size}
+ addUserKnob {41 max_size l maximum T ZBlur2.max_size}
+ addUserKnob {41 shape l "filter shape" T ZBlur2.shape}
+}
+ Input {
+  inputs 0
+  name CG_In
+  label "CG Render In"
+  xpos -1000
+  ypos -797
+ }
+ Unpremult {
+  channels all
+  name Unpremult1
+  xpos -1000
+  ypos -732
+ }
+set N348d52f0 [stack 0]
+add_layer {reflect reflect.red reflect.green reflect.blue}
+ Shuffle {
+  in reflect
+  in2 alpha
+  alpha black
+  name Shuffle4
+  label reflection
+  xpos -810
+  ypos -616
+ }
+ Grade {
+  name GradeREFL
+  xpos -810
+  ypos -570
+ }
+set N348e73e0 [stack 0]
+push $N348d52f0
+add_layer {specular specular.red specular.green specular.blue}
+ Shuffle {
+  in specular
+  in2 alpha
+  alpha black
+  name Shuffle3
+  label spec
+  xpos -920
+  ypos -616
+ }
+ Grade {
+  name GradeSPEC
+  xpos -920
+  ypos -570
+ }
+set N34902b30 [stack 0]
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge5
+  xpos -810
+  ypos -530
+ }
+set N3490e9c0 [stack 0]
+ Glow {
+  tint {0.7 0.8 1.5}
+  tolerance 0.4
+  brightness 0.16
+  effect_only true
+  size 53.5
+  name GlowDiffuse
+  xpos -920
+  ypos -10
+  disable true
+ }
+push $N3490e9c0
+ Glow {
+  tint {1.238333225 0.9633333087 0.7983332276}
+  tolerance 0.746
+  brightness 0.16
+  nonlinear true
+  effect_only true
+  size 2.4
+  name GlowBloom
+  xpos -810
+  ypos -10
+  disable true
+ }
+push $N348d52f0
+ Dot {
+  name Dot1
+  xpos -226
+  ypos -726
+ }
+push $N348d52f0
+push $N348d52f0
+ Shuffle {
+  in depth
+  red white
+  green white
+  blue white
+  alpha white
+  out depth
+  name Shuffle5
+  xpos -700
+  ypos -650
+ }
+ Merge2 {
+  inputs 2
+  Achannels {depth.Z none none rgba.alpha}
+  Bchannels depth
+  output depth
+  name Merge2
+  xpos -700
+  ypos -616
+ }
+set N34941250 [stack 0]
+ Dot {
+  name Dot2
+  xpos -336
+  ypos -606
+ }
+ Shuffle {
+  in depth
+  name Shuffle6
+  xpos -370
+  ypos -330
+ }
+push $N348e73e0
+push $N34902b30
+push $N348d52f0
+add_layer {gi gi.red gi.green gi.blue}
+ Shuffle {
+  in gi
+  alpha black
+  name Shuffle2
+  label "GI\n"
+  xpos -1030
+  ypos -616
+ }
+set N3495c140 [stack 0]
+ Grade {
+  name GradeGI
+  xpos -1030
+  ypos -530
+ }
+set N34967c20 [stack 0]
+push $N348d52f0
+add_layer {lighting lighting.red lighting.green lighting.blue}
+ Shuffle {
+  in lighting
+  alpha black
+  name Shuffle1
+  label lighting
+  xpos -1480
+  ypos -616
+ }
+ Grade {
+  name GradeLIT
+  xpos -1480
+  ypos -530
+ }
+set N3497f290 [stack 0]
+push $N34941250
+push $N3490e9c0
+push $N34967c20
+push $N3497f290
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge3
+  xpos -1480
+  ypos -410
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge7
+  xpos -810
+  ypos -410
+ }
+ Copy {
+  inputs 2
+  from0 depth.Z
+  to0 depth.Z
+  name Copy1
+  xpos -700
+  ypos -416
+ }
+ Switch {
+  inputs 6
+  which {{view_layer i}}
+  name Switch1
+  xpos -700
+  ypos -90
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos -260
+  ypos -96
+ }
+set N349b1d90 [stack 0]
+ Invert {
+  channels alpha
+  name Invert1
+  xpos -150
+  ypos 104
+ }
+ Premult {
+  name Premult2
+  xpos -150
+  ypos 158
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos -150
+  ypos 230
+ }
+push $N349b1d90
+ ChannelMerge {
+  inputs 2
+  A rgba.red
+  operation plus
+  name ChannelMerge1
+  xpos -260
+  ypos 217
+  disable true
+ }
+ Clamp {
+  channels alpha
+  name Clamp1
+  xpos -260
+  ypos 464
+ }
+ ZBlur {
+  channels rgba
+  math far=1
+  occlusion true
+  center 0.2
+  size 20
+  name ZBlur2
+  xpos -260
+  ypos 510
+  disable true
+ }
+set N349de6c0 [stack 0]
+ Premult {
+  name Premult1
+  xpos -260
+  ypos 552
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge4
+  xpos -260
+  ypos 630
+  disable {{parent.GlowBloom.disable i}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge6
+  xpos -260
+  ypos 710
+  disable {{parent.GlowDiffuse.disable i}}
+ }
+ Output {
+  name Output1
+  xpos -260
+  ypos 750
+ }
+push $N3495c140
+push $N349de6c0
+ Viewer {
+  inputs 2
+  input_number 1
+  input_process false
+  name Viewer1
+  xpos -590
+  ypos 310
+ }
+end_group
