@@ -33,5 +33,7 @@ cl.addCommand('Create Shuffles for all layers', 'fxpipenukescripts.createLayerSh
 sgMenu = m.addMenu('Shotgun')
 sgMenu.addCommand('Sync Frame Range with Shotgun', 'fxpipenukescripts.syncFrameRangeWithShotgun()')
 sgMenu.addCommand('Get Current Notes from Shotgun', 'fxpipenukescripts.getShotNotes()')
+dddMenu = m.addMenu('3D')
+dddMenu.addCommand('Replace all Axis nodes with Cards', 'fxpipenukescripts.replaceAxisWithCard()')
 m.addSeparator()
 m.addCommand('Submit Shot to Client','fxpipenukescripts.submitShotToClient.processWriteNode()')

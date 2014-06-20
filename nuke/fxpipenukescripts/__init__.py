@@ -19,3 +19,4 @@ from showReadWrite import *
 from archive import *
 from updateAutowrite import *
 from createAutowrite import *
+from replaceAxisWithCard import *
