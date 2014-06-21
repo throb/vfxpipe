@@ -44,6 +44,6 @@ def updateAutowrite():
 
                 newPath = '%s/img/output/2D/%s/%s_%s/%s_%s.####.%s' % (newPath, outputName,outputFormat, fileType, outputName, outputFormat, fileType)
                 curNode['file'].setValue(newPath.replace(' ','_'))
-            else: 
-                curNode['label'].setValue('Please save your script in the proper location')
-                curNode['file'].setValue('')           
+            #else: 
+            #    curNode['label'].setValue('Please save your script in the proper location')
+            #    curNode['file'].setValue('')           
