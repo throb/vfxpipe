@@ -35,5 +35,6 @@ sgMenu.addCommand('Sync Frame Range with Shotgun', 'fxpipenukescripts.syncFrameR
 sgMenu.addCommand('Get Current Notes from Shotgun', 'fxpipenukescripts.getShotNotes()')
 dddMenu = m.addMenu('3D')
 dddMenu.addCommand('Replace all Axis nodes with Cards', 'fxpipenukescripts.replaceAxisWithCard()')
+dddMenu.addCommand('Rename imported abc\/fbx node names with original names', 'fxpipenukescripts.AM_Rename3DNodeToFBXNodeName()')
 m.addSeparator()
 m.addCommand('Submit Shot to Client','fxpipenukescripts.submitShotToClient.processWriteNode()')
