@@ -22,23 +22,31 @@ jobPathLin = jData['jobPathLin']
 jobPathNuke = jData['jobPathNuke']
 jobPathMaya = jData['jobPathMaya']
 jobPathScripts = jData['jobPathScripts']
-showNameIndex = jData['showName']
-seqNameIndex = jData['seqName']
-shotNameIndex = jData['shotName']
+jFile.close()
 
 ### Here you can customize how to get your show/shot/sequence/version information
 
 def showName(inputPath):
+    jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
+    jData = json.load(jFile)
+    jFile.close()
     inputPath = inputPath.replace('\\','/')
-    return inputPath.split('/')[showNameIndex]
+    return inputPath.split('/')[jData['showName']]
+
 
 def seqName(inputPath):
+    jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
+    jData = json.load(jFile)
+    jFile.close()
     inputPath = inputPath.replace('\\','/')
-    return inputPath.split('/')[seqNameIndex]
+    return inputPath.split('/')[jData['seqName']]
 
 def shotName(inputPath):
+    jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
+    jData = json.load(jFile)
+    jFile.close()
     inputPath = inputPath.replace('\\','/')
-    return inputPath.split('/')[shotNameIndex]
+    return inputPath.split('/')[jData['shotName']]
 
 def versionNumber(inputPath):
     versionData = re.search('v[0-9]+',inputPath)

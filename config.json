@@ -15,9 +15,15 @@
 	"comment" : "Example : if your path to the files is like this: z:/job/MYJOB/shots/DE/DE_010/",
 	"comment" : "then your showName would be 2, seqName woudl be 4, shotName would be 5",
 	
-	"showName" 			: "2",
-	"seqName" 			: "4",
-	"shotName" 			: "5"
+	"showName" 			: 2,
+	"seqName" 			: 4,
+	"shotName" 			: 5,
+
+	"comment" : "Enter the path for the Nuke Autowriting setup here",
+	"comment" : "Use the variables [JOB] [SEQ] [SHOT] [TYPE] (case sensitive and include the []) for where the pipe should replace",
+	"comment" : "those parameters with the job, seq, shot, and output type automatically",
+
+	"nkOutputPath"		: "z:/job/[JOB]/shots/[SEQ]/[SHOT]/frames/[TYPE]/
 
 }
 
