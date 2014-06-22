@@ -1,0 +1,23 @@
+{
+	"_comment" : "Use this area to customize for the location of the job related data",
+	"jobPathWin" 		: "z:/job",
+	"jobPathOsx"		: "/Volumes/work/job",
+	"jobPathLin" 		: "/mnt/job",
+
+
+	"_comment" : "Use this area to customize for the place that stores script (python) data",
+	"jobPathNuke" 		: "common/nuke",
+	"jobPathMaya" 		: "common/maya",
+	"jobPathScripts" 	: "common/python",
+
+	"comment" : "This is where the path for job/seq/shot goes",
+	"comment" : "The path is split by thje '/' character and starts with the 0 index",
+	"comment" : "Example : if your path to the files is like this: z:/job/MYJOB/shots/DE/DE_010/",
+	"comment" : "then your showName would be 2, seqName woudl be 4, shotName would be 5",
+	
+	"showName" 			: "2",
+	"seqName" 			: "4",
+	"shotName" 			: "5"
+
+}
+

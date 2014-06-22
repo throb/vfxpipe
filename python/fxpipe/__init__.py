@@ -1,4 +1,5 @@
-import platform ,os, sys, re
+import platform ,os, sys, re, json
+
 
 """
 Set the variables here how you want the paths to work
@@ -12,38 +13,32 @@ Set the paths for windows, osx, linux as you see fit here.
 
 global job, seq, shot, curApp, jobPath, jobPathLin, jobPathMaya, jobPathNuke,jobPathOsx, jobPathScripts, jobPathWin
 
-jobPathWin = 'z:/job'
-jobPathOsx = '/Volumes/work/job'
-jobPathLin = '/mnt/job'
+jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
+jData = json.load(jFile)
 
-### END JOB PATH CUSTOMIZE
-
-'''
-Customize this for where your nuke scripts will be located that are show specific for each application
-this will work out to (for nuke) :
-jobPath + nukeJobPath = z:/job/myjobname/common/nuke
-This is where __init__ files should be placed
-'''
-
-jobPathNuke = 'common/nuke'
-jobPathMaya = 'common/maya'
-jobPathScripts = 'common/python'
-
-### END APP PATH CUSTOMIZE
+jobPathWin = jData['jobPathWin']
+jobPathOsx = jData['jobPathOsx']
+jobPathLin = jData['jobPathLin']
+jobPathNuke = jData['jobPathNuke']
+jobPathMaya = jData['jobPathMaya']
+jobPathScripts = jData['jobPathScripts']
+showNameIndex = jData['showName']
+seqNameIndex = jData['seqName']
+shotNameIndex = jData['shotName']
 
 ### Here you can customize how to get your show/shot/sequence/version information
 
 def showName(inputPath):
     inputPath = inputPath.replace('\\','/')
-    return inputPath.split('/')[2]
+    return inputPath.split('/')[showNameIndex]
 
 def seqName(inputPath):
     inputPath = inputPath.replace('\\','/')
-    return inputPath.split('/')[4]
+    return inputPath.split('/')[seqNameIndex]
 
 def shotName(inputPath):
     inputPath = inputPath.replace('\\','/')
-    return inputPath.split('/')[5]
+    return inputPath.split('/')[shotNameIndex]
 
 def versionNumber(inputPath):
     versionData = re.search('v[0-9]+',inputPath)

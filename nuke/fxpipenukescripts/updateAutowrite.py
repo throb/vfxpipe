@@ -9,6 +9,8 @@
 
 import nuke
 import re
+import fxpipe
+
 def updateAutowrite():
     for curNode in nuke.allNodes('Write'):
         tempPath = nuke.root()['name'].value()
