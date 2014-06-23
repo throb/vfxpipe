@@ -11,7 +11,7 @@ Set the paths for windows, osx, linux as you see fit here.
 ### have to declare global vars so maya, etc can see them and so the userSetup.py works transparently.
 ### globals suck but such is life.
 
-global job, seq, shot, curApp, jobPath, jobPathLin, jobPathMaya, jobPathNuke,jobPathOsx, jobPathScripts, jobPathWin
+global job, seq, shot, curApp, jobPath, jobPathLin, jobPathMaya, jobPathNuke,jobPathOsx, jobPathScripts, jobPathWin, nukeOutPath
 
 jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
 jData = json.load(jFile)
@@ -22,9 +22,19 @@ jobPathLin = jData['jobPathLin']
 jobPathNuke = jData['jobPathNuke']
 jobPathMaya = jData['jobPathMaya']
 jobPathScripts = jData['jobPathScripts']
+nukeOutPath = jData['nkOutputPath']
 jFile.close()
 
 ### Here you can customize how to get your show/shot/sequence/version information
+
+def getPathData(inputPath):
+    jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
+    jData = json.load(jFile)
+    jFile.close()
+    show = jData['showName']
+    seq = jData['seqName']
+    shot = jData['shotName']
+    return ({'job':inputPath.split('/')[jData['showName']],'seq':inputPath.split('/')[jData['seqName']],'shot':inputPath.split('/')[jData['shotName']]})
 
 def showName(inputPath):
     jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])

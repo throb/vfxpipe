@@ -1,7 +1,7 @@
 {
 	"_comment" : "Use this area to customize for the location of the job related data",
-	"jobPathWin" 		: "z:/job",
-	"jobPathOsx"		: "/Volumes/work/job",
+	"jobPathWin" 		: "z:/ELASTIC",
+	"jobPathOsx"		: "/Volumes/disks/nas2/ELASTIC",
 	"jobPathLin" 		: "/mnt/job",
 
 
@@ -19,11 +19,14 @@
 	"seqName" 			: 4,
 	"shotName" 			: 5,
 
-	"comment" : "Enter the path for the Nuke Autowriting setup here",
+	"comment" : "Enter the path for the Autowriting setup here (Maya is pending)",
 	"comment" : "Use the variables [JOB] [SEQ] [SHOT] [TYPE] (case sensitive and include the []) for where the pipe should replace",
 	"comment" : "those parameters with the job, seq, shot, and output type automatically",
+	"comment" : "The parameter will automatically place the above jobPath variable into the output for you so no need to enter it here",
 
-	"nkOutputPath"		: "z:/job/[JOB]/shots/[SEQ]/[SHOT]/frames/[TYPE]/
+	"_nkOutputPath"		: "[JOB]/shots/[SEQ]/[SHOT]/frames/[TYPE]/",
+	"nkOutputPath"		: "[JOB]/shot/[SEQ]/[SHOT]/img/output/2D/",
+	"renderOutputPath"	: "[JOB]/shots/[SEQ]/[SHOT]/img/output/3D/"
 
 }
 

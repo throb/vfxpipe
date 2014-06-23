@@ -14,6 +14,7 @@ import fxpipe
 def updateAutowrite():
     for curNode in nuke.allNodes('Write'):
         tempPath = nuke.root()['name'].value()
+        pathData = fxpipe.getPathData(tempPath)
         if 'shot' in tempPath:
             if 'AutoWrite' in curNode['name'].value():
                 #width = curNode.width()
@@ -23,11 +24,12 @@ def updateAutowrite():
                 colorspace = colorspace.replace ('default (','')
                 colorspace = colorspace.replace (')','').lower()
                 fileType = curNode['file_type'].value()
-                ###################
+                ###########################################
                 ## deal with the longer file types
                 if fileType == 'jpeg': fileType = 'jpg'
                 elif fileType == 'tiff': fileType = 'tif'
                 elif fileType == 'targa': fileType = 'tga'
+                ###########################################
                 outputPath = tempPath.split('/')
                 outputFile = outputPath[-1].split('.')[0]
                 outputVersion = re.search('v[0-9]+',outputFile).group(0)
@@ -43,9 +45,17 @@ def updateAutowrite():
                 if aov != '':
                     aov = '_%s' % (aov)
                 outputName = '%s%s_%s%s_%s' % (outputShot, aov, outputType, descriptor, outputVersion)                
-
-                newPath = '%s/img/output/2D/%s/%s_%s/%s_%s.####.%s' % (newPath, outputName,outputFormat, fileType, outputName, outputFormat, fileType)
+                pathData = fxpipe.getPathData(nuke.root()['name'].value())
+                writePath = nuke.filenameFilter(fxpipe.nukeOutPath)
+                writePath = writePath.replace('[JOB]',pathData['job'])
+                writePath = writePath.replace('[SEQ]',pathData['seq'])
+                writePath = writePath.replace('[SHOT]',pathData['shot'])
+                writePath = '%s/%s' % (nuke.filenameFilter(fxpipe.jobPath), writePath)
+                newPath = '%s/%s/%s_%s/%s_%s.####.%s' % (writePath, outputName,outputFormat, fileType, outputName, outputFormat, fileType)
                 curNode['file'].setValue(newPath.replace(' ','_'))
             #else: 
             #    curNode['label'].setValue('Please save your script in the proper location')
-            #    curNode['file'].setValue('')           
+            #    curNode['file'].setValue('') 
+            '''
+            
+            '''          

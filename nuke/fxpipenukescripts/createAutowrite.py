@@ -19,7 +19,7 @@ def createAutowrite():
 	t = nuke.Tab_Knob("Additional Parameters")
 	w.addKnob(t)
 	w.addKnob(nuke.Enumeration_Knob('outputType', 'Output Type', ['Comp', 'Precomp','LTComp','Matte']))
-	w.addKnob(nuke.EvalString_Knob('descriptor','Descriptor',''))
-	w.addKnob(nuke.EvalString_Knob('aov','AOV',''))
+	w.addKnob(nuke.EvalString_Knob('aov','Prefix',''))
+	w.addKnob(nuke.EvalString_Knob('descriptor','Suffix',''))
 	w['file_type'].setValue('exr')
 
