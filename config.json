@@ -1,7 +1,7 @@
 {
 	"_comment" : "Use this area to customize for the location of the job related data",
 	"jobPathWin" 		: "z:/ELASTIC",
-	"jobPathOsx"		: "/Volumes/disks/nas2/ELASTIC",
+	"jobPathOsx"		: "/disks/nas2/ELASTIC",
 	"jobPathLin" 		: "/mnt/job",
 
 
