@@ -5,14 +5,17 @@ import fxpipenukescripts
 menubar = nuke.menu("Nuke");
 
 # add Read/Write Panel to File Menu
+menubar.addSeparator()
 menubar.addCommand('File/Display Read-Write Nodes','fxpipenukescripts.showReadWrite()','shift-q')
 
 # add shift-z for delete
+menubar.addSeparator()
 menubar.addCommand( 'Edit/Delete Node(s)', 'nukescripts.node_delete(popupOnError=True)', 'shift+z')
 menubar.addCommand( 'Edit/Archive Script','fxpipenukescripts.archive.ai.interface()','')
+menubar.addCommand( 'Edit/Open selected node in OS Browser','fxpipenukescripts.openInOSWindow()','ctrl+shift+e')
 
 # add send to playback
-menubar.addCommand('Render/Send to Playback','fxpipenukescripts.sendToPlaybackRV()','')
+#menubar.addCommand('Render/Send to Playback','fxpipenukescripts.sendToPlaybackRV()','')
 
 # menu is...
 m = menubar.addMenu("&Pipeline Tools")
