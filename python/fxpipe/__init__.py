@@ -31,10 +31,20 @@ def getPathData(inputPath):
     jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
     jData = json.load(jFile)
     jFile.close()
-    show = jData['showName']
-    seq = jData['seqName']
-    shot = jData['shotName']
-    return ({'job':inputPath.split('/')[jData['showName']],'seq':inputPath.split('/')[jData['seqName']],'shot':inputPath.split('/')[jData['shotName']]})
+    if platform.system() == 'Windows':
+        show = int(jData['showNameWin'])
+        seq = int(jData['seqNameWin'])
+        shot = int(jData['shotNameWin'])
+    if platform.system() == 'Darwin':
+        show = int(jData['showNameOsx'])
+        seq = int(jData['seqNameOsx'])
+        shot = int(jData['shotNameOsx'])
+    if platform.system() == 'Linux':
+        show = int(jData['showNameLin'])
+        seq = int(jData['seqNameLin'])
+        shot = int(jData['shotNameLin'])
+
+    return ({'job':inputPath.split('/')[show],'seq':inputPath.split('/')[seq],'shot':inputPath.split('/')[shot]})
 
 def showName(inputPath):
     jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
