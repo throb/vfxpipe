@@ -1,7 +1,7 @@
 {
 	"_comment" : "Use this area to customize for the location of the job related data",
 	"jobPathWin" 		: "z:/ELASTIC",
-	"jobPathOsx"		: "/Volumes/disks/nas2/ELASTIC",
+	"jobPathOsx"		: "/disks/nas2/ELASTIC",
 	"jobPathLin" 		: "/mnt/job",
 
 
@@ -14,10 +14,20 @@
 	"comment" : "The path is split by thje '/' character and starts with the 0 index",
 	"comment" : "Example : if your path to the files is like this: z:/job/MYJOB/shots/DE/DE_010/",
 	"comment" : "then your showName would be 2, seqName woudl be 4, shotName would be 5",
+	"comment" : "This will need to be done per OS but note that the 0 on osx is before the first '/' ",
+
+	"showNameWin" 			: 2,
+	"seqNameWin" 			: 4,
+	"shotNameWin" 			: 5,
 	
-	"showName" 			: 2,
-	"seqName" 			: 4,
-	"shotName" 			: 5,
+	"showNameOsx"			: 4,
+	"seqNameOsx"			: 6,
+	"shotNameOsx"			: 7,
+
+	"showNameLin"			: 2,
+	"seqNameLin"			: 4,
+	"shotNameLin"			: 5,
+
 
 	"comment" : "Enter the path for the Autowriting setup here (Maya is pending)",
 	"comment" : "Use the variables [JOB] [SEQ] [SHOT] [TYPE] (case sensitive and include the []) for where the pipe should replace",

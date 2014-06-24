@@ -12,14 +12,15 @@ def openInOSWindow():
 	if curNode.Class() == 'Read' or curNode.Class() == 'Write':
 		dName = os.path.dirname(nuke.filename(curNode))
 		dName = os.path.normpath(dName)
-
+		cmd = ''
+		
 	if platform.system() == 'Windows':
 		cmd = 'explorer "%s"' % (dName)
     	os.system(cmd)
+	
 	if platform.system() == 'Linux':
-	    '''
-	    Nothing here yet
-	    '''
+	    print 'Nothing here yet'
+
 	if platform.system() == 'Darwin':
 		subprocess.Popen(['open', '-R', '%s' % (dName)])
 	    
