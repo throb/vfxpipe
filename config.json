@@ -25,7 +25,7 @@
 	"comment" : "The parameter will automatically place the above jobPath variable into the output for you so no need to enter it here",
 
 	"_nkOutputPath"		: "[JOB]/shots/[SEQ]/[SHOT]/frames/[TYPE]/",
-	"nkOutputPath"		: "[JOB]/shot/[SEQ]/[SHOT]/img/output/2D/",
+	"nkOutputPath"		: "[JOB]/shot/[SEQ]/[SHOT]/img/output/2D/[TYPE]",
 	"renderOutputPath"	: "[JOB]/shots/[SEQ]/[SHOT]/img/output/3D/"
 
 }

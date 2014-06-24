@@ -44,7 +44,7 @@ def updateAutowrite():
                 aov = curNode['aov'].value()
                 if aov != '':
                     aov = '_%s' % (aov)
-                outputName = '%s%s_%s%s_%s' % (outputShot, aov, outputType, descriptor, outputVersion)                
+                outputName = '%s%s_%s%s_%s' % (pathData['shot'], aov, outputType, descriptor, outputVersion)                
                 pathData = fxpipe.getPathData(nuke.root()['name'].value())
                 writePath = nuke.filenameFilter(fxpipe.nukeOutPath)
                 writePath = writePath.replace('[JOB]',pathData['job'])
