@@ -9,6 +9,7 @@ shotgun_config.py
 ######################
 *~
 *.lock
+*.pyc
 *.DS_Store
 *.swp
 *.out
