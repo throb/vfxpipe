@@ -20,6 +20,7 @@ def createTechPasses():
         cmds.rename (renderElement,layerToMake)
         cmds.setAttr (layerToMake + '.vray_explicit_name_extratex', 'world_xyz', type = 'string')
         cmds.setAttr (layerToMake + '.vray_considerforaa_extratex', 0)
+        cmds.setAttr (layerToMake + '.vray_filtering_extratex', 0)
         cmds.connectAttr (samplerNode + '.pointWorld', 'XYZ_tex.vray_texture_extratex')
     # now we make the normals render element
     layerToMake = 'normals'
@@ -68,6 +69,28 @@ def createTechPasses():
     if not cmds.objExists(layerToMake) :
         renderElement = mel.eval('vrayAddRenderElement specularChannel;')
         renderElement = cmds.rename (renderElement, layerToMake)
+
+    ### Look for the shaders so we can either add the SSS or not.  Don't want to waste the layers
+    shaders = cmds.ls(mat=True, showType = True)
+    createSSS = False
+    createIllum = False
+    for shader in shaders:
+        surfaceShader = cmds.listConnections (shader, type='shadingEngine')
+        if 'SSS' in surfaceShader[0]:
+            createSSS = True
+        if 'LightMtl' in surfaceShader[0]:
+            createIllum = True    
+    if createSSS == True:
+        layerToMake = 'sss'        
+        if not cmds.objExists(layerToMake) :
+            renderElement = mel.eval('vrayAddRenderElement FastSSS2Channel;')
+            renderElement = cmds.rename (renderElement, layerToMake)
+    if createIllum == True:
+        layerToMake = 'selfIllum'
+        if not cmds.objExists(layerToMake) :
+            renderElement = mel.eval('vrayAddRenderElement selfIllumChannel;')
+            renderElement = cmds.rename (renderElement, layerToMake)
+
     # create top down
     layerToMake = 'topdown'
     if not cmds.objExists(layerToMake) :
@@ -88,11 +111,11 @@ def createTechPasses():
         renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
         renderElement = cmds.rename (renderElement,layerToMake)
         cmds.setAttr (renderElement + '.vray_explicit_name_extratex', layerToMake, type = 'string')
+        cmds.setAttr (renderElement + '.enabled', 0)
         newNode = cmds.shadingNode('VRayDirt', name = 'ao_tex', asTexture=True)
         cmds.connectAttr (newNode + '.outColor', renderElement + '.vray_texture_extratex')
         cmds.setAttr (newNode + '.invertNormal', 1)
         cmds.setAttr (newNode + '.ignoreForGi', 0)
         cmds.setAttr (newNode + '.blackColor', -0.5 ,-0.5 ,-0.5, type='double3')
         cmds.setAttr (newNode + '.falloff', 5)
-        
         
