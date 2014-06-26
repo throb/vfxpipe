@@ -15,6 +15,7 @@ shotgun_config.py
 *.out
 *.bak
 *.bat
+*.sh
 .DS_Store?
 ._*
 .Spotlight-V100
@@ -22,3 +23,4 @@ shotgun_config.py
 Icon?
 ehthumbs.db
 Thumbs.db
+*.db
