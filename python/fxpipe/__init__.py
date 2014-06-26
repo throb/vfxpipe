@@ -45,7 +45,7 @@ def getPathData(inputPath):
         shot = int(jData['shotNameLin'])
 
     return ({'job':inputPath.split('/')[show],'seq':inputPath.split('/')[seq],'shot':inputPath.split('/')[shot]})
-
+'''
 def showName(inputPath):
     jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
     jData = json.load(jFile)
@@ -67,6 +67,7 @@ def shotName(inputPath):
     jFile.close()
     inputPath = inputPath.replace('\\','/')
     return inputPath.split('/')[jData['shotName']]
+'''
 
 def versionNumber(inputPath):
     versionData = re.search('v[0-9]+',inputPath)

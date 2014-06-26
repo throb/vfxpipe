@@ -33,6 +33,8 @@ m.addCommand('Enable Postage Stamp on Reads', 'fxpipenukescripts.postageStampCon
 cl = m.addMenu('Channel-Layer')
 cl.addCommand('Create Light Select shuffles', 'fxpipenukescripts.createLightSelectShuffles(nuke.selectedNode())')
 cl.addCommand('Create Shuffles for all layers', 'fxpipenukescripts.createLayerShuffles(nuke.selectedNode())')
+cl.addCommand('Create multi-channel from multiple Read nodes', 'fxpipenukescripts.autoShuffleReads(nuke.selectedNodes())')
+cl.addCommand('Split multi-channel from stream for auto comp', 'fxpipenukescripts.autoComper(nuke.selectedNode())')
 sgMenu = m.addMenu('Shotgun')
 sgMenu.addCommand('Sync Frame Range with Shotgun', 'fxpipenukescripts.syncFrameRangeWithShotgun()')
 sgMenu.addCommand('Get Current Notes from Shotgun', 'fxpipenukescripts.getShotNotes()')
