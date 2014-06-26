@@ -4,6 +4,10 @@
 #
 # throb
 
+import nuke
+import nukescripts
+import fxpipe
+
 def autoShuffleReads(nodes):
     import re
     import nuke
