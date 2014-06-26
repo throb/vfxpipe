@@ -8,7 +8,7 @@ The template for the nuke setup
 Make sure to configure this file so that you get the show specific things loaded in
 '''
 ### CUSTOMIZE HERE
-nuke.pluginAddPath(os.path.join(fxpipe.jobPath, fxpipe.job, fxpipe.jobPathNuke))
+nuke.pluginAddPath(os.path.join(fxpipe.jobPath[0], fxpipe.job, fxpipe.jobPathNuke))
 ### END CUSTOMIZE
 
 ### NO Fiddling past here generally
