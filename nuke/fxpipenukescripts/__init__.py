@@ -22,3 +22,6 @@ from createAutowrite import *
 from replaceAxisWithCard import *
 from AM_Rename3DNodeToFBXNodeName import *
 from openInOSWindow import *
+from getMinMax import *
+from autoComper import *
+from autoShuffleReads import *
