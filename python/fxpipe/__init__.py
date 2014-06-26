@@ -28,6 +28,10 @@ jFile.close()
 ### Here you can customize how to get your show/shot/sequence/version information
 
 def getPathData(inputPath):
+    '''
+    This gets the path data (extracting show, seq, shot ot jData dict)
+    This uses the criteria specified in the config.json
+    '''
     jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
     jData = json.load(jFile)
     jFile.close()
@@ -70,6 +74,10 @@ def shotName(inputPath):
 '''
 
 def versionNumber(inputPath):
+    '''
+    Extract the version information from a given path/string
+    returns v000 (3 pad versions)
+    '''
     versionData = re.search('v[0-9]+',inputPath)
     if not versionData :
         versionData = re.search('V[0-9]+',inputPath)
@@ -80,6 +88,10 @@ def versionNumber(inputPath):
     return versionData
 
 def framePad(inputPath):
+    '''
+    Finds the frame padding.  Searches for %04d (or any # in there)
+    Also searches for #### string and then returns a %04d
+    '''
     pattern = re.compile(r'%[0-9]+d')
     framePadData = pattern.findall(inputPath)
     if framePadData:
