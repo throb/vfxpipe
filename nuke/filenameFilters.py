@@ -7,14 +7,19 @@ import fxpipe
 
 def fxPipeFileNameFilter(fileName):
     if nuke.env['LINUX']:
-        fileName = fileName.replace(fxpipe.jobPathWin, fxpipe.jobPathLin)
-        fileName = fileName.replace(fxpipe.jobPathOsx, fxpipe.jobPathLin)
+        fileName = pathSwap(fileName, fxpipe.jobPathWin, fxpipe.jobPathLin)
+        fileName = pathSwap(fileName, fxpipe.jobPathOsx, fxpipe.jobPathLin)
     if nuke.env['MACOS']:
-        fileName = fileName.replace(fxpipe.jobPathLin, fxpipe.jobPathOsx)
-        fileName = fileName.replace(fxpipe.jobPathWin, fxpipe.jobPathOsx)        
+        fileName = pathSwap(fileName, fxpipe.jobPathLin, fxpipe.jobPathOsx)
+        fileName = pathSwap(fileName, fxpipe.jobPathWin, fxpipe.jobPathOsx)        
     if nuke.env['WIN32']:
-        fileName = fileName.replace(fxpipe.jobPathLin, fxpipe.jobPathWin)
-        fileName = fileName.replace(fxpipe.jobPathOsx, fxpipe.jobPathWin)
+        fileName = pathSwap(fileName, fxpipe.jobPathLin, fxpipe.jobPathWin)
+        fileName = pathSwap(fileName, fxpipe.jobPathOsx, fxpipe.jobPathWin)
+    return fileName
+
+def pathSwap(inFile, pathA, pathB):
+    for pathCount in range(min(len(pathA),len(pathB))):
+        fileName = inFile.replace(pathA[pathCount],pathB[pathCount])
     return fileName
 
 nuke.addFilenameFilter(fxPipeFileNameFilter)

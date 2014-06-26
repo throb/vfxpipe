@@ -1,20 +1,35 @@
 {
-	"_comment" : "Use this area to customize for the location of the job related data",
-	"jobPathWin" 		: "z:/ELASTIC",
-	"jobPathOsx"		: "/disks/nas2/ELASTIC",
-	"jobPathLin" 		: "/mnt/job",
+	"jobPathComment" : [
+					"Use this area to customize for the location of the job related data",
+					"These are arrays so that multiple paths can be replaced",
+					"important to note is that each replacement will happen with similar locations in the array"
+					],
+	"jobPathWin" 		: [
+						"Z:/ELASTIC",
+						"O:/CGI"
+						],
+	"jobPathOsx"		: [
+						"/disks/nas2/ELASTIC",
+						"/disks/nas0/CGI"
+						],
+	"jobPathLin" 		: [
+						"/mnt/job"
+						],
 
 
-	"_comment" : "Use this area to customize for the place that stores script (python) data",
+	"scriptPathComment" : "Use this area to customize for the place that stores script (python) data",
+	
 	"jobPathNuke" 		: "common/nuke",
 	"jobPathMaya" 		: "common/maya",
 	"jobPathScripts" 	: "common/python",
 
-	"comment" : "This is where the path for job/seq/shot goes",
-	"comment" : "The path is split by thje '/' character and starts with the 0 index",
-	"comment" : "Example : if your path to the files is like this: z:/job/MYJOB/shots/DE/DE_010/",
-	"comment" : "then your showName would be 2, seqName woudl be 4, shotName would be 5",
-	"comment" : "This will need to be done per OS but note that the 0 on osx is before the first '/' ",
+	"pathSplittingComment" : [
+						"This is where the path for job/seq/shot goes",
+						"The path is split by thje '/' character and starts with the 0 index",
+						"Example : if your path to the files is like this: z:/job/MYJOB/shots/DE/DE_010/",
+						"then your showName would be 2, seqName woudl be 4, shotName would be 5",
+						"This will need to be done per OS but note that the 0 on osx is before the first '/' "
+						],
 
 	"showNameWin" 			: 2,
 	"seqNameWin" 			: 4,
@@ -29,13 +44,15 @@
 	"shotNameLin"			: 5,
 
 
-	"comment" : "Enter the path for the Autowriting setup here (Maya is pending)",
-	"comment" : "Use the variables [JOB] [SEQ] [SHOT] [TYPE] (case sensitive and include the []) for where the pipe should replace",
-	"comment" : "those parameters with the job, seq, shot, and output type automatically",
-	"comment" : "The parameter will automatically place the above jobPath variable into the output for you so no need to enter it here",
+	"outputPathComment" : [
+					"Enter the path for the Autowriting setup here (Maya is pending)",
+					"Use the variables [JOB] [SEQ] [SHOT] [TYPE] (case sensitive and include the []) for where the pipe should replace",
+					"those parameters with the job, seq, shot, and output type automatically",
+					"The parameter will automatically place the above jobPath variable into the output for you so no need to enter it here"
+					],
 
 	"_nkOutputPath"		: "[JOB]/shots/[SEQ]/[SHOT]/frames/[TYPE]/",
-	"nkOutputPath"		: "[JOB]/shot/[SEQ]/[SHOT]/img/output/2D/[TYPE]",
+	"nkOutputPath"		: "[JOB]/shot/[SEQ]/[SHOT]/img/output/2D/",
 	"renderOutputPath"	: "[JOB]/shots/[SEQ]/[SHOT]/img/output/3D/"
 
 }
