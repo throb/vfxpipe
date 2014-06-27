@@ -95,12 +95,12 @@ def autoComper(node):
         mergeNode = mergeLayers(mergeNode, selfIllumNode)
 
         copyNode = nuke.nodes.Copy(from0='rgba.alpha',to0='rgba.alpha',inputs=[mergeNode,node])
-        
-        black, white = fxpipenukescripts.getMinMax( node, p.depth.value() )
-        normNode = nuke.nodes.Grade( channels=p.depth.value(), blackpoint=black, whitepoint=white, white_clamp=True, label='normalize depth', inputs=[copyNode] )
-        invNode = nuke.nodes.Invert( channels=p.depth.value(), disable=True, inputs=[normNode])
+        if p.depthNormal == True:
+            black, white = fxpipenukescripts.getMinMax( node, p.depth.value() )
+            normNode = nuke.nodes.Grade( channels=p.depth.value(), blackpoint=black, whitepoint=white, white_clamp=True, label='normalize depth', inputs=[copyNode] )
+            copyNode = nuke.nodes.Invert( channels=p.depth.value(), disable=True, inputs=[normNode])
 
-        allNodes.append(nuke.nodes.Premult(channels='rgba',inputs=[invNode]))
+        allNodes.append(nuke.nodes.Premult(channels='rgba',inputs=[copyNode]))
         for n in allNodes:
             n.setSelected(True)
         node.setSelected(False)    
