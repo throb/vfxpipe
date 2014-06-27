@@ -1,8 +1,6 @@
-#! /Applications/Nuke8.0v4/Nuke8.0v4.app/Contents/MacOS/libnuke-8.0.v4.dylib -nx
-version 8.0 v4
 Gizmo {
  addUserKnob {20 lit l "Main Lighting"}
- addUserKnob {4 view_layer l "Select Layer to view" M {"Final Output" Diffuse GI Specular Reflection ZDepth "" ""}}
+ addUserKnob {4 view_layer l "Select Layer to view" M {"Final Output" Diffuse GI Specular Reflection SSS SelfIllum ZDepth "" "" ""}}
  addUserKnob {26 ""}
  addUserKnob {41 blackpoint T GradeLIT.blackpoint}
  addUserKnob {41 whitepoint T GradeLIT.whitepoint}
@@ -12,7 +10,7 @@ Gizmo {
  addUserKnob {41 add l offset T GradeLIT.add}
  addUserKnob {41 gamma T GradeLIT.gamma}
  addUserKnob {20 gi l GI}
- addUserKnob {41 view_layer_1 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {41 view_layer_1 l "Select Layer to view" T view_layer}
  addUserKnob {26 ""}
  addUserKnob {41 blackpoint_1 l blackpoint T GradeGI.blackpoint}
  addUserKnob {41 whitepoint_1 l whitepoint T GradeGI.whitepoint}
@@ -22,7 +20,7 @@ Gizmo {
  addUserKnob {41 add_1 l offset T GradeGI.add}
  addUserKnob {41 gamma_1 l gamma T GradeGI.gamma}
  addUserKnob {20 spec l Specular}
- addUserKnob {41 view_layer_2 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {41 view_layer_2 l "Select Layer to view" T view_layer}
  addUserKnob {26 ""}
  addUserKnob {41 blackpoint_3 l blackpoint T GradeSPEC.blackpoint}
  addUserKnob {41 whitepoint_3 l whitepoint T GradeSPEC.whitepoint}
@@ -32,7 +30,7 @@ Gizmo {
  addUserKnob {41 add_3 l offset T GradeSPEC.add}
  addUserKnob {41 gamma_3 l gamma T GradeSPEC.gamma}
  addUserKnob {20 refl l Reflection}
- addUserKnob {41 view_layer_3 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {41 view_layer_3 l "Select Layer to view" T view_layer}
  addUserKnob {26 ""}
  addUserKnob {41 blackpoint_2 l blackpoint T GradeREFL.blackpoint}
  addUserKnob {41 whitepoint_2 l whitepoint T GradeREFL.whitepoint}
@@ -55,8 +53,28 @@ Gizmo {
  addUserKnob {41 brightness_1 l brightness T GlowBloom.brightness}
  addUserKnob {41 saturation_1 l saturation T GlowBloom.saturation}
  addUserKnob {41 size_2 l size T GlowBloom.size}
+ addUserKnob {20 tabSSS l SSS}
+ addUserKnob {41 view_layer_5 l "Select Layer to view" T view_layer}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 blackpoint_4 l blackpoint T GradeSSS.blackpoint}
+ addUserKnob {41 whitepoint_4 l whitepoint T GradeSSS.whitepoint}
+ addUserKnob {41 black_4 l lift T GradeSSS.black}
+ addUserKnob {41 white_4 l gain T GradeSSS.white}
+ addUserKnob {41 multiply_4 l multiply T GradeSSS.multiply}
+ addUserKnob {41 add_4 l offset T GradeSSS.add}
+ addUserKnob {41 gamma_4 l gamma T GradeSSS.gamma}
+ addUserKnob {20 tabSelfIllum l "Self Illum"}
+ addUserKnob {41 view_layer_6 l "Select Layer to view" T view_layer}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 blackpoint_5 l blackpoint T GradeSelfIllum.blackpoint}
+ addUserKnob {41 whitepoint_5 l whitepoint T GradeSelfIllum.whitepoint}
+ addUserKnob {41 black_5 l lift T GradeSelfIllum.black}
+ addUserKnob {41 white_5 l gain T GradeSelfIllum.white}
+ addUserKnob {41 multiply_5 l multiply T GradeSelfIllum.multiply}
+ addUserKnob {41 add_5 l offset T GradeSelfIllum.add}
+ addUserKnob {41 gamma_5 l gamma T GradeSelfIllum.gamma}
  addUserKnob {20 zblur l "Z Blur"}
- addUserKnob {41 view_layer_4 l "Select Layer to view" T GCAssembler.view_layer}
+ addUserKnob {41 view_layer_4 l "Select Layer to view" T view_layer}
  addUserKnob {26 ""}
  addUserKnob {41 disable_1 l disable T ZBlur2.disable}
  addUserKnob {41 Zchan l Z T ZBlur2.Zchan}
@@ -80,7 +98,7 @@ Gizmo {
   xpos -1000
   ypos -732
  }
-set N348d52f0 [stack 0]
+set N349931d0 [stack 0]
 add_layer {reflect reflect.red reflect.green reflect.blue}
  Shuffle {
   in reflect
@@ -88,16 +106,16 @@ add_layer {reflect reflect.red reflect.green reflect.blue}
   alpha black
   name Shuffle4
   label reflection
-  xpos -810
-  ypos -616
+  xpos -1240
+  ypos -630
  }
  Grade {
   name GradeREFL
-  xpos -810
+  xpos -1240
   ypos -570
  }
-set N348e73e0 [stack 0]
-push $N348d52f0
+set N344d5410 [stack 0]
+push $N349931d0
 add_layer {specular specular.red specular.green specular.blue}
  Shuffle {
   in specular
@@ -105,15 +123,15 @@ add_layer {specular specular.red specular.green specular.blue}
   alpha black
   name Shuffle3
   label spec
-  xpos -920
-  ypos -616
+  xpos -1350
+  ypos -630
  }
  Grade {
   name GradeSPEC
-  xpos -920
+  xpos -1350
   ypos -570
  }
-set N34902b30 [stack 0]
+set N343157b0 [stack 0]
  Merge2 {
   inputs 2
   operation plus
@@ -121,26 +139,25 @@ set N34902b30 [stack 0]
   Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   output {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge5
-  xpos -810
+  xpos -1240
   ypos -530
  }
-set N3490e9c0 [stack 0]
+set N34315b20 [stack 0]
  Glow {
   tint {0.7 0.8 1.5}
   tolerance 0.4
-  brightness 0.16
+  brightness 0.1
   effect_only true
-  size 53.5
+  size 31
   name GlowDiffuse
   xpos -920
   ypos -10
   disable true
  }
-push $N3490e9c0
+push $N34315b20
  Glow {
-  tint {1.238333225 0.9633333087 0.7983332276}
-  tolerance 0.746
-  brightness 0.16
+  tint {0.829925 1.122707 1.238333}
+  tolerance 0.53
   nonlinear true
   effect_only true
   size 2.4
@@ -149,14 +166,14 @@ push $N3490e9c0
   ypos -10
   disable true
  }
-push $N348d52f0
+push $N349931d0
  Dot {
   name Dot1
   xpos -226
   ypos -726
  }
-push $N348d52f0
-push $N348d52f0
+push $N349931d0
+push $N349931d0
  Shuffle {
   in depth
   red white
@@ -177,7 +194,7 @@ push $N348d52f0
   xpos -700
   ypos -616
  }
-set N34941250 [stack 0]
+set N34316c50 [stack 0]
  Dot {
   name Dot2
   xpos -336
@@ -189,45 +206,79 @@ set N34941250 [stack 0]
   xpos -370
   ypos -330
  }
-push $N348e73e0
-push $N34902b30
-push $N348d52f0
+push $N349931d0
+add_layer {selfIllum selfIllum.red selfIllum.green selfIllum.blue}
+ Shuffle {
+  in selfIllum
+  alpha black
+  name Shuffle8
+  label "Self Illum\n"
+  xpos -920
+  ypos -639
+ }
+ Grade {
+  name GradeSelfIllum
+  xpos -920
+  ypos -579
+ }
+set N677891a0 [stack 0]
+push $N349931d0
+add_layer {sss sss.red sss.green sss.blue}
+ Shuffle {
+  in sss
+  alpha black
+  name Shuffle7
+  label SSS
+  xpos -1062
+  ypos -639
+ }
+ Grade {
+  name GradeSSS
+  xpos -1062
+  ypos -555
+ }
+set N34d029b0 [stack 0]
+push $N344d5410
+push $N343157b0
+push $N349931d0
 add_layer {gi gi.red gi.green gi.blue}
  Shuffle {
   in gi
   alpha black
   name Shuffle2
   label "GI\n"
-  xpos -1030
-  ypos -616
+  xpos -1460
+  ypos -639
  }
-set N3495c140 [stack 0]
+set N34429be0 [stack 0]
  Grade {
   name GradeGI
-  xpos -1030
+  xpos -1460
   ypos -530
  }
-set N34967c20 [stack 0]
-push $N348d52f0
+set N34429f50 [stack 0]
+push $N349931d0
 add_layer {lighting lighting.red lighting.green lighting.blue}
  Shuffle {
   in lighting
   alpha black
   name Shuffle1
   label lighting
-  xpos -1480
+  xpos -1910
   ypos -616
  }
  Grade {
   name GradeLIT
-  xpos -1480
+  xpos -1910
   ypos -530
  }
-set N3497f290 [stack 0]
-push $N34941250
-push $N3490e9c0
-push $N34967c20
-push $N3497f290
+set N3442a630 [stack 0]
+push $N34316c50
+push $N677891a0
+push $N34d029b0
+push $N34315b20
+push $N34429f50
+push $N3442a630
  Merge2 {
   inputs 2
   operation plus
@@ -235,7 +286,7 @@ push $N3497f290
   Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   output {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge3
-  xpos -1480
+  xpos -1910
   ypos -410
  }
  Merge2 {
@@ -245,7 +296,27 @@ push $N3497f290
   Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   output {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge7
-  xpos -810
+  xpos -1240
+  ypos -410
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge1
+  xpos -1062
+  ypos -410
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge8
+  xpos -920
   ypos -410
  }
  Copy {
@@ -257,9 +328,10 @@ push $N3497f290
   ypos -416
  }
  Switch {
-  inputs 6
+  inputs 8
   which {{view_layer i}}
   name Switch1
+  selected true
   xpos -700
   ypos -90
  }
@@ -271,7 +343,7 @@ push $N3497f290
   xpos -260
   ypos -96
  }
-set N349b1d90 [stack 0]
+set N3442b3f0 [stack 0]
  Invert {
   channels alpha
   name Invert1
@@ -289,7 +361,7 @@ set N349b1d90 [stack 0]
   xpos -150
   ypos 230
  }
-push $N349b1d90
+push $N3442b3f0
  ChannelMerge {
   inputs 2
   A rgba.red
@@ -316,7 +388,7 @@ push $N349b1d90
   ypos 510
   disable true
  }
-set N349de6c0 [stack 0]
+set N3461b090 [stack 0]
  Premult {
   name Premult1
   xpos -260
@@ -345,8 +417,8 @@ set N349de6c0 [stack 0]
   xpos -260
   ypos 750
  }
-push $N3495c140
-push $N349de6c0
+push $N34429be0
+push $N3461b090
  Viewer {
   inputs 2
   input_number 1
