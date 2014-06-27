@@ -45,8 +45,10 @@ def autoShuffleReads(nodes):
 
     prevNode = nuke.nodes.Dot()
     originalDot = prevNode
+    
     for curNode in nuke.selectedNodes():
         if curNode.Class() == 'Read':
+            count += 1
             filename = nuke.filename(curNode)
             passName = filename.split('.')[1]
             if re.match(r'^[A-Za-z0-9_]+$', passName):
@@ -58,6 +60,9 @@ def autoShuffleReads(nodes):
                 prevNode = copyNode
             else:
                 masterNode = curNode
+            if count % 2 == 0:
+                curNode['ypos'].setValue(curNode['ypos'].value()+110)
     originalDot.setInput(0,masterNode)
-    nukescripts.autoBackdrop()
+    backdrop = nukescripts.autoBackdrop()
+    backdrop.knob('tile_color').setValue(2139062271)
     nuke.Undo().end()
