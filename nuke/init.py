@@ -13,6 +13,7 @@ nuke.pluginAddPath(os.path.join(fxpipe.jobPath[0], fxpipe.job, fxpipe.jobPathNuk
 
 ### NO Fiddling past here generally
 nuke.pluginAddPath('./gizmos')
+nuke.pluginAddPath('./plugins')
 
 ### Add general formats here
 nuke.load('formats.py')
