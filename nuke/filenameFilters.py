@@ -29,7 +29,6 @@ def pathSwap(inFile, pathA, pathB):
             if fileName != inFile:
                 swapped = True
                 continue
-        print pathCount, pathA[pathCount], pathB[pathCount], swapped
     return fileName, swapped
 
 nuke.addFilenameFilter(fxPipeFileNameFilter)
