@@ -25,3 +25,4 @@ from openInOSWindow import *
 from getMinMax import *
 from autoComper import *
 from autoShuffleReads import *
+from locatorsToLights import *
