@@ -19,12 +19,12 @@ class autoComperPanel(nukescripts.PythonPanel):
         self.myNode = node
         self.diff = nuke.Enumeration_Knob('diffuse', 'Diffuse (lighting)', layers)
         self.gi = nuke.Enumeration_Knob('gi', 'GI', layers)
-        self.spec = nuke.Enumeration_Knob('specular', 'specular', layers)
-        self.refl = nuke.Enumeration_Knob('reflect', 'reflect', layers)
-        self.refr = nuke.Enumeration_Knob('refract', 'refract', layers)
+        self.spec = nuke.Enumeration_Knob('specular', 'Specular', layers)
+        self.refl = nuke.Enumeration_Knob('reflect', 'Reflection', layers)
+        self.refr = nuke.Enumeration_Knob('refract', 'Refraction', layers)
         self.sss = nuke.Enumeration_Knob('sss', 'SSS', layers)
         self.selfIllum = nuke.Enumeration_Knob('selfIllum', 'Self Illumination', layers)
-        self.depth = nuke.Channel_Knob('zdepth', 'Z Depth')
+        self.depth = nuke.Enumeration_Knob('zdepth', 'ZDepth', channels)
         self.depthNormal = nuke.Boolean_Knob('normalizeDepth','Normalize Depth?')
 
         for k in (self.diff, self.gi, self.spec, self.refl, self.refr, self.sss, self.selfIllum, self.depth, self.depthNormal):
@@ -39,12 +39,14 @@ class autoComperPanel(nukescripts.PythonPanel):
             self.refl.setValue('reflect')
         if 'refract' in layers:
             self.refr.setValue('refract')
-        if 'SSS' in layers:
-            self.sss.setValue('SSS')
+        if 'sss' in layers:
+            self.sss.setValue('sss')
         if 'selfIllum' in layers:
             self.selfIllum.setValue('selfIllum')
-        if 'depth.Z' in layers:
-            self.depth.setValue('depth.z')
+        if 'depth.Z' in channels:
+            self.depth.setValue('depth.Z')
+        else:
+            self.depth.setValue('None')
 
 def shuffleLayer( node, layer ):
     shuffleNode = nuke.nodes.Shuffle( label=layer, inputs=[node] )
@@ -95,7 +97,7 @@ def autoComper(node):
         mergeNode = mergeLayers(mergeNode, selfIllumNode)
 
         copyNode = nuke.nodes.Copy(from0='rgba.alpha',to0='rgba.alpha',inputs=[mergeNode,node])
-        if p.depthNormal == True:
+        if p.depthNormal.value() == True:
             black, white = fxpipenukescripts.getMinMax( node, p.depth.value() )
             normNode = nuke.nodes.Grade( channels=p.depth.value(), blackpoint=black, whitepoint=white, white_clamp=True, label='normalize depth', inputs=[copyNode] )
             copyNode = nuke.nodes.Invert( channels=p.depth.value(), disable=True, inputs=[normNode])
@@ -106,5 +108,6 @@ def autoComper(node):
         node.setSelected(False)    
         backdrop = nukescripts.autoBackdrop()
         backdrop['label'].setValue('Auto Comp')
+        backdrop['tile_color'].setValue(2139062271)
         nuke.Undo.end()
 
