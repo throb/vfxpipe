@@ -142,10 +142,14 @@ except:
 ### make sure we set the right path based on OS type
 if platform.system() == 'Windows':
     jobPath = jobPathWin
+    os = 'win'
 if platform.system() == 'Linux':
     jobPath = jobPathLin
+    os = 'lin'
 if platform.system() == 'Darwin':
     jobPath = jobPathOsx
+    os = 'osx'
+
 
 
 

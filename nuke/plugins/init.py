@@ -12,4 +12,3 @@ fileDir = os.path.dirname(curInitFile) # get the dir name of that file
 for (path, dirs, files) in os.walk('%s' % (fileDir)):
     if fxpipe.os in path:
         nuke.pluginAddPath(path) # add to the nuke plugin path for each directory found
-    
