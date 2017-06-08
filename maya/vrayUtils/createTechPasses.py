@@ -1,3 +1,5 @@
+
+
 import maya.cmds as cmds
 import maya.mel as mel
 
@@ -11,17 +13,27 @@ def createTechPasses():
     # first we make the sampler node as we will use this twice
     samplerNodeName = 'util_sampler_node'
     if not cmds.objExists(samplerNodeName) :
+                
         samplerNode = cmds.shadingNode('samplerInfo', asUtility=True)
         samplerNode = cmds.rename(samplerNode, samplerNodeName)
+
     # now we make the xyz point render element
-    layerToMake = 'XYZ_tex'
+    layerToMake = 'pWorld'
     if not cmds.objExists(layerToMake) :
         renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
         cmds.rename (renderElement,layerToMake)
-        cmds.setAttr (layerToMake + '.vray_explicit_name_extratex', 'world_xyz', type = 'string')
+        cmds.setAttr (layerToMake + '.vray_explicit_name_extratex', layerToMake, type = 'string')
         cmds.setAttr (layerToMake + '.vray_considerforaa_extratex', 0)
         cmds.setAttr (layerToMake + '.vray_filtering_extratex', 0)
-        cmds.connectAttr (samplerNode + '.pointWorld', 'XYZ_tex.vray_texture_extratex')
+        cmds.connectAttr (samplerNodeName + '.pointWorld', layerToMake+'.vray_texture_extratex')
+    layerToMake = 'pObject'
+    if not cmds.objExists(layerToMake) :
+        renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
+        cmds.rename (renderElement,layerToMake)
+        cmds.setAttr (layerToMake + '.vray_explicit_name_extratex', layerToMake, type = 'string')
+        cmds.setAttr (layerToMake + '.vray_considerforaa_extratex', 0)
+        cmds.setAttr (layerToMake + '.vray_filtering_extratex', 0)
+        cmds.connectAttr (samplerNodeName + '.pointObj', layerToMake+'.vray_texture_extratex')        
     # now we make the normals render element
     layerToMake = 'normals'
     if not cmds.objExists(layerToMake) :
@@ -34,29 +46,36 @@ def createTechPasses():
         renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
         cmds.rename (renderElement,layerToMake)
         cmds.setAttr (layerToMake + '.vray_explicit_name_extratex', 'uv', type = 'string')
-        cmds.connectAttr (samplerNode + '.uvCoord.uCoord', layerToMake + '.vray_texture_extratex.vray_texture_extratexR')    
-        cmds.connectAttr (samplerNode + '.uvCoord.vCoord', layerToMake + '.vray_texture_extratex.vray_texture_extratexG')
+        cmds.connectAttr (samplerNodeName + '.uvCoord.uCoord', layerToMake + '.vray_texture_extratex.vray_texture_extratexR')    
+        cmds.connectAttr (samplerNodeName + '.uvCoord.vCoord', layerToMake + '.vray_texture_extratex.vray_texture_extratexG')
         cmds.setAttr(layerToMake + '.vray_filtering_extratex', 0)
     # add zdepth unclamped and unfiltered
-    layerToMake = 'zdepth'
+    layerToMake = 'zdepthNoAA'
     if not cmds.objExists(layerToMake) :
-        renderElement = mel.eval('vrayAddRenderElement zdepthChannel;')
-        renderElement = cmds.rename (renderElement, layerToMake)
-        cmds.setAttr(renderElement + '.vray_depthClamp', 0)
-        cmds.setAttr(renderElement + '.vray_filtering_zdepth', 0)
+        renderElement = mel.eval ('vrayAddRenderElement ExtraTexElement;')
+        cmds.rename (renderElement,layerToMake)
+        cmds.setAttr (layerToMake + '.vray_explicit_name_extratex', layerToMake, type = 'string')
+        cmds.setAttr (layerToMake + '.vray_considerforaa_extratex', 0)
+        cmds.setAttr (layerToMake + '.vray_filtering_extratex', 0)
+        cmds.connectAttr (samplerNodeName + '.pointCameraZ', layerToMake+'.vray_texture_extratexR')        
     # add zdepth filtered
     layerToMake = 'zdepthAA'
     if not cmds.objExists(layerToMake) :
         renderElement = mel.eval('vrayAddRenderElement zdepthChannel;')
         renderElement = cmds.rename (renderElement, layerToMake)
-        cmds.setAttr(renderElement + '.vray_depthClamp', 0)
-        cmds.setAttr(renderElement + '.vray_filtering_zdepth', 1)    
+        cmds.setAttr(renderElement + '.vray_depthClamp', 1)
+        cmds.setAttr(renderElement + '.vray_filtering_zdepth', 1)  
+        cmds.setAttr(layerToMake + '.vray_name_zdepth','zDepthAA', type='string')  
     # add base render layers for recomp
     layerToMake = 'gi'
     if not cmds.objExists(layerToMake) :
         renderElement = mel.eval('vrayAddRenderElement giChannel;')
         renderElement = cmds.rename (renderElement, layerToMake)
         cmds.setAttr (renderElement + '.vray_name_gi', layerToMake, type = 'string')
+    layerToMake = 'diffuse'
+    if not cmds.objExists(layerToMake) :
+        renderElement = mel.eval('vrayAddRenderElement diffuseChannel;')
+        renderElement = cmds.rename (renderElement, layerToMake)
     layerToMake = 'lighting'
     if not cmds.objExists(layerToMake) :
         renderElement = mel.eval('vrayAddRenderElement lightingChannel;')
@@ -69,6 +88,11 @@ def createTechPasses():
     if not cmds.objExists(layerToMake) :
         renderElement = mel.eval('vrayAddRenderElement specularChannel;')
         renderElement = cmds.rename (renderElement, layerToMake)
+    layerToMake = 'refraction'
+    if not cmds.objExists(layerToMake) :
+        renderElement = mel.eval('vrayAddRenderElement refractChannel;')
+        renderElement = cmds.rename (renderElement, layerToMake)
+
 
     ### Look for the shaders so we can either add the SSS or not.  Don't want to waste the layers
     shaders = cmds.ls(mat=True, showType = True)
@@ -76,9 +100,9 @@ def createTechPasses():
     createIllum = False
     for shader in shaders:
         surfaceShader = cmds.listConnections (shader, type='shadingEngine')
-        if 'SSS' in surfaceShader[0]:
+        if 'SSS' in surfaceShader[0].lower() or 'skin' in surfaceShader[0].lower():
             createSSS = True
-        if 'LightMtl' in surfaceShader[0]:
+        if 'light' in surfaceShader[0].lower():
             createIllum = True    
     if createSSS == True:
         layerToMake = 'sss'        
@@ -118,4 +142,3 @@ def createTechPasses():
         cmds.setAttr (newNode + '.ignoreForGi', 0)
         cmds.setAttr (newNode + '.blackColor', -0.5 ,-0.5 ,-0.5, type='double3')
         cmds.setAttr (newNode + '.falloff', 5)
-        
