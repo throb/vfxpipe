@@ -42,6 +42,9 @@
 	"showNameLin"			: 2,
 	"seqNameLin"			: 4,
 	"shotNameLin"			: 5,
+	
+	"comment Auto Write":"This allows you to set up the auto write - Default off",
+	"useAutoWrite" : 0,
 
 
 	"outputPathComment" : [

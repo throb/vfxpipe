@@ -3,6 +3,7 @@ import fxpipe
 import fxpipenukescripts
 import filenameFilters
 import os 
+import json
 '''
 The template for the nuke setup
 Make sure to configure this file so that you get the show specific things loaded in
@@ -23,4 +24,8 @@ nuke.load('formats.py')
 nuke.addBeforeRender(fxpipenukescripts.createWriteDir)
 
 ### add the autowrite update code
-nuke.addUpdateUI(fxpipenukescripts.updateAutowrite)
+jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])
+jData = json.load(jFile)
+jFile.close()
+if jData['useAutoWrite'] == 'True':
+    nuke.addUpdateUI(fxpipenukescripts.updateAutowrite)
