@@ -1,5 +1,6 @@
 import nuke
 import fxpipe
+nuke.pluginAddPath('./fxpipenukescripts')
 import fxpipenukescripts
 import filenameFilters
 import os 
@@ -21,7 +22,7 @@ nuke.pluginAddPath('./scripts')
 nuke.load('formats.py')
 
 ### Make sure we create write directories automatically
-nuke.addBeforeRender(fxpipenukescripts.createWriteDir)
+#nuke.addBeforeRender(fxpipenukescripts.createWriteDir)
 
 ### add the autowrite update code
 jFile = open('%s/config.json' % os.environ['FXPIPEPATH'])

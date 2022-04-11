@@ -15,7 +15,7 @@ class archiveInterface():
         scriptName = os.path.basename(nuke.value('root.name'))
         date = datetime.date.today()
         formattedDate = '%s%02d%02d' % (date.year, int(date.month), int(date.day))
-        archivePath = 'z:/job/after_earth/prod/io/archive/%s/%s/' % (formattedDate, scriptName.replace('.nk',''))
+        archivePath = '%s_archive_%s' % (scriptName.replace('.nk',''),formattedDate)
         self.panel = nukescripts.PythonPanel('Archive script 1.01')
         self.file = nuke.File_Knob('Output','Output folder:')
         self.file.setValue(archivePath)

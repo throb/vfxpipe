@@ -17,7 +17,7 @@ def createExrCamVray( node ):
     mDat = node.metadata()
     reqFields = ['exr/camera%s' % i for i in ('FocalLength', 'Aperture', 'Transform')]
     if not set( reqFields ).issubset( mDat ):
-        print 'no metdata for camera found'
+        print ('no metdata for camera found')
         return
     
     first = node.firstFrame()

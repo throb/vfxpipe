@@ -1,0 +1,65 @@
+#! C:/Program Files/Nuke12.2v3/nuke-12.2.3.dll -nx
+version 12.2 v3
+Gizmo {
+label "Range    : \[knob output.first] - \[expr \[knob output.first]+\[knob dissolveFrames]]\nDissolve : \[knob startDissolveFrame] - \[expr \[knob output.first]+\[knob dissolveFrames]] "
+addUserKnob {20 User}
+addUserKnob {41 time_offset l "Frame Offset (original)" T TimeOffset2.time_offset}
+addUserKnob {41 output.first l "Start Frame (in comp)" T Retime1.output.first}
+addUserKnob {3 startDissolveFrame l "Start Dissolving at Frame"}
+startDissolveFrame 1005
+addUserKnob {7 dissolveFrames l "Frames to Dissolve" R 0 15}
+dissolveFrames 5
+}
+Input {
+inputs 0
+name Input1
+xpos 717
+ypos 53
+}
+Dot {
+name Dot1
+xpos 751
+ypos 93
+}
+set Nd8606000 [stack 0]
+Shuffle2 {
+fromInput1 {{0} B}
+fromInput2 {{0} B}
+mappings "4 black -1 -1 rgba.red 0 0 black -1 -1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+name Shuffle1
+xpos 892
+ypos 174
+}
+push $Nd8606000
+TimeOffset {
+time ""
+name TimeOffset2
+xpos 717
+ypos 155
+}
+Retime {
+input.first -17
+input.last 117
+output.first 1001
+output.first_lock true
+output.last 1135
+before black
+time ""
+name Retime1
+selected true
+xpos 717
+ypos 179
+}
+Dissolve {
+inputs 2
+which {{clamp((frame-startDissolveFrame)/dissolveFrames)}}
+name Dissolve1
+xpos 717
+ypos 254
+}
+Output {
+name Output1
+xpos 717
+ypos 354
+}
+end_group

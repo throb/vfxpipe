@@ -1,0 +1,3151 @@
+#! C:/Program Files/Nuke12.1v2/nuke-12.1.2.dll -nx
+version 12.1 v2
+Gizmo {
+ help "V!ctor.\nV_Slate 1.5\n©2011 Victor Perez. All rights reserved\nwww.victorperez.co.uk"
+ tile_color 0xffffffff
+ addUserKnob {20 V_Slate t "V!ctor Slate 1.0"}
+ addUserKnob {41 plate_shotname l "Shot Name" t "Shot reference name" T TextFields.plate_shotname}
+ addUserKnob {3 plate_version l Version t "Version number" -STARTLINE}
+ plate_version 1
+ addUserKnob {41 plate_jobname l "Job Name" t "Job name (film, commercial, series and episode...)" T TextFields.plate_jobname}
+ addUserKnob {41 plate_task l Task t "Task of this shot (comp, rig removal...)" T TextFields.plate_task}
+ addUserKnob {41 plate_artist l Artist t "Artist name" T TextFields.plate_artist}
+ addUserKnob {26 separator_status l "" +STARTLINE T " "}
+ addUserKnob {41 plate_status l Status t "Status of the shot" T TextFields.plate_status}
+ addUserKnob {41 CustomStatus l "   Custom Status" t "Customize the status of the shot. The 'Status' knob must be on 'Custom...' value to display this status" -STARTLINE T TextFields.CustomStatus}
+ addUserKnob {26 separator_notes l "" +STARTLINE T " "}
+ addUserKnob {41 plate_description1 l Notes t "Notes (line 1)" T TextFields.plate_description1}
+ addUserKnob {41 plate_description2 l " " t "Notes (line 2)" T TextFields.plate_description2}
+ addUserKnob {41 plate_description3 l " " t "Notes (line 3)" T TextFields.plate_description3}
+ addUserKnob {41 plate_description4 l " " t "Notes (line 4)" T TextFields.plate_description4}
+ addUserKnob {26 space l "" +STARTLINE T " "}
+ addUserKnob {20 advance l Advance n 1}
+ advance 0
+ addUserKnob {41 handlesIN l "Handles IN" t "Incoming frames used as handles in edit inside this shot" T Handles.handlesIN}
+ addUserKnob {41 handlesOUT l "Handles OUT" t "Outgoing frames used as handles in edit inside this shot" -STARTLINE T Handles.handlesOUT}
+ addUserKnob {41 DisplayHandles l "Display Handles" t "Displays handles information in the slate frame" -STARTLINE T Handles.DisplayHandles}
+ addUserKnob {41 ver l "CGI Version" t "Version number of the CGI element on this shot" T CGIver.ver}
+ addUserKnob {41 CGIverdisplay l "CGI Version Display" t "Displays CGI version in the slate frame" -STARTLINE T CGIver.CGIverdisplay}
+ addUserKnob {41 focalmm l "Focal Length" t "Focal length of the camera lens used for this shot (in millimeters)" T FocalLength.focalmm}
+ addUserKnob {26 millimeters l "" -STARTLINE T "mm     "}
+ addUserKnob {41 focaldisplay l "Focal Length Display" t "Displays the focal length in the slate frame" -STARTLINE T FocalLength.focaldisplay}
+ addUserKnob {41 CompanyName l Company t "Company name" T TextFields.CompanyName}
+ addUserKnob {6 MOS t "Mute of Sound" +STARTLINE}
+ MOS true
+ addUserKnob {20 endGroup_7 l endGroup n -1}
+ addUserKnob {26 space1 l "" +STARTLINE T " "}
+ addUserKnob {41 slate_frame l "slate frame" t "Frame where the slate is" T SlateFrame.slate_frame}
+ addUserKnob {6 burnins l Burn-Ins t "Burn-Ins On/Off" -STARTLINE}
+ burnins true
+ addUserKnob {20 Settings t "Custom Settings"}
+ addUserKnob {20 Fonts n 1}
+ addUserKnob {41 SystemOS l "OS Font Path" T FontPath.SystemOS}
+ addUserKnob {41 regfont l "Custom Regular Font" T FontPath.regfont}
+ addUserKnob {41 boldfont l "Custom Bold Font" T FontPath.boldfont}
+ addUserKnob {20 endGroup_4 l endGroup n -1}
+ addUserKnob {20 frame l "Frame Range" n 1}
+ frame 0
+ addUserKnob {41 first_frame l "frame range" t "First frame" T FrameRange.first_frame}
+ addUserKnob {41 last_frame l "" t "Last frame" -STARTLINE T FrameRange.last_frame}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 Overlays n 1}
+ addUserKnob {6 BurnIOverlays l Overlays t "Overlays on/off" -STARTLINE}
+ BurnIOverlays true
+ addUserKnob {7 OverlaysOpacity l Opacity t "Opacity of the overlays"}
+ OverlaysOpacity 0.75
+ addUserKnob {7 TypeSize l "Type Size" t "Font size of the overlays" R 10 100}
+ TypeSize 35
+ addUserKnob {41 dateformatoverlay l "Date Format" T DateTimeFormat.dateformatoverlay}
+ addUserKnob {12 OffsetOverlays l Offset t "Distance from the border of the picture"}
+ OffsetOverlays {50 50}
+ addUserKnob {26 TimelineOverlays l Timeline}
+ addUserKnob {6 EnableTimeline l Timeline +STARTLINE}
+ addUserKnob {41 UITLSize l "Timeline Size" T TL_Sizes.UITLSize}
+ addUserKnob {41 UITLHeadsize l "Head Size" T TL_Sizes.UITLHeadsize}
+ addUserKnob {41 UITLBorderSize l "Border Size" T TL_Sizes.UITLBorderSize}
+ addUserKnob {41 UITLPositionOffset l "Position Offset" T TL_Sizes.UITLPositionOffset}
+ addUserKnob {41 UITLOpacity l Opacity T TL_Sizes.UITLOpacity}
+ addUserKnob {26 logoOverlay l Logo}
+ addUserKnob {6 Logoenable l Logo +STARTLINE}
+ addUserKnob {4 LogoPosition l "   Position" -STARTLINE M {Top Bottom "" ""}}
+ addUserKnob {41 translate l "Logo Position Offset" T PositionOffset_LogoOverlay.translate}
+ addUserKnob {41 scale l "Logo Scale" T PositionOffset_LogoOverlay.scale}
+ addUserKnob {7 LogoOverlayOpacity l Opacity}
+ LogoOverlayOpacity {{OverlaysOpacity}}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 MaskOverlay l Mask n 1}
+ addUserKnob {6 MaskOn l "Aspect Ratio Mask" t "aspect ratio mask on/off" -STARTLINE}
+ addUserKnob {7 MaskAspectRatio l "Picture Aspect Ratio" t "Aspect ratio of the final picture frame" R 1.33333 3}
+ MaskAspectRatio 2.35
+ addUserKnob {7 MaskOpacity l Opacity t "Mask opacity"}
+ MaskOpacity 0.65
+ addUserKnob {7 LineOpacity l "Line Opacity" t "Format line opacity"}
+ LineOpacity 0.75
+ addUserKnob {7 LineWeight l "Line Weight" t "Weight of the format line" R 0 10}
+ LineWeight 3
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 Testers l "Testers and Patterns" n 1}
+ Testers 0
+ addUserKnob {6 colorchart l "Color Rendition Chart" t "Color rendition chart on/off" +STARTLINE}
+ addUserKnob {12 ColorChartPositionOffset l "Position Offset"}
+ addUserKnob {41 colorspace_in_1 l "Color Rendition Chart LUT" t "LUT to display on the Color Rendition Chart" T ColorRenditionChart_ColorSpace.colorspace_in}
+ addUserKnob {41 barintensity l "ColorBars Intensity" t "Intensity of the color bars" T ColorBarsTester.barintensity}
+ addUserKnob {41 colorspace_in_2 l "ColorBars LUT" t "LUT to display on the color bars" T BarsLinearized.colorspace_in}
+ addUserKnob {41 colorspace_in l "Ramp LUT" t "LUT to display on the greyscale ramp" T RampLinearized.colorspace_in}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+ addUserKnob {20 Slate l "Slate Frame" n 1}
+ Slate 0
+ addUserKnob {6 Thumbnails t "Display thumbnails on/off" +STARTLINE}
+ Thumbnails true
+ addUserKnob {4 thumbnumber l "" -STARTLINE M {1 3 6 "" ""}}
+ addUserKnob {12 ThumbnailOffset l "Thumbnails Position Offset"}
+ addUserKnob {7 thumbnailssize l "Thumbnails Scale" R 0.1 4}
+ thumbnailssize 1
+ addUserKnob {26 ""}
+ addUserKnob {6 versiononname l "Include Version on Shot Name" t "Add version number on shot name tail (i.e. \"_v01\")" +STARTLINE}
+ addUserKnob {3 versionpadding l "Version Padding"}
+ versionpadding 3
+ addUserKnob {26 ""}
+ addUserKnob {41 dateformat l "Date/Time Format" T DateTimeFormat.dateformat}
+ addUserKnob {41 timeformat l "" -STARTLINE T DateTimeFormat.timeformat}
+ addUserKnob {26 ""}
+ addUserKnob {7 FontSize l "Font Size" t "Font size" R 1 100}
+ FontSize 35
+ addUserKnob {12 TextPositionOffset l "Text Position Offset" t "Slate text position offset"}
+ TextPositionOffset {-100 0}
+ addUserKnob {26 ""}
+ addUserKnob {41 filelogo l "Company Logo File" t "Company logo path" T CompanyLogo.file}
+ addUserKnob {6 logoautoalpha l Autoalpha t "If the logo file does not include an alpha channel it generates one based on luminosity of the logo image" -STARTLINE}
+ logoautoalpha true
+ addUserKnob {41 translateLogo l "Logo Position Offset" t "Modify the position of the company logo" T LogoPositionOffset.translate}
+ addUserKnob {6 blackwhite l "Black and White" t "Convert logo into black and white image" -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {41 file l "Show Logo File" T ShowLogo.file}
+ addUserKnob {41 translate_1 l "Logo Position Offset" T LogoShowPositionOffset.translate}
+ addUserKnob {41 scale_1 l "Logo Scale" T LogoShowPositionOffset.scale}
+ addUserKnob {26 ""}
+ addUserKnob {18 BGColor l "BG Color" t "Select a color for the slate background"}
+ BGColor 0.025
+ addUserKnob {6 BGColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {41 mixwm l "Watermark Intensity" t "Put the company logo as watermark over the background" T WatermarkOver.mix}
+ addUserKnob {6 LogoBlur l Blur t "Adds a blur to the watermark" -STARTLINE}
+ addUserKnob {20 endGroup_5 l endGroup n -1}
+ addUserKnob {20 StatusSettings l Status n 1}
+ StatusSettings 0
+ addUserKnob {41 InProgressColor l "\"IN PROGRESS\" Color" t "Customize the color of \"IN PROGRESS\" status" T TextFields.InProgressColor}
+ addUserKnob {41 CompleteColor l "\"COMPLETE\" Color" t "Customize the color of \"COMPLETE\" status" T TextFields.CompleteColor}
+ addUserKnob {41 StatusColor l "\"Custom...\" Color" t "Customize the color of the custom status" T TextFields.StatusColor}
+ addUserKnob {20 endGroup_6 l endGroup n -1}
+}
+ BackdropNode {
+  inputs 0
+  name BG
+  tile_color 0x8e8e3800
+  label BG
+  note_font_size 42
+  xpos -75
+  ypos 551
+  bdwidth 310
+  bdheight 301
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0xff0000ff
+  label "Text\nControls"
+  note_font_size 42
+  xpos 2310
+  ypos 494
+  bdwidth 180
+  bdheight 379
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x7c5d00ff
+  label "Show\nLogo"
+  note_font_size 42
+  xpos 590
+  ypos -182
+  bdwidth 247
+  bdheight 593
+ }
+ BackdropNode {
+  inputs 0
+  name CheckerBoard
+  tile_color 0x222222ff
+  label CheckerBoard
+  note_font_size 42
+  xpos -1396
+  ypos -523
+  bdwidth 676
+  bdheight 779
+ }
+ BackdropNode {
+  inputs 0
+  name Logo
+  tile_color 0x7f2f00ff
+  label "Company\nLogo"
+  note_font_size 42
+  xpos 112
+  ypos -209
+  bdwidth 416
+  bdheight 526
+ }
+ BackdropNode {
+  inputs 0
+  name Overlays
+  tile_color 0x3f7f00ff
+  label Overlays
+  note_font_size 42
+  xpos 2260
+  ypos -449
+  bdwidth 2230
+  bdheight 780
+ }
+ BackdropNode {
+  inputs 0
+  name Testers
+  tile_color 0x7f005fff
+  label Testers
+  note_font_size 42
+  xpos -450
+  ypos -581
+  bdwidth 420
+  bdheight 550
+ }
+ BackdropNode {
+  inputs 0
+  name TextSlate
+  tile_color 0x4f7fff
+  label "Text Slate"
+  note_font_size 42
+  xpos 870
+  ypos 156
+  bdwidth 1073
+  bdheight 989
+ }
+ BackdropNode {
+  inputs 0
+  name Thumbnails
+  tile_color 0x7171c600
+  label "6 Thumbnails"
+  note_font_size 42
+  xpos 610
+  ypos -1512
+  bdwidth 861
+  bdheight 468
+ }
+ BackdropNode {
+  inputs 0
+  name Thumbnails1
+  tile_color 0x7171c600
+  label "1 Thumbnail"
+  note_font_size 42
+  xpos 610
+  ypos -972
+  bdwidth 861
+  bdheight 468
+ }
+ BackdropNode {
+  inputs 0
+  name Thumbnails2
+  tile_color 0x7171c600
+  label "3 Thumbnails"
+  note_font_size 42
+  xpos 610
+  ypos -2052
+  bdwidth 861
+  bdheight 468
+ }
+ NoOp {
+  inputs 0
+  name CGIver
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 693
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {1 ver l Version}
+  addUserKnob {4 CGIverdisplay l "CGI Version Display" M {Automatic Show Hide}}
+ }
+ NoOp {
+  inputs 0
+  name SlateFrame
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 765
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {3 slate_frame l "slate frame"}
+  slate_frame {{first_frame-1}}
+  addUserKnob {3 autoslate}
+  autoslate {{parent.FrameRange.knob.first_frame.main-1 i}}
+ }
+ NoOp {
+  inputs 0
+  name DateTimeFormat
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 801
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {4 dateformat l "Date Format" t "Date format" M {"Day DD/MM/YYYY" "Day MM/DD/YYYY" "Day DD.MM.YYYY" "Day MM.DD.YYYY" "Day DD/MM/YY" "Day MM/DD/YY" "Day DD.MM.YY" "Day MM.DD.YY" DD/MM/YYYY MM/DD/YYYY DD.MM.YYYY MM.DD.YY DD/MM/YY MM/DD/YY DD.MM.YY MM.DD.YY "" "" ""}}
+  dateformat "Day MM/DD/YY"
+  addUserKnob {4 timeformat l "Time Format" t "Time format" M {HH:MM:SS H:MM:SS HH:MM H:MM "HH:MM:SS AM/PM" "H:MM:SS AM/PM" "HH:MM AM/PM" "H:MM AM/PM" "Time not displayed" "" ""}}
+  addUserKnob {4 dateformatoverlay l "Date Format" t "Date format" M {"Day DD/MM/YYYY" "Day MM/DD/YYYY" "Day DD.MM.YYYY" "Day MM.DD.YYYY" "Day DD/MM/YY" "Day MM/DD/YY" "Day DD.MM.YY" "Day MM.DD.YY" DD/MM/YYYY MM/DD/YYYY DD.MM.YYYY MM.DD.YY DD/MM/YY MM/DD/YY DD.MM.YY MM.DD.YY}}
+  dateformatoverlay MM/DD/YY
+  addUserKnob {3 valuedate}
+  valuedate {{dateformat i}}
+  addUserKnob {3 valuetime}
+  valuetime {{timeformat i}}
+  addUserKnob {3 valuedateoverlays}
+  valuedateoverlays {{dateformatoverlay i}}
+  addUserKnob {26 ""}
+  addUserKnob {1 formatdate l "Format Date"}
+  formatdate "\[expr \[value DateTimeFormat.valuedate]==0?\"\[clock format \[clock seconds] -format \{%a %d/%m/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==1?\"\[clock format \[clock seconds] -format \{%a %m/%d/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==2?\"\[clock format \[clock seconds] -format \{%a %d.%m.%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==3?\"\[clock format \[clock seconds] -format \{%a %m.%d.%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==4?\"\[clock format \[clock seconds] -format \{%a %m/%d/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==5?\"\[clock format \[clock seconds] -format \{%a %m/%d/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==6?\"\[clock format \[clock seconds] -format \{%a %d.%m.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==7?\"\[clock format \[clock seconds] -format \{%a %m.%d.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==8?\"\[clock format \[clock seconds] -format \{%d/%m/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==9?\"\[clock format \[clock seconds] -format \{%m/%d/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==10?\"\[clock format \[clock seconds] -format \{%d.%m.%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==11?\"\[clock format \[clock seconds] -format \{%m.%d.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==12?\"\[clock format \[clock seconds] -format \{%d/%m/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==13?\"\[clock format \[clock seconds] -format \{%m/%d/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==14?\"\[clock format \[clock seconds] -format \{%d.%m.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedate]==15?\"\[clock format \[clock seconds] -format \{%m.%d.%y\}]\":\"\"]"
+  addUserKnob {1 formattime l "Format Time"}
+  formattime "\[expr \[value DateTimeFormat.valuetime]==0?\"\[clock format \[clock seconds] -format \{%H:%M:%S\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==1?\"\[clock format \[clock seconds] -format \{%k:%M:%S\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==2?\"\[clock format \[clock seconds] -format \{%H:%M\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==3?\"\[clock format \[clock seconds] -format \{%k:%M\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==4?\"\[clock format \[clock seconds] -format \{%I:%M:%S %p\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==5?\"\[clock format \[clock seconds] -format \{%l:%M:%S %p\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==6?\"\[clock format \[clock seconds] -format \{%I:%M %p\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==7?\"\[clock format \[clock seconds] -format \{%l:%M %p\}]\":\"\"]\[expr \[value DateTimeFormat.valuetime]==8?\"\":\"\"]"
+  addUserKnob {1 fdo l "Format Date Overlays"}
+  fdo "\[expr \[value DateTimeFormat.valuedateoverlays]==0?\"\[clock format \[clock seconds] -format \{%a %d/%m/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==1?\"\[clock format \[clock seconds] -format \{%a %m/%d/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==2?\"\[clock format \[clock seconds] -format \{%a %d.%m.%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==3?\"\[clock format \[clock seconds] -format \{%a %m.%d.%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==4?\"\[clock format \[clock seconds] -format \{%a %m/%d/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==5?\"\[clock format \[clock seconds] -format \{%a %m/%d/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==6?\"\[clock format \[clock seconds] -format \{%a %d.%m.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==7?\"\[clock format \[clock seconds] -format \{%a %m.%d.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==8?\"\[clock format \[clock seconds] -format \{%d/%m/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==9?\"\[clock format \[clock seconds] -format \{%m/%d/%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==10?\"\[clock format \[clock seconds] -format \{%d.%m.%Y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==11?\"\[clock format \[clock seconds] -format \{%m.%d.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==12?\"\[clock format \[clock seconds] -format \{%d/%m/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==13?\"\[clock format \[clock seconds] -format \{%m/%d/%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==14?\"\[clock format \[clock seconds] -format \{%d.%m.%y\}]\":\"\"]\[expr \[value DateTimeFormat.valuedateoverlays]==15?\"\[clock format \[clock seconds] -format \{%m.%d.%y\}]\":\"\"]"
+ }
+ NoOp {
+  inputs 0
+  name FocalLength
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 711
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {1 focalmm l "Focal Length (in mm)"}
+  addUserKnob {4 focaldisplay l "Focal Length Display" M {Automatic Show Hide ""}}
+ }
+ Text {
+  inputs 0
+  inject true
+  message ""
+  font "\[expr \[value FontPath.OSChoice]==0?\[value FontPath.linbold]:\"\"]\[expr \[value FontPath.OSChoice]==1?\[value FontPath.winbold]:\"\"]\[expr \[value FontPath.OSChoice]==2?\[value FontPath.macbold]:\"\"]\[expr \[value FontPath.OSChoice]==3?\\\"\[knob FontPath.boldfont]\\\":\"\"]"
+  yjustify center
+  box {512 389 1536 1167}
+  translate {106 -96}
+  center {1024 778}
+  name ArialBold
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 639
+  hide_input true
+ }
+ NoOp {
+  inputs 0
+  name Text_Position
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 657
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {12 positionoffset l "Text Position Offset"}
+  positionoffset {{parent.TextPositionOffset.main i} {parent.TextPositionOffset.main i}}
+ }
+ NoOp {
+  inputs 0
+  name TextFields
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 675
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {1 plate_shotname l "Shot Name"}
+  addUserKnob {1 plate_jobname l "Job Name"}
+  addUserKnob {1 plate_task l Task}
+  addUserKnob {4 plate_status l Status M {"IN PROGRESS" COMPLETE Custom... Blank "" "" "" ""}}
+  addUserKnob {1 CustomStatus l "     Custom Status" -STARTLINE}
+  addUserKnob {18 StatusColor l "Status Color"}
+  StatusColor {0 0.624994278 1}
+  addUserKnob {6 StatusColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {1 plate_artist l Artist}
+  addUserKnob {1 plate_description1 l "Description Line 1"}
+  addUserKnob {1 plate_description2 l "Description Line 2"}
+  addUserKnob {1 plate_description3 l "Description Line 3"}
+  addUserKnob {1 plate_description4 l "Description Line 4"}
+  addUserKnob {1 CompanyName l Company}
+  CompanyName NARRATE
+  addUserKnob {18 InProgressColor l "\"IN PROGRESS\" Color"}
+  InProgressColor {1 0.37500572 0}
+  addUserKnob {6 InProgressColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 CompleteColor l "\"COMPLETE\" Color"}
+  CompleteColor {1 0 0}
+  addUserKnob {6 CompleteColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ }
+ NoOp {
+  inputs 0
+  name FontPath
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 783
+  hide_input true
+  addUserKnob {20 FontPaths l "Font Paths"}
+  addUserKnob {1 linreg l "Linux Regular"}
+  linreg "\"/usr/share/fonts/default/Type1/n019003l.pfb\""
+  addUserKnob {1 linbold l "Linux Bold"}
+  linbold "\"/usr/share/fonts/default/Type1/n019004l.pfb\""
+  addUserKnob {26 ""}
+  addUserKnob {1 winreg l "Windows Regular"}
+  winreg "\"C:/Windows/Fonts/arial.ttf\""
+  addUserKnob {1 winbold l "Windows Bold"}
+  winbold "\"C:/Windows/Fonts/arialbd.ttf\""
+  addUserKnob {26 ""}
+  addUserKnob {1 macreg l "Mac Regular"}
+  macreg "\"/Library/Fonts/Arial.ttf\""
+  addUserKnob {1 macbold l "Mac Bold"}
+  macbold "\"/Library/Fonts/Arial Bold.ttf\""
+  addUserKnob {26 ""}
+  addUserKnob {4 SystemOS l "OS Font Path" t "Choose the font path" M {Linux Windows Mac Custom}}
+  SystemOS Windows
+  addUserKnob {3 OSChoice l INVISIBLE +INVISIBLE}
+  OSChoice {{SystemOS i}}
+  addUserKnob {2 regfont l "Custom Regular Font" t "Custom regular font path"}
+  addUserKnob {2 boldfont l "Custom Bold Font" t "Custom bold font path"}
+ }
+ NoOp {
+  inputs 0
+  name InfoPlate
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 747
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {14 res R 0 100}
+  res {{"\[exists parent.input]==1?parent.input.format.w:root.format.w" i} {"\[exists parent.input]==1?parent.input.format.h:root.format.h" i}}
+  addUserKnob {7 plate_aspect R 0 3}
+  plate_aspect {{"\[exists parent.input]==1?parent.input.pixel_aspect:root.pixel_aspect" i}}
+  addUserKnob {26 ""}
+  addUserKnob {7 platefps R 0 30}
+  platefps {{root.fps i}}
+  addUserKnob {26 ""}
+  addUserKnob {3 minutes}
+  minutes {{Handles.cutlength/(root.fps*60)/100*60 i}}
+  addUserKnob {3 seconds}
+  seconds {{(Handles.cutlength/(root.fps*60)/100*60*100) i}}
+  addUserKnob {3 andframes}
+  andframes {{Handles.cutlength/root.fps i}}
+  addUserKnob {26 ""}
+  addUserKnob {6 proxyon +STARTLINE}
+  proxyon {{root.proxy i}}
+  addUserKnob {14 proxyres R 0 100}
+  proxyres {{res.w*root.proxy_scale i} {res.h*root.proxy_scale i}}
+  addUserKnob {7 proxyscal}
+  proxyscal {{1/root.proxy_scale i}}
+ }
+ NoOp {
+  inputs 0
+  name Handles
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 729
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {3 handlesIN l "Handle IN" t "Frames before start"}
+  addUserKnob {3 handlesOUT l "Handle OUT" t "frames after finish" -STARTLINE}
+  handlesOUT {{handlesIN}}
+  addUserKnob {4 DisplayHandles l "Display Handles" t "Handles display mode" M {Automatic Show Hide}}
+  addUserKnob {3 first l "First Frame"}
+  first {{"\[exists parent.input]==1?parent.input.first_frame:root.first_frame" i}}
+  addUserKnob {3 last l "Last Frame" -STARTLINE}
+  last {{"\[exists parent.input]==1?parent.input.last_frame:root.last_frame" i}}
+  addUserKnob {3 cutlength l "Cut Length"}
+  cutlength {{"\[exists parent.input]==1?FrameRange.last_frame-(FrameRange.first_frame-1):0" i}}
+ }
+ Text {
+  inputs 0
+  message ""
+  font "\[expr \[value FontPath.OSChoice]==0?\[value FontPath.linreg]:\"\"]\[expr \[value FontPath.OSChoice]==1?\[value FontPath.winreg]:\"\"]\[expr \[value FontPath.OSChoice]==2?\[value FontPath.macreg]:\"\"]\[expr \[value FontPath.OSChoice]==3?\\\"\[knob FontPath.regfont]\\\":\"\"]"
+  yjustify center
+  box {512 389 1536 1167}
+  translate {106 -96}
+  center {1024 778}
+  name Arial
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 621
+  hide_input true
+ }
+ NoOp {
+  inputs 0
+  name OS_Switch
+  tile_color 0xffffff
+  xpos -280
+  ypos -657
+  hide_input true
+  addUserKnob {20 os_switch l OS_Switch}
+  addUserKnob {4 operative_system l OS t "Select your OS" M {Linux Mac Windows}}
+  operative_system Mac
+  addUserKnob {22 substitute_path l INVISIBLE t "This changes the server path in all 'Read' nodes on this script" -STARTLINE +INVISIBLE}
+  addUserKnob {1 tcl_expression l INVISIBLE t "TCL expresion for Linux/Mac options" +INVISIBLE}
+  tcl_expression "\[value \[value operative_system]_path]"
+  addUserKnob {26 instructions l "" t "Instructions to apply this OS_Switch" +STARTLINE T "Instructions:\nLINUX: Substitute \"/mnt/server/\" with \"\[value OS_Switch1.tcl_expression]\".\nMAC: Substitute \"/Volumes/\" with \"\[value OS_Switch1.tcl_expression]\".\nWINDOWS: Substitute \"//Server/\" with \"\[value OS_Switch1.tcl_expression]\".\n*Note that the number of the node can be different depending on how many OS_Switch nodes had been created."}
+  addUserKnob {1 CopyThis l "copy this!"}
+  CopyThis "\[value OS_Switch.tcl_expression]"
+  addUserKnob {20 OS_paths l "OS Paths"}
+  addUserKnob {2 Linux_path l "Linux Server Path" t "Path to find the server from Linux"}
+  Linux_path /mnt/server/
+  addUserKnob {2 Mac_path l "Mac Server Path" t "Path to find the server from Mac"}
+  Mac_path /Volumes/
+  addUserKnob {2 Windows_path l "Windows Server Path" t "Path to find the server from Mac"}
+  Windows_path //Server/
+ }
+ ColorBars {
+  inputs 0
+  PAL true
+  name ColorBarsTester
+  xpos -120
+  ypos -519
+ }
+ Reformat {
+  type "to box"
+  box_width {{"\[exists parent.input]==1?parent.input.format.w:root.format.w" i}}
+  box_height {{"\[exists parent.input]==1?parent.input.format.h:root.format.h" i}}
+  box_fixed true
+  box_pixel_aspect {{"\[exists parent.input]==1?parent.input.format.pixel_aspect:root.format.pixel_aspect" i}}
+  resize distort
+  center false
+  filter impulse
+  name CurrentFormat
+  xpos -120
+  ypos -441
+ }
+ set Cab4bc00 [stack 0]
+set Nab4bc00 [stack 0]
+ Transform {
+  center {914 778}
+  name CenterReference
+  xpos 40
+  ypos -441
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos 2520
+  ypos -2187
+ }
+ Dot {
+  name Dot91
+  xpos 2554
+  ypos -708
+ }
+set Nab4ac00 [stack 0]
+ Dot {
+  name Dot18
+  xpos 4634
+  ypos -708
+ }
+ Dot {
+  name Dot53
+  xpos 4634
+  ypos 1272
+ }
+ Dot {
+  inputs 0
+  name Dot43
+  xpos 954
+  ypos 1038
+  hide_input true
+ }
+ Constant {
+  inputs 0
+  channels {-rgba.red -rgba.green -rgba.blue none}
+  color {1 0 0 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Dot_Format
+  xpos 1039
+  ypos 898
+ }
+set N19917c00 [stack 0]
+ Radial {
+  area {0 0 {input.format.w i} {input.format.h i}}
+  softness 0
+  color {{parent.TextFields.StatusColor.main i} {parent.TextFields.StatusColor.main i} {parent.TextFields.StatusColor.main i} 1}
+  name Circle2
+  xpos 1160
+  ypos 999
+ }
+push $N19917c00
+ Radial {
+  area {0 0 {input.format.w i} {input.format.h i}}
+  softness 0
+  color {{parent.TextFields.CompleteColor.main i} {parent.TextFields.CompleteColor.main i} {parent.TextFields.CompleteColor.main i} 1}
+  name Circle4
+  xpos 1039
+  ypos 999
+ }
+push $N19917c00
+ Radial {
+  area {0 0 {input.format.w i} {input.format.h i}}
+  softness 0
+  color {{parent.TextFields.InProgressColor.main i} {parent.TextFields.InProgressColor.main i} {parent.TextFields.InProgressColor.main i} 1}
+  name Circle1
+  xpos 920
+  ypos 999
+ }
+ Switch {
+  inputs 4
+  which {{TextFields.plate_status i}}
+  name StatusSwitcher
+  xpos 1039
+  ypos 1035
+ }
+ set C19916c00 [stack 0]
+ Reformat {
+  type scale
+  scale {1 {"\[exists parent.input]==1?parent.input.pixel_aspect:root.pixel_aspect" i}}
+  resize distort
+  black_outside true
+  name Reformat_PixelAspect
+  xpos 1039
+  ypos 1053
+ }
+ set C19916800 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{"\[value Text_Status.size]" i}}
+  box_height {{"\[value Text_Status.size]" i}}
+  box_fixed true
+  scale 0.08
+  resize fit
+  center false
+  name DotSize
+  xpos 1039
+  ypos 1071
+ }
+ Transform {
+  translate {{"\[value Text_ShotName.translate.x]" i} {"\[value Text_Status.translate.y]-\[value DotPosition.center.y]" i}}
+  center {{input.format.w/2 i} {input.format.h/2.25 i}}
+  name DotPosition
+  xpos 1039
+  ypos 1107
+ }
+ Constant {
+  inputs 0
+  channels {-rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  name Format1
+  xpos 1640
+  ypos 232
+ }
+ Reformat {
+  type "to box"
+  box_width {{"\[exists parent.input]==1?parent.input.format.w:root.format.w" i}}
+  box_height {{"\[exists parent.input]==1?parent.input.format.h:root.format.h" i}}
+  box_fixed true
+  box_pixel_aspect {{"\[exists parent.input]==1?parent.input.format.pixel_aspect:root.format.pixel_aspect" i}}
+  resize distort
+  center false
+  filter impulse
+  name CurrentFormat1
+  xpos 1640
+  ypos 351
+ }
+set N1ff67000 [stack 0]
+ Dot {
+  name Dot14
+  xpos 1313
+  ypos 354
+ }
+ Text {
+  message Version:
+  font "\[value ArialBold.font]"
+  size {{"\[value Text_Version.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"root.proxy==0?Text_Version.translate.x-(\[value DotSize.format.h]/(\[exists parent.input]==1?parent.input.pixel_aspect:root.pixel_aspect)):Text_Version.translate.x-(\[value DotSize.format.h]/(\[exists parent.input]==1?parent.input.pixel_aspect:root.pixel_aspect))/root.proxy_scale" i} {"\[value Text_Version.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_Version
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 603
+ }
+ Text {
+  message Date:
+  font "\[value Arial.font]"
+  size {{"\[value Text_Date.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]" i} {"\[value Text_Date.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_Date
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 639
+ }
+ Text {
+  message Artist:
+  font "\[value Arial.font]"
+  size {{"\[value Text_Artist.size]"}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]"} {"\[value Text_Artist.translate.y]"}}
+  color {0.5 0.5 0.5 1}
+  name Title_Artist
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 675
+ }
+ Text {
+  message Script:
+  font "\[value Arial.font]"
+  size {{"\[value Text_Script.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]" i} {"\[value Text_Script.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_Script
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 711
+ }
+set N18c08c00 [stack 0]
+ Text {
+  message "CGI Version:"
+  font "\[value Arial.font]"
+  size {{"\[value Text_CGIversion.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]" i} {"\[value Text_CGIversion.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_CGIversion
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 747
+ }
+push $N18c08c00
+ Dot {
+  name Dot15
+  xpos 1153
+  ypos 714
+ }
+ Switch {
+  inputs 2
+  which {{CGIver.CGIverdisplay==0?(CGIver.ver==0?0:1):CGIver.CGIverdisplay==1?1:0 i}}
+  name CGIversion_Switch
+  tile_color 0xff0000ff
+  xpos 1119
+  ypos 747
+ }
+ set C18af7800 [stack 0]
+set N18af7800 [stack 0]
+ Text {
+  message "Focal Length:"
+  font "\[value Arial.font]"
+  size {{"\[value Text_FocalLength.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]" i} {"\[value Text_FocalLength.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_FocalLength
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 783
+ }
+push $N18af7800
+ Switch {
+  inputs 2
+  which {{FocalLength.focaldisplay==0?(FocalLength.focalmm==0?0:1):FocalLength.focaldisplay==1?1:0 i}}
+  name FocalLength_Switch
+  tile_color 0xff0000ff
+  xpos 1119
+  ypos 783
+ }
+ set C18af6c00 [stack 0]
+ Text {
+  message "Total Cut Length:"
+  font "\[value Arial.font]"
+  size {{"\[value Text_CutLength.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]" i} {"\[value Text_CutLength.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_CutLength
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 819
+ }
+set N18af6800 [stack 0]
+ Text {
+  message "Handles  Head | Tail:"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Handles.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]" i} {"\[value Text_Handles.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_Handles
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 855
+ }
+push $N18af6800
+ Dot {
+  name Dot16
+  xpos 1153
+  ypos 822
+ }
+ Switch {
+  inputs 2
+  which {{"Handles.DisplayHandles==0?\[exists parent.input]==1?((\[value Handles.handlesIN]||\[value Handles.handlesOUT])==0?0:1):0:Handles.DisplayHandles==1?1:0" i}}
+  name Handles_Switch
+  tile_color 0xff0000ff
+  xpos 1119
+  ypos 855
+ }
+ set C1fab3400 [stack 0]
+ Text {
+  message Notes:
+  font "\[value Arial.font]"
+  size {{"\[value Text_Description_L1.size]" i}}
+  xjustify right
+  Transform 1
+  translate {{"\[value Title_Version.translate.x]" i} {"\[value Text_Description_L1.translate.y]" i}}
+  color {0.5 0.5 0.5 1}
+  name Title_Description
+  tile_color 0x7fff00ff
+  xpos 1279
+  ypos 891
+ }
+ Dot {
+  name Dot13
+  xpos 1313
+  ypos 1074
+ }
+push $N1ff67000
+ Text {
+  message "\[expr \[value parent.versiononname]==false?\"\[knob TextFields.plate_shotname]\":\"\[knob TextFields.plate_shotname]_v\[knob Text_Version.message]\"]"
+  font "\[value ArialBold.font]"
+  size {{"(\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((18+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((18+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((18+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((18+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale)" i}}
+  Transform 1
+  translate {{root.proxy==0?(CurrentFormat.format.w/2)+(Text_Position.positionoffset.x):((CurrentFormat.format.w/2)+(Text_Position.positionoffset.x*root.proxy_scale))/root.proxy_scale i} {root.proxy==0?((CurrentFormat.format.h*0.85)+Text_Position.positionoffset.y):((CurrentFormat.format.h*0.85)+(Text_Position.positionoffset.y*root.proxy_scale))/root.proxy_scale i}}
+  name Text_ShotName
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 387
+ }
+ Text {
+  inject true
+  message "\[knob TextFields.plate_jobname]"
+  font "\[value Arial.font]"
+  size {{"(\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((16+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((16+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((16+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((16+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale)" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_ShowName
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 423
+ }
+ Text {
+  message "\[knob TextFields.plate_task]"
+  font "\[value ArialBold.font]"
+  size {{"(\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((10+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((10+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((10+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((10+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale)" i}}
+  kerning 0.2
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  color 0.5
+  name Text_Task
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 459
+ }
+set N1fa95400 [stack 0]
+ Dot {
+  name Dot45
+  xpos 1914
+  ypos 462
+ }
+ Dot {
+  name Dot44
+  xpos 1914
+  ypos 552
+ }
+push $N1fa95400
+ Text {
+  message "\[expr \[value StatusSwitcher.which]==2?\"\[knob TextFields.CustomStatus]\":\"\[knob TextFields.plate_status]\"]"
+  font "\[value ArialBold.font]"
+  size {{"(\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale)" i}}
+  yjustify center
+  Transform 1
+  translate {{"\[exists parent.input]==0?root.pixel_aspect!=1?(root.proxy==0?((CurrentFormat.format.w/2)+((DotSize.width*1.5)/root.pixel_aspect))+(Text_Position.positionoffset.x):(((CurrentFormat.format.w/2)+((DotSize.width*1.5)/root.pixel_aspect))/root.proxy_scale)+(Text_Position.positionoffset.x)):(root.proxy==0?(CurrentFormat.format.w/2)+(DotSize.width*1.5)+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+(DotSize.width*1.5))/root.proxy_scale)*root.pixel_aspect)+(Text_Position.positionoffset.x)):parent.input.pixel_aspect!=1?(root.proxy==0?((CurrentFormat.format.w/2)+((DotSize.width*1.5)/parent.input.pixel_aspect))+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+((DotSize.width*1.5)/parent.input.pixel_aspect))/root.proxy_scale))+(Text_Position.positionoffset.x)):(root.proxy==0?((CurrentFormat.format.w/2)+(DotSize.width*1.5))+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+(DotSize.width*1.5))/root.proxy_scale)*parent.input.pixel_aspect)+(Text_Position.positionoffset.x))" i} {input.translate.y-((size)*1.2) i}}
+  color {{parent.TextFields.StatusColor.main i} {parent.TextFields.StatusColor.main i} {parent.TextFields.StatusColor.main i} 1}
+  name Text_Status1
+  tile_color 0xff5f00ff
+  xpos 1720
+  ypos 495
+ }
+push $N1fa95400
+ Text {
+  message "\[knob TextFields.plate_status]"
+  font "\[value ArialBold.font]"
+  size {{"(\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale)" i}}
+  yjustify center
+  Transform 1
+  translate {{"\[exists parent.input]==0?root.pixel_aspect!=1?(root.proxy==0?((CurrentFormat.format.w/2)+((DotSize.width*1.5)/root.pixel_aspect))+(Text_Position.positionoffset.x):(((CurrentFormat.format.w/2)+((DotSize.width*1.5)/root.pixel_aspect))/root.proxy_scale)+(Text_Position.positionoffset.x)):(root.proxy==0?(CurrentFormat.format.w/2)+(DotSize.width*1.5)+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+(DotSize.width*1.5))/root.proxy_scale)*root.pixel_aspect)+(Text_Position.positionoffset.x)):parent.input.pixel_aspect!=1?(root.proxy==0?((CurrentFormat.format.w/2)+((DotSize.width*1.5)/parent.input.pixel_aspect))+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+((DotSize.width*1.5)/parent.input.pixel_aspect))/root.proxy_scale))+(Text_Position.positionoffset.x)):(root.proxy==0?((CurrentFormat.format.w/2)+(DotSize.width*1.5))+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+(DotSize.width*1.5))/root.proxy_scale)*parent.input.pixel_aspect)+(Text_Position.positionoffset.x))" i} {input.translate.y-((size)*1.2) i}}
+  color {{parent.TextFields.CompleteColor.main i} {parent.TextFields.CompleteColor.main i} {parent.TextFields.CompleteColor.main i} 1}
+  name Text_Status3
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 495
+ }
+push $N1fa95400
+ Text {
+  message "\[knob TextFields.plate_status]"
+  font "\[value ArialBold.font]"
+  size {{"(\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((4+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale)" i}}
+  yjustify center
+  Transform 1
+  translate {{"\[exists parent.input]==0?root.pixel_aspect!=1?(root.proxy==0?((CurrentFormat.format.w/2)+((DotSize.width*1.5)/root.pixel_aspect))+(Text_Position.positionoffset.x):(((CurrentFormat.format.w/2)+((DotSize.width*1.5)/root.pixel_aspect))/root.proxy_scale)+(Text_Position.positionoffset.x)):(root.proxy==0?(CurrentFormat.format.w/2)+(DotSize.width*1.5)+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+(DotSize.width*1.5))/root.proxy_scale)*root.pixel_aspect)+(Text_Position.positionoffset.x)):parent.input.pixel_aspect!=1?(root.proxy==0?((CurrentFormat.format.w/2)+((DotSize.width*1.5)/parent.input.pixel_aspect))+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+((DotSize.width*1.5)/parent.input.pixel_aspect))/root.proxy_scale))+(Text_Position.positionoffset.x)):(root.proxy==0?((CurrentFormat.format.w/2)+(DotSize.width*1.5))+(Text_Position.positionoffset.x):((((CurrentFormat.format.w/2)+(DotSize.width*1.5))/root.proxy_scale)*parent.input.pixel_aspect)+(Text_Position.positionoffset.x))" i} {input.translate.y-((size)*1.2) i}}
+  color {{parent.TextFields.InProgressColor.main i} {parent.TextFields.InProgressColor.main i} {parent.TextFields.InProgressColor.main i} 1}
+  name Text_Status
+  tile_color 0xff5f00ff
+  xpos 1560
+  ypos 495
+ }
+clone $C19916c00 {
+  inputs 4
+  xpos 1640
+  ypos 549
+  selected false
+ }
+ Text {
+  message "\[format %0\[value parent.versionpadding]d \[value parent.plate_version]]"
+  font "\[value ArialBold.font]"
+  size {{"(\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((12+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((12+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((12+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((12+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale)" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {Text_Status.translate.y-(((size)*1.2)*2) i}}
+  name Text_Version
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 573
+ }
+ Text {
+  message "\[value DateTimeFormat.formatdate]  \[value DateTimeFormat.formattime]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_Date
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 603
+ }
+ Text {
+  message "\[knob TextFields.plate_artist]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]"}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]"} {input.translate.y-((size)*1.2)}}
+  name Text_Artist
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 639
+ }
+ Text {
+  message "\[file tail \[knob root.name]]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_Script
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 675
+ }
+set N1f6a1000 [stack 0]
+ Text {
+  inject true
+  message "\[knob CGIver.ver]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_CGIversion
+  tile_color 0x7f2f00ff
+  xpos 1640
+  ypos 711
+ }
+push $N1f6a1000
+ Dot {
+  name Dot9
+  xpos 1834
+  ypos 678
+ }
+clone $C18af7800 {
+  inputs 2
+  xpos 1800
+  ypos 711
+  selected false
+ }
+set N1f9abc00 [stack 0]
+ Text {
+  message "\[knob FocalLength.focalmm] mm"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {Text_CGIversion.translate.y-((size*CGIversion_Switch.which)*1.2) i}}
+  name Text_FocalLength
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 747
+ }
+push $N1f9abc00
+clone $C18af6c00 {
+  inputs 2
+  xpos 1800
+  ypos 747
+  selected false
+ }
+ Text {
+  message "\[value Handles.cutlength] frames"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {Text_FocalLength.translate.y-((size*FocalLength_Switch.which)*1.2) i}}
+  name Text_CutLength
+  tile_color 0x7f2f00ff
+  xpos 1640
+  ypos 783
+ }
+set N1f9aac00 [stack 0]
+ Text {
+  message "\[expr \[exists parent.input]==1?\[value Handles.handlesIN]:0] frames | \[expr \[exists parent.input]==1?\[value Handles.handlesOUT]:0] frames"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_Handles
+  tile_color 0x7f2f00ff
+  xpos 1640
+  ypos 819
+ }
+push $N1f9aac00
+ Dot {
+  name Dot12
+  xpos 1834
+  ypos 786
+ }
+clone $C1fab3400 {
+  inputs 2
+  xpos 1800
+  ypos 819
+  selected false
+ }
+ Text {
+  message "\[knob TextFields.plate_description1]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {Text_Handles.translate.y-((size*Handles_Switch.which)*1.2) i}}
+  name Text_Description_L1
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 855
+ }
+ Text {
+  message "\[knob TextFields.plate_description2]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_Description_L2
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 891
+ }
+ Text {
+  message "\[knob TextFields.plate_description3]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_Description_L3
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 927
+ }
+ Text {
+  message "\[knob TextFields.plate_description4]"
+  font "\[value Arial.font]"
+  size {{"\[value Text_Version.size]" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y-((size)*1.2) i}}
+  name Text_Description_L4
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 963
+ }
+ Text {
+  opacity 0.25
+  message "\[expr \[value InfoPlate.proxyon]==false?\"Base\\ Resolution\":\"Proxy\\ \"]\[expr \[value InfoPlate.proxyon]==false?\"\":\[format %.2f \[value InfoPlate.proxyscal]]]\[expr \[value InfoPlate.proxyon]==false?\"\":\"\\:1\\ (\"]\[expr \[value InfoPlate.proxyon]==false?\"\":\[format %.0f \[value InfoPlate.proxyres.w]]]\[expr \[value InfoPlate.proxyon]==false?\"\":\"x\"]\[expr \[value InfoPlate.proxyon]==false?\"\":\[format %.0f \[value InfoPlate.proxyres.h]]]\[expr \[value InfoPlate.proxyon]==false?\"\":\")\"]\\n\[value InfoPlate.res.w]x\[value InfoPlate.res.h] • \[expr \[value InfoPlate.plate_aspect]==1?\"Square\\ Pixel\":\"Anamorphic\\ \"]\[expr \[value InfoPlate.plate_aspect]==1?\"\":\[value InfoPlate.plate_aspect]==2?2:\[format %.2f \[value InfoPlate.plate_aspect]]]\[expr \[value InfoPlate.plate_aspect]==1?\"\":\":1\"] • \[value root.fps]fps"
+  font "\[value Arial.font]"
+  size {{"((\[exists parent.input]==0?root.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((1+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((1+Text_Proprieties.size)/2.00))*root.pixel_aspect:parent.input.pixel_aspect!=1?(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((1+Text_Proprieties.size)/2.00))*2:(CurrentFormat.format.h/(CurrentFormat.format.h/2)*((1+Text_Proprieties.size)/2.00))*parent.input.pixel_aspect)*(root.proxy==0?CurrentFormat.format.w/1829:CurrentFormat.format.w/1829/root.proxy_scale))/1.2" i}}
+  yjustify bottom
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {"root.proxy==0?BandTesterSize.format.h*2:BandTesterSize.format.h*(2*\[value InfoPlate.proxyscal])" i}}
+  name InputInfo
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 999
+ }
+ Text {
+  output {rgba.red -rgba.green -rgba.blue rgba.alpha}
+  message MOS
+  font "\[value ArialBold.font]"
+  size {{"\[value Text_Version.size]*1.3" i}}
+  Transform 1
+  translate {{"\[value Text_ShotName.translate.x]" i} {input.translate.y+((size)*1.1) i}}
+  name MOS
+  tile_color 0xff5f00ff
+  xpos 1640
+  ypos 1030
+  disable {{!parent.MOS i}}
+ }
+ Merge2 {
+  inputs 2
+  name TitlesOverDefinitions
+  xpos 1640
+  ypos 1071
+ }
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos 1640
+  ypos 1107
+ }
+ Read {
+  inputs 0
+  format "256 256 0 0 256 256 1 square_256"
+  origset true
+  on_error black
+  version 3
+  premultiplied true
+  name CompanyLogo
+  tile_color 0xff0000ff
+  xpos 280
+  ypos -182
+  disable {{CompanyLogo.format 1}}
+ }
+set N1989bc00 [stack 0]
+ Saturation {
+  saturation 0
+  mode Maximum
+  name Logo_BWforAlpha
+  xpos 406
+  ypos -153
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name LogoAlpha
+  xpos 406
+  ypos -117
+ }
+push $N1989bc00
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name PutLogoAlpha
+  xpos 406
+  ypos -68
+  disable {{"\[exists CompanyLogo.rgba.red]" i}}
+ }
+push $N1989bc00
+ Switch {
+  inputs 2
+  which {{parent.logoautoalpha i}}
+  name LumaAlpha
+  tile_color 0xff0000ff
+  xpos 280
+  ypos -63
+ }
+set N1989a800 [stack 0]
+ Dot {
+  name Dot7
+  xpos 200
+  ypos -60
+ }
+ Saturation {
+  saturation 0
+  mode Average
+  name Logo_BW
+  xpos 166
+  ypos -9
+ }
+set N1989a000 [stack 0]
+push $N1989a800
+ Switch {
+  inputs 2
+  which {{parent.blackwhite i}}
+  name Logo_BW_Set
+  tile_color 0xff0000ff
+  xpos 280
+  ypos -9
+ }
+ Reformat {
+  type "to box"
+  box_width {{"(\[exists parent.input]==1?parent.input.format.w:root.format.w)/4" i}}
+  box_height {{width i}}
+  resize fit
+  name Reformat_Logo
+  xpos 280
+  ypos 99
+ }
+clone $C19916800 {
+  xpos 280
+  ypos 135
+  selected false
+ }
+set N1f551000 [stack 0]
+ BlackOutside {
+  name BlackOutside1
+  xpos 280
+  ypos 189
+ }
+ Position {
+  translate {{"\[exists parent.input]==1?((root.proxy==1?BandTesterSize.format.h/root.proxy_scale:BandTesterSize.format.h)*0.5)/parent.input.pixel_aspect:((root.proxy==1?BandTesterSize.format.h/root.proxy_scale:BandTesterSize.format.h)*0.5)/root.pixel_aspect" i} {(root.proxy==1?BandTesterSize.format.h/root.proxy_scale:BandTesterSize.format.h)*2.5 i}}
+  name BarsPosition1
+  xpos 280
+  ypos 225
+ }
+ NoOp {
+  name SetLogoCenter
+  xpos 280
+  ypos 262
+ }
+ Transform {
+  center {{(SetLogoCenter.format.w/2)+BarsPosition1.translate.x i} {(SetLogoCenter.format.h/2)+BarsPosition1.translate.y i}}
+  name LogoPositionOffset
+  tile_color 0xff0000ff
+  xpos 280
+  ypos 297
+ }
+ Read {
+  inputs 0
+  format "256 256 0 0 256 256 1 square_256"
+  origset true
+  on_error black
+  version 3
+  premultiplied true
+  name ShowLogo
+  tile_color 0xff0000ff
+  xpos 680
+  ypos -51
+  disable {{ShowLogo.format i}}
+ }
+ Shuffle {
+  name Shuffle8
+  xpos 680
+  ypos 42
+ }
+ Reformat {
+  type "to box"
+  box_width {{"(\[exists parent.input]==1?parent.input.format.w:root.format.w)/4" i}}
+  box_height {{width i}}
+  resize fit
+  name Reformat_LogoShow
+  xpos 680
+  ypos 99
+ }
+clone $C19916800 {
+  xpos 680
+  ypos 135
+  selected false
+ }
+ BlackOutside {
+  name BlackOutside10
+  xpos 680
+  ypos 189
+ }
+ Position {
+  translate {{parent.Text_ShotName.translate.x i} {"-(\[exists parent.input]==1?((root.proxy==1?BandTesterSize.format.h/root.proxy_scale:BandTesterSize.format.h)*0.5)/parent.input.pixel_aspect:((root.proxy==1?BandTesterSize.format.h/root.proxy_scale:BandTesterSize.format.h)*0.5)/root.pixel_aspect)" i}}
+  name TopShowLogoPosition
+  xpos 680
+  ypos 225
+ }
+ NoOp {
+  name SetLogoCenter1
+  xpos 680
+  ypos 261
+ }
+ Transform {
+  center {{(SetLogoCenter1.format.w/2)+TopShowLogoPosition.translate.x i} {(SetLogoCenter1.format.h/2)+TopShowLogoPosition.translate.y i}}
+  name LogoShowPositionOffset
+  tile_color 0xff0000ff
+  xpos 680
+  ypos 297
+ }
+ Dot {
+  name Dot90
+  xpos 714
+  ypos 354
+ }
+ Mirror {
+  Vertical true
+  name Mirror1
+  xpos -40
+  ypos 351
+ }
+ set C1ff40800 [stack 0]
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.03033 0.03114 0.03275 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant24
+  xpos -920
+  ypos -195
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.08532 0.08888 0.09258 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant23
+  xpos -1000
+  ypos -195
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.19011 0.19185 0.1931 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant22
+  xpos -1080
+  ypos -195
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.35496 0.36541 0.36753 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant21
+  xpos -1160
+  ypos -195
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.57988 0.59193 0.59331 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant20
+  xpos -1240
+  ypos -195
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.9127 0.91481 0.89367 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant19
+  xpos -1320
+  ypos -195
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0 0.24696 0.40041 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant18
+  xpos -920
+  ypos -267
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.53352 0.08859 0.30752 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant17
+  xpos -1000
+  ypos -267
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.85744 0.56748 0.00686 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant16
+  xpos -1080
+  ypos -267
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.45586 0.03032 0.04086 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant15
+  xpos -1160
+  ypos -267
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.05601 0.30017 0.06873 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant14
+  xpos -1240
+  ypos -267
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.01712 0.05022 0.29221 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant13
+  xpos -1320
+  ypos -267
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.79467 0.35938 0.02053 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant12
+  xpos -920
+  ypos -339
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.34551 0.50865 0.04945 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant11
+  xpos -1000
+  ypos -339
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.11101 0.0423 0.14292 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant10
+  xpos -1080
+  ypos -339
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.56678 0.08423 0.11971 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant9
+  xpos -1160
+  ypos -339
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.0576 0.10517 0.40294 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant8
+  xpos -1240
+  ypos -339
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.74743 0.20061 0.02809 1}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant7
+  xpos -1320
+  ypos -339
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.10812 0.51433 0.41265 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant6
+  xpos -920
+  ypos -411
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.22163 0.21582 0.4346 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant5
+  xpos -1000
+  ypos -411
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.10162 0.14891 0.05189 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant4
+  xpos -1080
+  ypos -411
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.10368 0.19588 0.33141 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant3
+  xpos -1160
+  ypos -411
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.56838 0.29265 0.21836 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant2
+  xpos -1240
+  ypos -411
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.17305 0.0821 0.05674 0}
+  format "256 256 0 0 256 256 1 square_256"
+  name Constant1
+  xpos -1320
+  ypos -411
+ }
+ ContactSheet {
+  inputs 24
+  width {{(256*columns)+(gap*(columns+2)) i}}
+  height {{(256*rows)+(gap*(rows+2)) i}}
+  rows 6
+  columns 6
+  gap 50
+  center true
+  roworder TopBottom
+  startframe 1
+  endframe 1
+  name ColorSamples
+  xpos -920
+  ypos -99
+  hide_input true
+ }
+ AdjBBox {
+  numpixels {{-ColorSamples.gap/2 i}}
+  name AdjBBox1
+  xpos -920
+  ypos -63
+ }
+ Colorspace {
+  colorspace_in sRGB
+  illuminant_in D50
+  colorspace_out sRGB
+  illuminant_out D50
+  name ColorRenditionChart_ColorSpace
+  tile_color 0xff0000ff
+  xpos -920
+  ypos -27
+ }
+ Text {
+  message "Color Space: \[value ColorRenditionChart_ColorSpace.colorspace_out]\nIlluminant: \[value ColorRenditionChart_ColorSpace.illuminant_out]\nPrimary: \[value ColorRenditionChart_ColorSpace.primary_out]"
+  font "\[value Arial.font]"
+  size {{root.proxy==0?130:260 i}}
+  leading 0.2
+  xjustify center
+  yjustify bottom
+  Transform 1
+  box {0 {root.proxy==0?130:260 i} {ColorSamples.format.r i} {ColorSamples.format.t i}}
+  center {914 778}
+  color 0.2
+  name Text1
+  xpos -920
+  ypos 9
+ }
+ Mirror {
+  Vertical true
+  name MirrorVertical
+  xpos -920
+  ypos 45
+ }
+ set C18999000 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{root.proxy==0?ColorSamples.format.w:ColorSamples.format.w*root.proxy_scale i}}
+  name Reformat_ProxyScale
+  xpos -920
+  ypos 63
+ }
+clone $C19916800 {
+  xpos -920
+  ypos 81
+  selected false
+ }
+ Reformat {
+  type "to box"
+  box_width {{root.proxy==0?CurrentFormat.width/7:CurrentFormat.width/7/root.proxy_scale i}}
+  scale 0.1428571429
+  black_outside true
+  name Reformat_Scale
+  xpos -920
+  ypos 99
+ }
+ Position {
+  translate {{(root.proxy==0?Reformat_Scale.width/4:Reformat_Scale.width/4/root.proxy_scale) i} {"translate.x*(\[exists parent.input]==1?parent.input.pixel_aspect:root.pixel_aspect)" i}}
+  name ColorRenditionChart_Position
+  xpos -920
+  ypos 135
+ }
+ BlackOutside {
+  name BlackOutside4
+  xpos -920
+  ypos 171
+ }
+ Transform {
+  translate {{parent.ColorChartPositionOffset.x i} {-parent.ColorChartPositionOffset.y i}}
+  center {{(input.format.w/2)+ColorRenditionChart_Position.translate.x i} {(input.format.h/2)+ColorRenditionChart_Position.translate.y i}}
+  name ColorChartShowPositionOffset
+  tile_color 0xff0000ff
+  xpos -920
+  ypos 207
+ }
+push $Nab4bc00
+ Shuffle {
+  alpha white
+  name NewAlphaOnBars
+  xpos -120
+  ypos -297
+ }
+ set C1ebb2800 [stack 0]
+ Colorspace {
+  colorspace_in sRGB
+  colorspace_out sRGB
+  name BarsLinearized
+  tile_color 0xff0000ff
+  xpos -120
+  ypos -225
+ }
+ Reformat {
+  type scale
+  scale {1 0.05}
+  resize none
+  name BandTesterSize
+  xpos -120
+  ypos -189
+ }
+ set C1ebb2000 [stack 0]
+ Position {
+  translate {0 {root.proxy==1?BandTesterSize.format.h/(1*root.proxy_scale):BandTesterSize.format.h i}}
+  name BarsPosition
+  xpos -120
+  ypos -153
+ }
+ BlackOutside {
+  name BlackOutsideBand1
+  xpos -120
+  ypos -117
+ }
+ Dot {
+  name Dot2
+  xpos -86
+  ypos -78
+ }
+push 0
+ Constant {
+  inputs 0
+  name Format
+  xpos -280
+  ypos -537
+ }
+clone $Cab4bc00 {
+  xpos -280
+  ypos -441
+  selected false
+ }
+set N1818e800 [stack 0]
+ Dot {
+  name Dot1
+  xpos -406
+  ypos -438
+ }
+ Ramp {
+  output rgb
+  p0 {0 0}
+  p1 {{CurrentFormat.box_width i} 0}
+  name BW_Ramp
+  xpos -440
+  ypos -411
+  postage_stamp true
+ }
+clone $C1ebb2800 {
+  xpos -440
+  ypos -297
+  selected false
+ }
+ Posterize {
+  Colors 17
+  name BW_Chips
+  xpos -440
+  ypos -266
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name RampLinearized
+  tile_color 0xff0000ff
+  xpos -440
+  ypos -225
+ }
+clone $C1ebb2000 {
+  xpos -440
+  ypos -189
+  selected false
+ }
+ BlackOutside {
+  name BlackOutsideBand
+  xpos -440
+  ypos -117
+ }
+ Dot {
+  name Dot3
+  xpos -406
+  ypos -78
+ }
+push $Nab4ac00
+ FrameRange {
+  first_frame {{"\[exists parent.input]==1?\[value parent.input.first_frame]:0"}}
+  last_frame {{"\[exists parent.input]==1?\[value parent.input.last_frame]:0"}}
+  time ""
+  name FrameRange
+  xpos 2520
+  ypos -657
+  addUserKnob {20 User}
+  addUserKnob {3 nff l "new first frame"}
+  nff {{"\[value parent.input.first_frame]+\[value Handles.handlesIN]" i}}
+  addUserKnob {3 nlf l "new last frame" -STARTLINE}
+  nlf {{"\[value parent.input.last_frame]-\[value Handles.handlesOUT]" i}}
+ }
+ Dot {
+  name Dot17
+  xpos 2554
+  ypos -600
+ }
+set N171abc00 [stack 0]
+ Reformat {
+  type scale
+  scale {{parent.thumbnailssize<=4?parent.thumbnailssize:4 i}}
+  resize fit
+  name Thumbnails_Size
+  xpos 1560
+  ypos -603
+ }
+ Dot {
+  name Dot81
+  xpos 1594
+  ypos -924
+ }
+set N171ab000 [stack 0]
+ Dot {
+  name Dot82
+  xpos 1594
+  ypos -1464
+ }
+set N171aac00 [stack 0]
+ Shuffle {
+  alpha white
+  name NewAlpha_Thumbnail
+  xpos 924
+  ypos -1467
+ }
+ Mirror {
+  Horizontal true
+  Vertical true
+  name MirrorVerticalHorizontal
+  xpos 924
+  ypos -1449
+ }
+ set C171aa400 [stack 0]
+ Crop {
+  box {{input.format.x i} {input.format.y i} {root.proxy==0?input.format.r:input.format.r/root.proxy_scale i} {root.proxy==0?input.format.t:input.format.t/root.proxy_scale i}}
+  reformat true
+  name FitFormat
+  xpos 924
+  ypos -1431
+ }
+ Reformat {
+  type scale
+  scale 0.15
+  black_outside true
+  pbb true
+  name Thumbnail
+  xpos 924
+  ypos -1413
+ }
+set N9d6bc00 [stack 0]
+ Dot {
+  name Dot19
+  xpos 1034
+  ypos -1410
+ }
+set N9d6b400 [stack 0]
+ Dot {
+  name Dot20
+  xpos 1114
+  ypos -1410
+ }
+set N9d6b000 [stack 0]
+ Dot {
+  name Dot22
+  xpos 1194
+  ypos -1410
+ }
+set N9d6ac00 [stack 0]
+ Dot {
+  name Dot23
+  xpos 1274
+  ypos -1410
+ }
+set N9d6a800 [stack 0]
+ Dot {
+  name Dot24
+  xpos 1354
+  ypos -1410
+ }
+ FrameHold {
+  first_frame {{FrameRange.nlf i}}
+  name LastFrame_Thumbnail
+  xpos 1320
+  ypos -1382
+ }
+ Transform {
+  translate {0 {root.proxy==0?input.format.h*5:input.format.h*5/root.proxy_scale i}}
+  center {183 155.5}
+  name PositionSequenceThumbnails4
+  xpos 1320
+  ypos -1287
+ }
+ Dot {
+  name Dot30
+  xpos 1354
+  ypos -1104
+ }
+ Dot {
+  name Dot36
+  xpos 874
+  ypos -1104
+ }
+push $N9d6a800
+ FrameHold {
+  first_frame {{FrameRange.nff+(FrameRange.nlf-FrameRange.nff)*0.8 i}}
+  name MiddleFrame_Thumbnail_4
+  xpos 1240
+  ypos -1382
+ }
+ Transform {
+  translate {0 {root.proxy==0?input.format.h*4:input.format.h*4/root.proxy_scale i}}
+  center {183 155.5}
+  name PositionSequenceThumbnails3
+  xpos 1240
+  ypos -1287
+ }
+ Dot {
+  name Dot29
+  xpos 1274
+  ypos -1122
+ }
+ Dot {
+  name Dot35
+  xpos 874
+  ypos -1122
+ }
+push $N9d6ac00
+ FrameHold {
+  first_frame {{FrameRange.nff+(FrameRange.nlf-FrameRange.nff)*0.6 i}}
+  name MiddleFrame_Thumbnail_3
+  xpos 1160
+  ypos -1382
+ }
+ Transform {
+  translate {0 {root.proxy==0?input.format.h*3:input.format.h*3/root.proxy_scale i}}
+  center {183 155.5}
+  name PositionSequenceThumbnails2
+  xpos 1160
+  ypos -1287
+ }
+ Dot {
+  name Dot28
+  xpos 1194
+  ypos -1140
+ }
+ Dot {
+  name Dot34
+  xpos 874
+  ypos -1140
+ }
+push $N9d6b000
+ FrameHold {
+  first_frame {{FrameRange.nff+(FrameRange.nlf-FrameRange.nff)*0.4 i}}
+  name MiddleFrame_Thumbnail_2
+  xpos 1080
+  ypos -1382
+ }
+ Transform {
+  translate {0 {root.proxy==0?input.format.h*2:input.format.h*2/root.proxy_scale i}}
+  center {183 155.5}
+  name PositionSequenceThumbnails1
+  xpos 1080
+  ypos -1287
+ }
+ Dot {
+  name Dot27
+  xpos 1114
+  ypos -1158
+ }
+ Dot {
+  name Dot33
+  xpos 874
+  ypos -1158
+ }
+push $N9d6b400
+ FrameHold {
+  first_frame {{FrameRange.nff+(FrameRange.nlf-FrameRange.nff)*0.2 i}}
+  name MiddleFrame_Thumbnail_1
+  xpos 1000
+  ypos -1382
+ }
+ Transform {
+  translate {0 {root.proxy==0?input.format.h:input.format.h/root.proxy_scale i}}
+  center {183 155.5}
+  name PositionSequenceThumbnails
+  xpos 1000
+  ypos -1287
+ }
+ Dot {
+  name Dot26
+  xpos 1034
+  ypos -1176
+ }
+ Dot {
+  name Dot32
+  xpos 874
+  ypos -1176
+ }
+push 0
+push $N9d6bc00
+ FrameHold {
+  first_frame {{FrameRange.nff i}}
+  name FirstFrame_Thumbnail
+  xpos 920
+  ypos -1382
+ }
+ Dot {
+  name Dot25
+  xpos 954
+  ypos -1194
+ }
+ Dot {
+  name Dot31
+  xpos 874
+  ypos -1194
+ }
+push $N1989a000
+ Shuffle {
+  alpha black
+  name AlphaKill
+  xpos 166
+  ypos 27
+ }
+ Reformat {
+  type "to box"
+  box_width {{"ThumbnailsOver.disable==1?\[exists parent.input]==1?parent.input.format.w:root.format.w:\[exists parent.input]==1?parent.input.format.w-(root.proxy==0?Thumbnail.format.w:Thumbnail.format.w/root.proxy_scale):root.format.w" i}}
+  box_height {{"\[exists parent.input]==1?parent.input.format.h:root.format.h" i}}
+  box_fixed true
+  box_pixel_aspect {{"\[exists parent.input]==1?parent.input.format.pixel_aspect:root.format.pixel_aspect" i}}
+  resize fit
+  filter impulse
+  name FullSizeFormat
+  xpos 166
+  ypos 63
+ }
+ Transform {
+  scale 0.9
+  center {{CenterReference.center.x i} {CenterReference.center.y i}}
+  name ResizeWaterMark
+  xpos 166
+  ypos 81
+ }
+ Multiply {
+  name WatermarkIntensity
+  tile_color 0xff0000ff
+  xpos 166
+  ypos 112
+ }
+ Blur {
+  size {{FullSizeFormat.height/40 i}}
+  name BlurWatermark
+  tile_color 0xff0000ff
+  xpos 166
+  ypos 166
+  disable {{!parent.LogoBlur.main i}}
+ }
+ Dot {
+  name Dot10
+  xpos -166
+  ypos 174
+ }
+ Dot {
+  name Dot11
+  xpos -166
+  ypos -402
+ }
+push $N1818e800
+ Merge2 {
+  inputs 2
+  operation screen
+  mix 0
+  name WatermarkOver
+  xpos -280
+  ypos -405
+ }
+clone $C171aa400 {
+  xpos -280
+  ypos -369
+  selected false
+ }
+ Dot {
+  name Dot77
+  xpos 154
+  ypos -366
+ }
+ Dot {
+  name Dot52
+  xpos 154
+  ypos -636
+ }
+set N18a21000 [stack 0]
+ Dot {
+  name Dot78
+  xpos 154
+  ypos -1176
+ }
+set N18a20c00 [stack 0]
+ Merge2 {
+  inputs 7+1
+  mix {{"\[exists parent.input]" i}}
+  name ThumbnailsOver
+  tile_color 0xff0000ff
+  xpos 680
+  ypos -1179
+  disable {{!parent.Thumbnails.main i}}
+ }
+ Transform {
+  translate {{-parent.ThumbnailOffset.x i} {-parent.ThumbnailOffset.y i}}
+  name Thumbnails_offset
+  xpos 680
+  ypos -1107
+ }
+ set C18a20400 [stack 0]
+ Dot {
+  name Dot79
+  xpos 314
+  ypos -1104
+ }
+ Dot {
+  name Dot50
+  xpos 314
+  ypos -366
+ }
+push $N171aac00
+ Dot {
+  name Dot83
+  xpos 1594
+  ypos -2004
+ }
+ Shuffle {
+  alpha white
+  name NewAlpha_Thumbnail2
+  xpos 920
+  ypos -2007
+ }
+clone $C171aa400 {
+  xpos 920
+  ypos -1989
+  selected false
+ }
+ Crop {
+  box {{input.format.x i} {input.format.y i} {root.proxy==0?input.format.r:input.format.r/root.proxy_scale i} {root.proxy==0?input.format.t:input.format.t/root.proxy_scale i}}
+  reformat true
+  name FitFormat2
+  xpos 920
+  ypos -1971
+ }
+ Reformat {
+  type scale
+  scale 0.2
+  black_outside true
+  pbb true
+  name Thumbnail2
+  xpos 920
+  ypos -1953
+ }
+set N18a3c800 [stack 0]
+ Dot {
+  name Dot62
+  xpos 1034
+  ypos -1950
+ }
+set N18a3c000 [stack 0]
+ Dot {
+  name Dot63
+  xpos 1114
+  ypos -1950
+ }
+ FrameHold {
+  first_frame {{FrameRange.nlf i}}
+  name LastFrame_Thumbnail2
+  xpos 1080
+  ypos -1922
+ }
+ Transform {
+  translate {0 {root.proxy==0?input.format.h*2:input.format.h*2/root.proxy_scale i}}
+  center {183 155.5}
+  name PositionSequenceThumbnails5
+  xpos 1080
+  ypos -1827
+ }
+ Dot {
+  name Dot64
+  xpos 1114
+  ypos -1698
+ }
+ Dot {
+  name Dot65
+  xpos 874
+  ypos -1698
+ }
+push $N18a3c000
+ FrameHold {
+  first_frame {{FrameRange.nff+(FrameRange.nlf-FrameRange.nff)*0.5 i}}
+  name MiddleFrame_Thumbnail_9
+  xpos 1000
+  ypos -1922
+ }
+ Transform {
+  translate {0 {root.proxy==0?input.format.h:input.format.h/root.proxy_scale i}}
+  center {183 155.5}
+  name PositionSequenceThumbnails6
+  xpos 1000
+  ypos -1827
+ }
+ Dot {
+  name Dot66
+  xpos 1034
+  ypos -1716
+ }
+ Dot {
+  name Dot67
+  xpos 874
+  ypos -1716
+ }
+push 0
+push $N18a3c800
+ FrameHold {
+  first_frame {{FrameRange.nff i}}
+  name FirstFrame_Thumbnail2
+  xpos 920
+  ypos -1922
+ }
+ Dot {
+  name Dot68
+  xpos 954
+  ypos -1734
+ }
+ Dot {
+  name Dot69
+  xpos 874
+  ypos -1734
+ }
+push $N18a20c00
+ Dot {
+  name Dot84
+  xpos 154
+  ypos -1716
+ }
+ Merge2 {
+  inputs 4+1
+  mix {{"\[exists parent.input]" i}}
+  name ThumbnailsOver2
+  tile_color 0xff0000ff
+  xpos 680
+  ypos -1719
+  disable {{!parent.Thumbnails.main i}}
+ }
+clone $C18a20400 {
+  xpos 680
+  ypos -1683
+  selected false
+ }
+ Transform {
+  translate {{((BandTesterSize.format.h)/(root.proxy==0?1:root.proxy_scale)) i} {(((parent.CurrentFormat.box_height-((BandTesterSize.format.h*2)/(root.proxy==0?1:root.proxy_scale)))-(Thumbnail2.format.h)*3)/2)*(root.proxy==0?1:root.proxy_scale) i}}
+  black_outside false
+  name Transform5
+  xpos 680
+  ypos -1647
+ }
+ Dot {
+  name Dot51
+  xpos 394
+  ypos -1644
+ }
+ Dot {
+  name Dot80
+  xpos 394
+  ypos -348
+ }
+push $N171ab000
+ Shuffle {
+  alpha white
+  name NewAlpha_Thumbnail1
+  xpos 920
+  ypos -927
+ }
+clone $C171aa400 {
+  xpos 920
+  ypos -909
+  selected false
+ }
+ Crop {
+  box {{input.format.x i} {input.format.y i} {root.proxy==0?input.format.r:input.format.r/root.proxy_scale i} {root.proxy==0?input.format.t:input.format.t/root.proxy_scale i}}
+  reformat true
+  crop false
+  name FitFormat1
+  xpos 920
+  ypos -891
+ }
+ Reformat {
+  type scale
+  scale 0.25
+  black_outside true
+  pbb true
+  name Thumbnail1
+  xpos 920
+  ypos -873
+ }
+ FrameHold {
+  first_frame {{FrameRange.nff i}}
+  name MiddleFrame_Thumbnail_8
+  xpos 920
+  ypos -842
+ }
+ Dot {
+  name Dot54
+  xpos 954
+  ypos -636
+ }
+push $N18a21000
+ Merge2 {
+  inputs 2
+  mix {{"\[exists parent.input]" i}}
+  name ThumbnailsOver1
+  tile_color 0xff0000ff
+  xpos 684
+  ypos -639
+  disable {{!parent.Thumbnails.main i}}
+ }
+clone $C18a20400 {
+  xpos 684
+  ypos -603
+  selected false
+ }
+ Transform {
+  translate {{(BandTesterSize.format.h*2)/(root.proxy==0?1:root.proxy_scale) i} {translate.x i}}
+  name Transform7
+  xpos 684
+  ypos -567
+ }
+ Dot {
+  name Dot49
+  xpos 474
+  ypos -564
+ }
+ Dot {
+  name Dot86
+  xpos 474
+  ypos -330
+ }
+ Switch {
+  inputs 3
+  which {{parent.thumbnumber i}}
+  name Thumbnails_Switch
+  xpos 120
+  ypos -333
+ }
+clone $C171aa400 {
+  xpos -280
+  ypos -333
+  selected false
+ }
+ Merge2 {
+  inputs 3+1
+  bbox B
+  name TestersMerge
+  xpos -280
+  ypos -81
+ }
+ Dot {
+  name Dot5
+  xpos -246
+  ypos 156
+ }
+set N1bec6800 [stack 0]
+clone $C18999000 {
+  xpos -440
+  ypos 153
+  selected false
+ }
+ Dot {
+  name Dot6
+  xpos -566
+  ypos 156
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -600
+  ypos 207
+ }
+clone $C18999000 {
+  xpos -440
+  ypos 207
+  selected false
+ }
+push $N1bec6800
+ Switch {
+  inputs 2
+  which {{parent.colorchart i}}
+  name ColorRenditionChart_Switch
+  tile_color 0xff0000ff
+  xpos -280
+  ypos 207
+ }
+ Dot {
+  name Dot4
+  xpos -246
+  ypos 408
+ }
+clone $C1ff40800 {
+  xpos -200
+  ypos 405
+  selected false
+ }
+ Merge2 {
+  inputs 2
+  name Merge11
+  xpos -40
+  ypos 405
+ }
+clone $C1ff40800 {
+  xpos 120
+  ypos 405
+  selected false
+ }
+ Merge2 {
+  inputs 2
+  name LogoMERGE
+  xpos 280
+  ypos 405
+  disable {{parent.CompanyLogo.disable.main i}}
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {{parent.BGColor.main.r i} {parent.BGColor.main.g i} {parent.BGColor.main.b i} 1}
+  name SlateBGsolid
+  tile_color 0xff0000ff
+  xpos 40
+  ypos 651
+ }
+clone $Cab4bc00 {
+  xpos 40
+  ypos 765
+  selected false
+ }
+ Merge2 {
+  inputs 2
+  bbox A
+  metainput A
+  name ColorBGOver
+  xpos 280
+  ypos 765
+ }
+ Dot {
+  name Dot8
+  xpos 314
+  ypos 1164
+ }
+ Merge2 {
+  inputs 2
+  name Merge4
+  xpos 1640
+  ypos 1161
+ }
+ Constant {
+  inputs 0
+  color {{parent.HeadTL_color.color i} 0 0 1}
+  format "512 512 0 0 512 512 1 square_512"
+  name BackTL_color1
+  xpos 3960
+  ypos -321
+ }
+ Dot {
+  name Dot71
+  xpos 3994
+  ypos -204
+ }
+ Constant {
+  inputs 0
+  color {0.8 0.8 0.8 1}
+  format "512 512 0 0 512 512 1 square_512"
+  name HeadTL_color
+  xpos 4120
+  ypos -321
+ }
+ Dot {
+  name Dot72
+  xpos 4154
+  ypos -204
+ }
+set N19fcb800 [stack 0]
+ Switch {
+  inputs 2
+  which {{"\[exists parent.input]==0?0:((\[frame]-FrameRange.first_frame)<parent.handlesIN?1:0)||((\[frame]-FrameRange.first_frame)>((FrameRange.last_frame-FrameRange.first_frame)-parent.handlesOUT)?1:0)" i}}
+  name HandlesFrames
+  xpos 4040
+  ypos -207
+ }
+ set C19fcb400 [stack 0]
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 4040
+  ypos -171
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle7
+  xpos 4040
+  ypos -99
+  disable {{"\[exists parent.input]==1?1:0" i}}
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.TL_Sizes.TLheadsize i}}
+  box_height {{parent.TL_size.box_height i}}
+  box_fixed true
+  resize fill
+  center false
+  name Head_size
+  xpos 4040
+  ypos -63
+ }
+ BlackOutside {
+  name BlackOutside2
+  xpos 4040
+  ypos 9
+ }
+ Transform {
+  translate {{"\[frame]<FrameRange.first_frame?0:\[frame]>FrameRange.last_frame?TL_size.format.w-Head_size.format.w:((\[frame]-FrameRange.first_frame)/(FrameRange.last_frame-FrameRange.first_frame)*(TL_size.format.w-Head_size.format.w))" i} 0}
+  name Transform1
+  xpos 4040
+  ypos 63
+ }
+ Constant {
+  inputs 0
+  color {{parent.BackTL_color.color/2 i} 0 0 1}
+  format "512 512 0 0 512 512 1 square_512"
+  name BackTL_color3
+  xpos 3320
+  ypos -321
+ }
+ Dot {
+  name Dot70
+  xpos 3354
+  ypos -204
+ }
+ Constant {
+  inputs 0
+  color {{parent.BackTL_color.color/2 i} {parent.BackTL_color.color/2 i} {parent.BackTL_color.color/2 i} 1}
+  format "512 512 0 0 512 512 1 square_512"
+  name BackTL_color2
+  xpos 3480
+  ypos -321
+ }
+ Dot {
+  name Dot61
+  xpos 3514
+  ypos -204
+ }
+clone $C19fcb400 {
+  inputs 2
+  xpos 3400
+  ypos -207
+  selected false
+ }
+ Shuffle {
+  alpha white
+  name Shuffle3
+  xpos 3400
+  ypos -171
+ }
+set N1e53e400 [stack 0]
+ Dot {
+  name Dot76
+  xpos 3354
+  ypos -168
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle6
+  xpos 3320
+  ypos -99
+  disable {{"parent.handlesIN<=0?(\[exists parent.input]==1?0:1):1" i}}
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.handlesIN<=0?1:((parent.handlesIN+1-FrameRange.first_frame)/(FrameRange.last_frame-FrameRange.first_frame)*(TL_size.format.w-Head_size.format.w)) i}}
+  box_height {{parent.TL_size.box_height i}}
+  box_fixed true
+  resize fill
+  center false
+  name Head_sizeIN
+  xpos 3320
+  ypos -63
+ }
+ BlackOutside {
+  name BlackOutside5
+  xpos 3320
+  ypos 9
+ }
+ Dot {
+  name Dot87
+  xpos 3354
+  ypos 66
+ }
+push $N1e53e400
+ Dot {
+  name Dot85
+  xpos 3514
+  ypos -168
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle5
+  xpos 3480
+  ypos -99
+  disable {{"parent.handlesOUT<=0?(\[exists parent.input]==1?0:1):1" i}}
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.handlesOUT<=0?1:((parent.handlesOUT+1-FrameRange.first_frame)/(FrameRange.last_frame-FrameRange.first_frame)*(TL_size.format.w-Head_size.format.w))-1 i}}
+  box_height {{parent.TL_size.box_height i}}
+  box_fixed true
+  resize fill
+  center false
+  black_outside true
+  name Head_sizeOUT
+  xpos 3480
+  ypos -63
+ }
+ Transform {
+  translate {{parent.TL_size.box_width-Head_sizeOUT.format.w i} 0}
+  filter impulse
+  black_outside false
+  name Transform2
+  xpos 3480
+  ypos -27
+ }
+ BlackOutside {
+  name BlackOutside6
+  xpos 3480
+  ypos 9
+ }
+ Dot {
+  name Dot88
+  xpos 3514
+  ypos 66
+ }
+ Merge2 {
+  inputs 2
+  name Merge8
+  xpos 3400
+  ypos 63
+ }
+ Dot {
+  name Dot89
+  xpos 3434
+  ypos 120
+ }
+ Constant {
+  inputs 0
+  color {{parent.BackTL_color.color i} 0 0 1}
+  format "512 512 0 0 512 512 1 square_512"
+  name BackTL_color4
+  xpos 3640
+  ypos -321
+ }
+ Dot {
+  name Dot74
+  xpos 3674
+  ypos -204
+ }
+ Constant {
+  inputs 0
+  color {0.1 0.1 0.1 1}
+  format "512 512 0 0 512 512 1 square_512"
+  name BackTL_color
+  xpos 3800
+  ypos -321
+ }
+ Dot {
+  name Dot75
+  xpos 3834
+  ypos -204
+ }
+clone $C19fcb400 {
+  inputs 2
+  xpos 3720
+  ypos -207
+  selected false
+ }
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 3720
+  ypos -171
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.TL_Sizes.timelineSize i}}
+  box_height {{parent.TL_Sizes.timelineh i}}
+  box_fixed true
+  resize fill
+  name TL_size
+  xpos 3720
+  ypos -63
+ }
+ Merge2 {
+  inputs 2
+  name Merge7
+  xpos 3720
+  ypos 117
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos 4040
+  ypos 117
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.TL_size.box_width+(TL_Sizes.TLbordersize*2) i}}
+  box_height {{parent.TL_size.box_height+(TL_Sizes.TLbordersize*2) i}}
+  box_fixed true
+  resize none
+  black_outside true
+  name Reformat1
+  xpos 4040
+  ypos 171
+ }
+push $N19fcb800
+ Dot {
+  name Dot73
+  xpos 4234
+  ypos -204
+ }
+ Shuffle {
+  alpha white
+  name Shuffle4
+  xpos 4200
+  ypos -171
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.Reformat1.box_width i}}
+  box_height {{parent.Reformat1.box_height i}}
+  box_fixed true
+  resize fill
+  filter impulse
+  black_outside true
+  name Reformat2
+  xpos 4200
+  ypos -63
+ }
+ set C1f754c00 [stack 0]
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos 4200
+  ypos 171
+ }
+ Constant {
+  inputs 0
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  color {0 0 0 0}
+  format "512 512 0 0 512 512 1 square_512"
+  name transparentTL
+  xpos 4360
+  ypos -326
+ }
+clone $C1f754c00 {
+  xpos 4360
+  ypos -63
+  selected false
+ }
+ Dissolve {
+  inputs 2
+  which {{parent.TL_Sizes.UITLOpacity i}}
+  name Dissolve3
+  xpos 4360
+  ypos 166
+ }
+ Transform {
+  translate {{parent.Frame_Number.translate-center.x-(parent.TypeSize.main*5) i} {parent.Frame_Number.translate-TL_Sizes.TLbordersize-(parent.TL_Sizes.timelineh*0.5) i}}
+  center {{parent.TL_Sizes.timelineSize+(TL_Sizes.TLbordersize*2)+1 i} {(parent.TL_Sizes.timelineh+(TL_Sizes.TLbordersize*2))/2 i}}
+  name Transform4
+  xpos 4360
+  ypos 225
+ }
+ Transform {
+  translate {{parent.TL_Sizes.UITLPositionOffset i} {parent.TL_Sizes.UITLPositionOffset i}}
+  center {{parent.Transform4.translate+parent.Transform4.center.x i} {parent.Transform4.translate+parent.Transform4.center.y i}}
+  black_outside false
+  name TL_positionoffset
+  xpos 4360
+  ypos 261
+ }
+push $N1ff67000
+ Dot {
+  name Dot47
+  xpos 1754
+  ypos 354
+ }
+ Dot {
+  name Dot48
+  xpos 1754
+  ypos -294
+ }
+ Dot {
+  name Dot46
+  xpos 2954
+  ypos -294
+ }
+ Rectangle {
+  area {0 0 {parent.CurrentFormat.box_width.main i} {parent.LineWeight.main i}}
+  color {1 1 1 1}
+  name MaskLine
+  xpos 2920
+  ypos -207
+ }
+set N18bf1c00 [stack 0]
+ Dot {
+  name Dot56
+  xpos 2876
+  ypos -204
+ }
+ Transform {
+  translate {0 {Crop5.box.y-parent.LineWeight.main i}}
+  black_outside false
+  name Transform3
+  xpos 2842
+  ypos -171
+ }
+ BlackOutside {
+  name BlackOutside8
+  xpos 2842
+  ypos -135
+ }
+ Dot {
+  name Dot57
+  xpos 2876
+  ypos -96
+ }
+push $N18bf1c00
+ Dot {
+  name Dot55
+  xpos 3036
+  ypos -204
+ }
+ Transform {
+  translate {0 {Crop5.box.t i}}
+  black_outside false
+  name Transform6
+  xpos 3002
+  ypos -171
+ }
+ BlackOutside {
+  name BlackOutside7
+  xpos 3002
+  ypos -135
+ }
+ Dot {
+  name Dot58
+  xpos 3036
+  ypos -96
+ }
+ Merge2 {
+  inputs 2
+  metainput A
+  name Merge2
+  xpos 2922
+  ypos -99
+ }
+push $N1f551000
+ Dot {
+  name Dot60
+  xpos 554
+  ypos 138
+ }
+ Dot {
+  name Dot59
+  xpos 554
+  ypos -204
+ }
+ BlackOutside {
+  name BlackOutside9
+  xpos 2360
+  ypos -207
+ }
+ NoOp {
+  name SetLogoCenterOverlay
+  xpos 2360
+  ypos -171
+ }
+ Reformat {
+  type "to box"
+  box_height {{parent.Transform3.translate.y<=0?1:parent.Transform3.translate.y i}}
+  resize height
+  name Reformat_FitToMask
+  xpos 2360
+  ypos -135
+  disable {{Crop5.box.y>0?(!parent.MaskOn):1 i}}
+ }
+ Reformat {
+  type scale
+  scale 0.5
+  resize fill
+  name ReformatHalfLogo
+  xpos 2360
+  ypos -117
+  disable {{!parent.Reformat_FitToMask.disable i}}
+ }
+ Transform {
+  center {{root.proxy==0?(input.format.w/2):(input.format.w/2)/root.proxy_scale i} {root.proxy==0?(input.format.h/2):(input.format.h/2)/root.proxy_scale i}}
+  name PositionOffset_LogoOverlay
+  xpos 2360
+  ypos -99
+ }
+ Transform {
+  translate {{root.proxy==0?((parent.input.format.w-input.format.w)/2):((parent.input.format.w-(input.format.w/root.proxy_scale))/2) i} 0}
+  center {{root.proxy==0?(input.format.w/2):(input.format.w/2)/root.proxy_scale i} {root.proxy==0?(input.format.h/2):(input.format.h/2)/root.proxy_scale i}}
+  name Transform8
+  xpos 2360
+  ypos -81
+ }
+ Mirror {
+  Vertical true
+  name LogoOverlayTop
+  xpos 2360
+  ypos -63
+  disable {{Merge10.disable==0?parent.LogoPosition:1 i}}
+ }
+ set C1e4c4c00 [stack 0]
+push $N171abc00
+ Dot {
+  name Dot38
+  xpos 2554
+  ypos -186
+ }
+set N1e4c4800 [stack 0]
+ Crop {
+  box {{"int(clamp((((\[exists parent.input]==1?parent.input.format.w:root.format.w)-(((\[exists parent.input]==1?parent.input.format.h:root.format.h)/(\[exists parent.input]==1?parent.input.format.pixel_aspect:root.format.pixel_aspect))*parent.MaskAspectRatio))/2),0,(\[exists parent.input]==1?parent.input.format.w:root.format.w)))" i} {"int(clamp((((\[exists parent.input]==1?parent.input.format.h:root.format.h)-(((\[exists parent.input]==1?parent.input.format.w:root.format.w)*(\[exists parent.input]==1?parent.input.format.pixel_aspect:root.format.pixel_aspect))/parent.MaskAspectRatio))/2),0,(\[exists parent.input]==1?parent.input.format.h:root.format.h)))" i} {"int(clamp((\[exists parent.input]==1?parent.input.format.w:root.format.w)-(((\[exists parent.input]==1?parent.input.format.w:root.format.w)-(((\[exists parent.input]==1?parent.input.format.h:root.format.h)/(\[exists parent.input]==1?parent.input.format.pixel_aspect:root.format.pixel_aspect))*parent.MaskAspectRatio))/2),0,(\[exists parent.input]==1?parent.input.format.w:root.format.w)))" i} {"int(clamp((\[exists parent.input]==1?parent.input.format.h:root.format.h)-(((\[exists parent.input]==1?parent.input.format.h:root.format.h)-(((\[exists parent.input]==1?parent.input.format.w:root.format.w)*(\[exists parent.input]==1?parent.input.format.pixel_aspect:root.format.pixel_aspect))/parent.MaskAspectRatio))/2),0,\[exists parent.input]==1?parent.input.format.h:root.format.h))" i}}
+  name Crop5
+  xpos 2520
+  ypos -152
+ }
+ Crop {
+  box {0 0 {parent.CurrentFormat.box_width.main i} {parent.CurrentFormat.box_height.main i}}
+  name Crop2
+  xpos 2520
+  ypos -127
+ }
+push $N1e4c4800
+ Dot {
+  name Dot21
+  xpos 2714
+  ypos -186
+ }
+ Dissolve {
+  inputs 2
+  which {{parent.MaskOpacity.main i}}
+  name Dissolve1
+  xpos 2680
+  ypos -132
+  disable {{!parent.MaskOn.main i}}
+ }
+set N1f0c5800 [stack 0]
+ Dot {
+  name Dot37
+  xpos 2794
+  ypos -124
+ }
+clone $C1e4c4c00 {
+  xpos 2760
+  ypos -99
+  selected false
+ }
+ Merge2 {
+  inputs 2
+  mix {{parent.LogoOverlayOpacity i}}
+  name Merge10
+  xpos 2760
+  ypos -63
+  disable {{!parent.Logoenable i}}
+ }
+clone $C1e4c4c00 {
+  xpos 2760
+  ypos -27
+  selected false
+ }
+ Text {
+  message "\[frame]"
+  font "\[value Arial.font]"
+  size {{parent.TypeSize.main i}}
+  xjustify right
+  yjustify center
+  Transform 1
+  translate {{"(\[exists parent.input]==1?parent.input.format.w:root.format.w)-(parent.OffsetOverlays.main.x)" i} {(parent.OffsetOverlays.main.y) i}}
+  color 0.8
+  name Frame_Number
+  tile_color 0xff0000
+  xpos 2760
+  ypos -5
+ }
+set N1f0c4400 [stack 0]
+ Text {
+  message "\[file tail \[knob root.name]]"
+  font "\[value Arial.font]"
+  size {{parent.TypeSize.main}}
+  yjustify center
+  Transform 1
+  translate {{parent.OffsetOverlays.main.x} {parent.OffsetOverlays.main.y}}
+  color 0.8
+  name Script_Name_and_Artist_Name1
+  tile_color 0xff0000
+  xpos 2868
+  ypos 31
+ }
+push $N1f0c4400
+ Text {
+  message "\[file tail \[knob root.name]] \[knob TextFields.plate_artist]"
+  font "\[value Arial.font]"
+  size {{parent.TypeSize.main}}
+  yjustify center
+  Transform 1
+  translate {{parent.OffsetOverlays.main.x} {parent.OffsetOverlays.main.y}}
+  color 0.8
+  name Script_Name_and_Artist_Name
+  tile_color 0xff0000
+  selected true
+  xpos 2760
+  ypos 31
+ }
+ Switch {
+  inputs 2
+  name Switch1
+  xpos 2760
+  ypos 55
+ }
+ Text {
+  message "\[subst \[knob parent.plate_jobname]]  |  \[expr \[value parent.versiononname]==false?\"\[knob TextFields.plate_shotname]\":\"\[knob TextFields.plate_shotname]_v\[knob Text_Version.message]\"]"
+  font "\[value Arial.font]"
+  size {{parent.TypeSize.main}}
+  yjustify center
+  Transform 1
+  translate {{(parent.OffsetOverlays.main.x)} {"(\[exists parent.input]==1?parent.input.format.h:root.format.h)-(parent.OffsetOverlays.main.y)"}}
+  color 0.8
+  name Shot
+  tile_color 0xff0000
+  xpos 2760
+  ypos 82
+  disable true
+  addUserKnob {20 "" l User}
+ }
+ Text {
+  message "\[subst \[knob TextFields.CompanyName]]"
+  font "\[value ArialBold.font]"
+  size {{parent.TypeSize.main i}}
+  xjustify center
+  yjustify center
+  Transform 1
+  translate {{"(\[exists parent.input]==1?parent.input.format.w:root.format.w)/2" i} {"(\[exists parent.input]==1?parent.input.format.h:root.format.h)-(parent.OffsetOverlays.main.y)" i}}
+  color 0.8
+  name Company
+  tile_color 0xff0000
+  xpos 2760
+  ypos 100
+ }
+ Text {
+  message "\[value DateTimeFormat.fdo]"
+  font "\[value Arial.font]"
+  size {{parent.TypeSize.main}}
+  yjustify center
+  Transform 1
+  translate {{(parent.OffsetOverlays.main.x)} {"(\[exists parent.input]==1?parent.input.format.h:root.format.h)-(parent.OffsetOverlays.main.y)"}}
+  color 0.8
+  name DateOverlay
+  tile_color 0xff0000
+  xpos 2760
+  ypos 118
+ }
+push $N1f0c5800
+ Dot {
+  name Dot40
+  xpos 2714
+  ypos 160
+ }
+ Dissolve {
+  inputs 2
+  which {{parent.OverlaysOpacity.main i}}
+  name Dissolve2
+  xpos 2760
+  ypos 152
+  disable {{!parent.BurnIOverlays.main i}}
+ }
+set N1f11b800 [stack 0]
+ Merge2 {
+  inputs 2
+  bbox B
+  mix {{parent.LineOpacity.main i}}
+  name lineopac
+  xpos 2922
+  ypos 157
+ }
+push $N1f11b800
+ Dot {
+  name Dot42
+  xpos 2795
+  ypos 196
+ }
+ Switch {
+  inputs 2
+  which {{parent.MaskOn.main i}}
+  name MaskSwitch
+  xpos 2922
+  ypos 193
+ }
+ BlackOutside {
+  name BlackOutside3
+  xpos 2922
+  ypos 225
+ }
+ Merge2 {
+  inputs 2
+  name Merge9
+  xpos 2922
+  ypos 261
+  disable {{!parent.BurnIOverlays||!parent.EnableTimeline i}}
+ }
+push $N171abc00
+ Dot {
+  name Dot41
+  xpos 4554
+  ypos -600
+ }
+ Dot {
+  name Dot39
+  xpos 4554
+  ypos 1110
+ }
+ Switch {
+  inputs 2
+  which {{parent.burnins i}}
+  name BurnIns_Switch
+  xpos 2922
+  ypos 1107
+ }
+ Switch {
+  inputs 2
+  which {{"frame<=\[value SlateFrame.slate_frame]" i}}
+  name SlateFrameSet
+  xpos 2922
+  ypos 1161
+ }
+ Crop {
+  box {0 0 {parent.CurrentFormat.box_width.main i} {parent.CurrentFormat.box_height.main i}}
+  crop false
+  name Crop1
+  xpos 2922
+  ypos 1215
+ }
+ Switch {
+  inputs 2
+  which {{parent.disable i}}
+  name DisableAll
+  xpos 2922
+  ypos 1269
+ }
+ Output {
+  name Output1
+  xpos 2922
+  ypos 1413
+ }
+ NoOp {
+  inputs 0
+  name TL_Sizes
+  xpos 3320
+  ypos -369
+  hide_input true
+  addUserKnob {20 TL_Sizes}
+  addUserKnob {3 timelineSize l "Timeline Size"}
+  timelineSize {{"\[exists parent.Input]==0?(root.format.w/5)*UITLSize:(parent.Input.format.w/5)*UITLSize" i}}
+  addUserKnob {3 timelineh l " " -STARTLINE}
+  timelineh {{parent.TypeSize.main*0.55 i}}
+  addUserKnob {3 TLbordersize l "Border Size"}
+  TLbordersize {{UITLBorderSize i}}
+  addUserKnob {7 TLheadsize l "Head Size" R 1 100}
+  TLheadsize {{((parent.TL_size.box_width/(FrameRange.last_frame-FrameRange.first_frame+1)<3?3:parent.TL_size.box_width/(FrameRange.last_frame-FrameRange.first_frame+1)))*UITLHeadsize i}}
+  addUserKnob {20 UIControls l "UI Controls"}
+  addUserKnob {7 UITLSize l "Timeline Size" R 0.1 4}
+  UITLSize 1
+  addUserKnob {7 UITLHeadsize l "Head Size" R 0.1 4}
+  UITLHeadsize 2
+  addUserKnob {3 UITLBorderSize l "Border Size"}
+  UITLBorderSize 3
+  addUserKnob {12 UITLPositionOffset l "Position Offset"}
+  addUserKnob {7 UITLOpacity l Opacity}
+  UITLOpacity {{parent.OverlaysOpacity}}
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  tile_color 0x3f7f00ff
+  label Timeline
+  note_font Verdana
+  note_font_size 30
+  xpos 3298
+  ypos -417
+ }
+ Text {
+  inputs 0
+  message ""
+  size {{parent.FontSize i}}
+  yjustify center
+  Transform 1
+  center {914 778}
+  name Text_Proprieties
+  tile_color 0xff0000ff
+  xpos 2360
+  ypos 603
+  hide_input true
+ }
+end_group

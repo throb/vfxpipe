@@ -16,10 +16,10 @@ def openInOSWindow():
 		
 	if platform.system() == 'Windows':
 		cmd = 'explorer "%s"' % (dName)
-    	os.system(cmd)
+		os.system(cmd)	
 	
 	if platform.system() == 'Linux':
-	    print 'Nothing here yet'
+	    print ('Nothing here yet')
 
 	if platform.system() == 'Darwin':
 		subprocess.Popen(['open', '-R', '%s' % (dName)])

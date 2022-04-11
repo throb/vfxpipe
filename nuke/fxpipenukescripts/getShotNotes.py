@@ -14,7 +14,7 @@ def getShotNotes():
     sg = shotgunUtils.genericUtils()
     scriptName = nuke.root()['name'].value()
     
-    print 'foo'
+    print ('foo')
     
     if scriptName == '' :
         nuke.message ('You need to save this first!')

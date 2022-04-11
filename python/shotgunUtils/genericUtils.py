@@ -6,7 +6,7 @@ from pprint import pprint
 try:
     from shotgun_api3 import Shotgun
 except:
-    print 'Shotgun module not found.  Not loading Shotgun tools'
+    print ('Shotgun module not found.  Not loading Shotgun tools')
 else:
     
     
@@ -28,7 +28,7 @@ else:
         conn = httplib.HTTPSConnection(URL)
         conn.request('HEAD','')
     except ValueError, e:
-        print 'Shotgun config info not correct:\n%s' % (e)
+        print ('Shotgun config info not correct:\n%s' % (e))
         
     #################### END CONFIG LOADING    
         

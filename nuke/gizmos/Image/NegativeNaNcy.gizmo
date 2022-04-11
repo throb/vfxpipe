@@ -1,0 +1,140 @@
+#! C:/Program Files/Nuke12.1v4/nuke-12.1.4.dll -nx
+version 12.1 v4
+Gizmo {
+ tile_color 0xff
+ gl_color 0xff
+ note_font_color 0xfff632ff
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -410
+  ypos -266
+ }
+ Dot {
+  name Dot1
+  xpos -376
+  ypos -226
+ }
+set N11cefc00 [stack 0]
+ Dot {
+  name Dot3
+  xpos -138
+  ypos -15
+ }
+ Expression {
+  expr0 isnan(r)?1:0
+  expr1 isnan(g)?1:0
+  expr2 isnan(b)?1:0
+  channel3 none
+  name Expression2
+  xpos -172
+  ypos 197
+ }
+ Saturation {
+  saturation 0
+  mode Maximum
+  name Saturation1
+  xpos -172
+  ypos 221
+ }
+push $N11cefc00
+ Expression {
+  expr0 isnan(r)?clamp(b+g)/2:r
+  expr1 isnan(g)?clamp(r+b)/2:g
+  expr2 isnan(b)?clamp(r+g)/2:b
+  channel3 {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  expr3 isnan(a)?1:a
+  name Expression1
+  xpos -410
+  ypos -83
+ }
+set N1c12bc00 [stack 0]
+ Invert {
+  channels rgba
+  name Invert1
+  xpos -410
+  ypos -18
+ }
+ SoftClip {
+  conversion "logarithmic compress"
+  softclip_min 0.995
+  name SoftClip1
+  xpos -410
+  ypos 6
+ }
+ Invert {
+  channels rgba
+  name Invert2
+  selected true
+  xpos -410
+  ypos 30
+ }
+push $N1c12bc00
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels rgba
+  name Copy1
+  xpos -271
+  ypos 18
+ }
+set N1c12b400 [stack 0]
+ TimeOffset {
+  time_offset 3
+  time ""
+  name TimeOffset1
+  xpos 134
+  ypos 30
+  disable true
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.alpha
+  name Copy2
+  xpos 134
+  ypos 215
+ }
+ Blur {
+  channels rgba
+  size 2
+  name Blur1
+  xpos 134
+  ypos 251
+ }
+ Premult {
+  name Premult1
+  xpos 134
+  ypos 288
+ }
+push $N1c12b400
+ Dot {
+  name Dot2
+  xpos -237
+  ypos 351
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 134
+  ypos 348
+ }
+ Output {
+  name Output1
+  xpos 134
+  ypos 448
+ }
+ Expression {
+  inputs 0
+  expr0 isnan(r)?(b+g)/2:r
+  expr1 isnan(g)?(r+b)/2:g
+  expr2 isnan(b)?(r+g)/2:b
+  channel3 {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  expr3 isnan(a)?1:a
+  name Expression3
+  xpos -584
+  ypos -149
+ }
+end_group

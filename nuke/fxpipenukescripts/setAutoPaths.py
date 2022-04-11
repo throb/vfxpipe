@@ -15,7 +15,7 @@ def setOutputPath(extension='exr'):
         version = '%03d' % (int(version))
         newPath = 'z:/job/%s/shots/%s/%s/%s/images/v%s/%s/%s/%s_%s_v%s.####.%s' % (job, seq, shot, task, version, resolution,extension, shot, task, version, extension)
     except:
-        print 'Version problem'
+        print ('Version problem')
         newPath = ''
 
     return  newPath
