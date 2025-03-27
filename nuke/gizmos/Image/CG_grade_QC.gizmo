@@ -1,0 +1,548 @@
+set cut_paste_input [stack 0]
+version 11.1 v1
+push $cut_paste_input
+Group {
+ name CG_grade_QC
+ selected true
+ xpos 200
+ ypos -122
+ addUserKnob {20 CG_grade_QC}
+ addUserKnob {4 modes t "mode: changes how the gizmo displays image modifications to check quality." M {all grain saturation "extreme values" "gamma up" "gamma down" "exposure up" "exposure down" "over saturation" luminance "" ""}}
+ addUserKnob {6 text t "toggle text descriptions." +STARTLINE}
+ text true
+ addUserKnob {6 textBackground +STARTLINE}
+ textBackground true
+ addUserKnob {7 multiply_image_scale R 1 3}
+ multiply_image_scale 1
+ addUserKnob {26 ""}
+ addUserKnob {26 textLabel l "" +STARTLINE T "quality control: \tMark Wallman\n\nUse this to check your CG on footage.  \nIf it looks good in all the views \nyou have matched your CG well.  \n\nThe only one which should be black\nis extreme values, which you do \nnot want in your render."}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 665
+  ypos -182
+ }
+ Dot {
+  name Dot26
+  xpos 699
+  ypos -142
+ }
+set Nab790700 [stack 0]
+ Dot {
+  name Dot1
+  xpos 961
+  ypos -140
+ }
+set Nab790380 [stack 0]
+ Dot {
+  name Dot27
+  xpos 1280
+  ypos -140
+ }
+set Nab790000 [stack 0]
+ Colorspace {
+  colorspace_out YPbPr
+  name Colorspace2
+  xpos 1246
+  ypos 212
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle5
+  label luminance
+  xpos 1246
+  ypos 249
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message luminance
+  old_message {{108 117 109 105 110 97 110 99 101}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text8
+  label luminance
+  xpos 1246
+  ypos 300
+  disable {{1-text}}
+ }
+set Nab791500 [stack 0]
+push $Nab790000
+ Dot {
+  name Dot14
+  xpos 1529
+  ypos -141
+ }
+set Nc8011500 [stack 0]
+ Dot {
+  name Dot3
+  xpos 1639
+  ypos -141
+ }
+set Nc8011180 [stack 0]
+ Dot {
+  name Dot6
+  xpos 1845
+  ypos -141
+ }
+set Nc8010e00 [stack 0]
+ Dot {
+  name Dot12
+  xpos 1994
+  ypos -141
+ }
+set Nc8010a80 [stack 0]
+ Dot {
+  name Dot13
+  xpos 2186
+  ypos -141
+ }
+ Saturation {
+  saturation 7
+  name Saturation1
+  xpos 2152
+  ypos 200
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "over saturation"
+  old_message {{111 118 101 114 32 115 97 116 117 114 97 116 105 111 110}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  cursor_position 15
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text9
+  label "over saturation"
+  xpos 2152
+  ypos 288
+  disable {{1-text}}
+ }
+set Nc8010000 [stack 0]
+push $Nc8010a80
+ EXPTool {
+  red -0.57
+  green -0.57
+  blue -0.57
+  name Exposure2
+  xpos 1960
+  ypos 209
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "exposure down"
+  old_message {{101 120 112 111 115 117 114 101 32 100 111 119 110}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  cursor_position 13
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text5
+  label "exposure down"
+  xpos 1960
+  ypos 290
+  disable {{1-text}}
+ }
+set Nc803fc00 [stack 0]
+push $Nc8010e00
+ EXPTool {
+  red 0.74
+  green 0.74
+  blue 0.74
+  name Exposure1
+  xpos 1811
+  ypos 208
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "exposure up"
+  old_message {{101 120 112 111 115 117 114 101 32 117 112}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text3
+  label "exposure up"
+  xpos 1811
+  ypos 289
+  disable {{1-text}}
+ }
+set Nc803f180 [stack 0]
+push $Nc8011180
+ Gamma {
+  channels rgb
+  value 0.15
+  name Gamma1
+  xpos 1605
+  ypos 210
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "gamma down"
+  old_message {{103 97 109 109 97 32 100 111 119 110}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text1
+  label "gamma down"
+  xpos 1605
+  ypos 293
+  disable {{1-text}}
+ }
+set Nc803e700 [stack 0]
+push $Nc8011500
+ Gamma {
+  channels rgb
+  value 3.2
+  name Gamma2
+  xpos 1496
+  ypos 212
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "gamma up"
+  old_message {{103 97 109 109 97 32 117 112}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  cursor_position 8
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text2
+  label "gamma up"
+  xpos 1496
+  ypos 293
+  disable {{1-text}}
+ }
+set Nc8087c00 [stack 0]
+push $Nab790700
+ Dot {
+  name Dot2
+  xpos 598
+  ypos -142
+ }
+set Nc8087500 [stack 0]
+ Dot {
+  name Dot8
+  xpos 598
+  ypos 22
+ }
+set Nc8087180 [stack 0]
+ Dot {
+  name Dot9
+  xpos 686
+  ypos 22
+ }
+push $Nc8087180
+ Log2Lin {
+  operation lin2log
+  name Log2Lin5
+  xpos 564
+  ypos 83
+ }
+ ColorLookup {
+  lut {master {curve L 10 x0 0 x1 1 x1 -0.1}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup6
+  xpos 564
+  ypos 128
+ }
+ Log2Lin {
+  name Log2Lin6
+  xpos 564
+  ypos 180
+ }
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge3
+  xpos 652
+  ypos 234
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "extreme values"
+  old_message {{101 120 116 114 101 109 101 32 118 97 108 117 101 115}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text4
+  label "extreme values"
+  xpos 652
+  ypos 313
+  disable {{1-text}}
+ }
+set Nc8575c00 [stack 0]
+push $Nab790380
+ Clamp {
+  name Clamp1
+  xpos 927
+  ypos 155
+ }
+ Colorspace {
+  colorspace_out HSL
+  name Colorspace1
+  xpos 927
+  ypos 225
+ }
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name Shuffle6
+  label "saturation\n"
+  xpos 927
+  ypos 271
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message saturation
+  old_message {{115 97 116 117 114 97 116 105 111 110}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text7
+  label saturation
+  xpos 927
+  ypos 325
+  disable {{1-text}}
+ }
+set Nc8574a80 [stack 0]
+push $Nc8087500
+ Dot {
+  name Dot30
+  xpos 284
+  ypos -142
+ }
+ Dot {
+  name Dot4
+  xpos 284
+  ypos -42
+ }
+set Nc8574000 [stack 0]
+ Dot {
+  name Dot11
+  xpos 211
+  ypos -42
+ }
+ Dot {
+  name Dot10
+  xpos 211
+  ypos 96
+ }
+push $Nc8574000
+ Blur {
+  size 1.7
+  name Blur4
+  xpos 250
+  ypos 17
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 250
+  ypos 92
+ }
+ Grade {
+  white 400
+  black_clamp false
+  name Grade2
+  xpos 250
+  ypos 168
+ }
+ Saturation {
+  saturation 3
+  mode Average
+  name Saturation2
+  xpos 250
+  ypos 211
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "grain "
+  old_message {{103 114 97 105 110 32}
+    }
+  box {0 0 {input.width} {input.height}}
+  xjustify center
+  yjustify bottom
+  transforms {{0 2}
+    }
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 900}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1079 450 0 0 1 1 0 0 0 0}
+    }
+  color {1 1 1 1}
+  enable_background {{0-textBackground}}
+  name Text6
+  label "grain\n"
+  xpos 250
+  ypos 303
+  disable {{1-text}}
+ }
+set Nc85b6700 [stack 0]
+push $Nab791500
+push $Nc803fc00
+push $Nc803e700
+push $Nc8010000
+push $Nc803f180
+push $Nc8087c00
+push $Nc8575c00
+push $Nc8574a80
+push $Nc85b6700
+ ContactSheet {
+  inputs 9
+  width {{input.height*multiply_image_scale x1 3327}}
+  height {{input.height*multiply_image_scale}}
+  columns 3
+  roworder TopBottom
+  name ContactSheet1
+  selected true
+  xpos 1381
+  ypos 492
+ }
+ Switch {
+  inputs 10
+  which {{modes}}
+  name Switch1
+  xpos 1615
+  ypos 498
+ }
+ Output {
+  name OutputA
+  xpos 1615
+  ypos 557
+ }
+ Output {
+  name Output1
+  xpos 1615
+  ypos 657
+ }
+end_group

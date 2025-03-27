@@ -1,6 +1,7 @@
 import sys, os
-import httplib
+# import httplib
 import fxpipe
+import json
 
 from pprint import pprint
 try:
@@ -11,25 +12,23 @@ else:
     
     
     #################### CONFIG LOADING
-    config_file = 'shotgun_config.py'
-    config_path = "%s/%s" % ( os.path.dirname(__file__), config_file)
+    # json.load("%s/%s" % ( os.path.dirname(__file__), 'shotgun_config.json'))
+    # config_file = 'shotgun_config.py'
+    config_path = "%s/%s" % ( os.path.dirname(__file__), 'shotgun_config.json')
     
-    if not os.path.exists( config_path ):
-        raise Exception( "Could not locate %s, please create." % (config_file) )
-    from shotgun_config import *
-    
-    required_config = [ 'URL','name','API' ]
-    
-    for key in required_config:
-        if not key in globals():
-            raise Exception( "%s must define a value for %s." % ( key, ) )
+    try : 
+        with open(config_path, 'r') as f:
+            sg_vars = json.load(f)
+            #convert the string keys to int
+            # sg_vars = {int(k): v for k, v in timezones.items()}
+    except:
+        pass
+
     
     try: #get a connection to see if the URL is even valid.
-        conn = httplib.HTTPSConnection(URL)
-        conn.request('HEAD','')
-    except ValueError, e:
-        print ('Shotgun config info not correct:\n%s' % (e))
-        
+        sg = Shotgun(sg_vars['URL'], sg_vars['NAME'], sg_vars['API'])
+    except :
+        print ('Shotgun connection failed.  Not loading Shotgun tools')
     #################### END CONFIG LOADING    
         
         
@@ -44,7 +43,9 @@ else:
     
     class genericUtils:
         def __init__(self):
-            self.sg = Shotgun('https://' + URL,name,API)
+            '''Version 2
+            '''
+            self.sg = Shotgun(sg_vars['URL'], sg_vars['NAME'], sg_vars['API'])
     
         def getFields (self, entity):
             '''get the fields for a type/entity as a list so we can pass it as an arg easily
@@ -77,6 +78,23 @@ else:
             retFields = self.getFields('Shot')
             return self.sg.find_one('Shot',[['code','is',shot],['project','is',project]],retFields)
         
+        def shots (self, project, sequence=None):
+            '''Returns the shotgun shot name and ID 
+            Parameters : (project, sequence)
+            '''        
+            retFields = self.getFields('Shot')
+            if sequence == None:
+                return self.sg.find('Shot',[['project','is',project]],retFields)
+            else:
+                return self.sg.find('Shot',[['project','is',project],['sg_sequence','is',sequence]],retFields)
+
+        def assets (self, project):
+            '''Returns the shotgun shot name and ID 
+            Parameters : (project, sequence)
+            '''        
+            retFields = self.getFields('Asset')
+            return self.sg.find('Asset',[['project','is',project]],retFields)
+            
         def createProject (self, project):
             '''Creates a project in Shotgun given a project name
             Parameters : (project)
@@ -286,7 +304,7 @@ else:
             'filmstrip_image', 'tag_list', 'frame_count', 'flagged']         
             '''
             retFields = self.getFields('Version')
-            return self.sg.find_one('Version',[['entity','is',shotID]],retFields,[{'field_name':'created_at','direction':'desc'}])
+            return self.sg.find_one('Version',[['entity','is',shotID]],retFields,[{'field_name':'created_at','direction':'asc'}])
         
         # search for the latest task given shotID and task info
         def versionFindLatestTask(self, shotID, task):

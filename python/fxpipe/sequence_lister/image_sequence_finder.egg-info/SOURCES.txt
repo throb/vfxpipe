@@ -1,0 +1,8 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+image_sequence_finder.egg-info/PKG-INFO
+image_sequence_finder.egg-info/SOURCES.txt
+image_sequence_finder.egg-info/dependency_links.txt
+image_sequence_finder.egg-info/top_level.txt

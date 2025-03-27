@@ -7,6 +7,7 @@ menubar = nuke.menu("Nuke");
 # add Read/Write Panel to File Menu
 menubar.addSeparator()
 menubar.addCommand('File/Display Read-Write Nodes','fxpipenukescripts.showReadWrite()','shift-q')
+menubar.addCommand('File/Archive',"WrapItUp()")
 
 # add shift-z for delete
 menubar.addSeparator()
@@ -43,4 +44,11 @@ dddMenu.addCommand('Replace all Axis nodes with Cards', 'fxpipenukescripts.repla
 dddMenu.addCommand('Rename imported abc\/fbx node names with original names', 'fxpipenukescripts.AM_Rename3DNodeToFBXNodeName()')
 dddMenu.addCommand('Turn Axis\/TransformGeo into Lights', 'fxpipenukescripts.locatorsToLights()')
 m.addSeparator()
+showMenu = m.addMenu('Show')
+showMenu.addCommand('C Output','fxpipenukescripts.createconjuringoutput.output()')
+showMenu.addCommand('RC h264','fxpipenukescripts.createOutput.processOutput()')
 #m.addCommand('Submit Shot to Client','fxpipenukescripts.submitShotToClient.processWriteNode()')
+#toolbar = nuke.menu('Nuke')
+#flipbook_menu = toolbar.addMenu('Flipbook')
+#menubar.addCommand('Render/Flipbook in RV', 'nukescripts.setFlipbookDefaultOption("flipbook", "RV")')
+nukescripts.setFlipbookDefaultOption("flipbook", "RV")

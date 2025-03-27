@@ -1,0 +1,514 @@
+set cut_paste_input [stack 0]
+version 15.1 v5
+push $cut_paste_input
+Group {
+ name LensCaustics
+ help "author Marc Rienzo"
+ tile_color 0x6a999900
+ selected true
+ xpos -370
+ ypos 3111
+ addUserKnob {20 "" l User}
+ addUserKnob {41 lut T ColorLookup1.lut}
+ addUserKnob {4 out l output M {"Lens Reflections" "Effect Only" "Lens Map "}}
+ out "Effect Only"
+ addUserKnob {6 flipx l "flip x" -STARTLINE}
+ flipx true
+ addUserKnob {6 flipy l "flip y" -STARTLINE}
+ flipy true
+ addUserKnob {7 amount R 0 2}
+ amount 0.1
+ addUserKnob {7 distortion R 0 100}
+ distortion 100
+ addUserKnob {7 speed l quality R 0.1 1}
+ speed 0.5
+ addUserKnob {7 chroma}
+ chroma 1
+ addUserKnob {7 scratches}
+ scratches 0.75
+ addUserKnob {7 size l area}
+ addUserKnob {7 spread R 0 200}
+ spread 100
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 186
+  ypos -224
+ }
+set Nb59f4000 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name BlackToRGBA
+  tile_color 0xbfbfbf00
+  xpos -217
+  ypos -79
+ }
+ Noise {
+  output {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  replace true
+  size 4.8
+  octaves 7
+  lacunarity 2.04
+  gain 0.92
+  gamma 1
+  center {360 202.5}
+  name Noise1
+  xpos -217
+  ypos -53
+ }
+ DirBlurWrapper {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  BlurCenter {{root.width/2} {root.height/2}}
+  BlurLength 9
+  target {{root.width/2} {root.height/2}}
+  name DirBlurWrapper1
+  xpos -217
+  ypos -13
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name RedToRGBA
+  tile_color 0xc6717100
+  xpos -217
+  ypos 27
+ }
+ Crop {
+  box {{curve} {curve} {root.width} {root.height}}
+  name Crop2
+  xpos -217
+  ypos 80
+ }
+push $Nb59f4000
+ ColorLookup {
+  lut {master {curve C 0 s0 v2.550829887 1 s3.160000086}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  unpremult -rgba.alpha
+  name ColorLookup1
+  xpos -15
+  ypos -109
+ }
+ Mirror {
+  Horizontal {{parent.flipx}}
+  Vertical {{parent.flipy}}
+  name Mirror1
+  xpos -15
+  ypos -77
+ }
+ Reformat {
+  type scale
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  scale {{parent.speed}}
+  filter impulse
+  name Reformat1
+  xpos -15
+  ypos -37
+ }
+ PerspDistort {
+  channels rgb
+  fov {{parent.distortion}}
+  reverse true
+  filter Mitchell
+  name PerspDistort1
+  xpos -15
+  ypos -11
+ }
+ Reformat {
+  type scale
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  scale {{1/parent.speed}}
+  filter Mitchell
+  name Reformat2
+  xpos -15
+  ypos 15
+ }
+set Nb5a3f000 [stack 0]
+ Group {
+  name Chromatic_Abberation
+  tile_color 0xff444400
+  note_font_color 0xffff00
+  xpos -91
+  ypos 42
+  addUserKnob {20 User}
+  addUserKnob {4 out l output M {"chromatic abberation" "effect only" "lens radial"}}
+  addUserKnob {7 scale l area}
+  scale 0.165
+  addUserKnob {7 spread R 0 100}
+  spread 100
+  addUserKnob {26 ""}
+  addUserKnob {7 red}
+  red 0.16
+  addUserKnob {7 green}
+  green 0.075
+  addUserKnob {7 blue}
+  blue 0.015
+  addUserKnob {26 ""}
+  addUserKnob {7 quality R 0.1 1}
+  quality {{parent.speed}}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -829
+   ypos -718
+  }
+set Nb5a3f800 [stack 0]
+  AddChannels {
+   channels depth
+   name AddChannels1
+   xpos -829
+   ypos -680
+  }
+set Nb5a3fc00 [stack 0]
+  Reformat {
+   type scale
+   format "1920 1080 0 0 1920 1080 1 HD_1080"
+   scale {{parent.quality}}
+   name Reformat1
+   tile_color 0x8e388e00
+   xpos -119
+   ypos -591
+  }
+  Radial {
+   output {-rgba.red -rgba.green -rgba.blue depth.Z}
+   replace true
+   area {0 0 {width} {height}}
+   softness 0.5
+   name Radial1
+   xpos -119
+   ypos -547
+  }
+  TransformMasked {
+   channels depth
+   scale {{parent.scale+1}}
+   center {{input.width/2} {input.height/2}}
+   maskChannelInput -rgba.alpha
+   name Transform2
+   label scale
+   xpos -119
+   ypos -483
+  }
+  Blur {
+   channels depth
+   size {{parent.spread}}
+   filter box
+   quality 10
+   maskChannelInput -rgba.alpha
+   name Blur1
+   label spread
+   xpos -119
+   ypos -385
+  }
+  Crop {
+   box {{curve} {curve} {width} {height}}
+   name Crop4
+   xpos -119
+   ypos -293
+  }
+set Nb5a6d400 [stack 0]
+  Shuffle {
+   in depth
+   name Shuffle1
+   label depth.Z
+   xpos 19
+   ypos -90
+  }
+push $Nb5a6d400
+  Dot {
+   name Dot1
+   xpos -686
+   ypos -160
+  }
+push $Nb5a6d400
+  GodRays {
+   channels {rgba.red -rgba.green -rgba.blue none}
+   scale {{(parent.red*.25)+1}}
+   center {{input.width/2} {input.height/2}}
+   maskChannelInput depth.Z
+   invert_mask true
+   name GodRays1
+   tile_color 0xc6717100
+   xpos -351
+   ypos -102
+  }
+  Crop {
+   box {{curve} {curve} {width} {height}}
+   name Crop3
+   xpos -351
+   ypos -62
+  }
+set Nab4c4400 [stack 0]
+  Merge {
+   inputs 2
+   operation absminus
+   maskChannelInput -rgba.alpha
+   name Merge1
+   tile_color 0x7171c600
+   xpos -714
+   ypos -62
+  }
+push $Nab4c4400
+push $Nab4c4400
+  GodRays {
+   channels {-rgba.red rgba.green -rgba.blue none}
+   scale {{(parent.green*.25)+1}}
+   center {{input.width/2} {input.height/2}}
+   maskChannelInput depth.Z
+   invert_mask true
+   name GodRays2
+   tile_color 0x71c67100
+   xpos -351
+   ypos 16
+  }
+  Crop {
+   box {{curve} {curve} {width} {height}}
+   name Crop2
+   xpos -351
+   ypos 56
+  }
+set Nab4c5000 [stack 0]
+  Merge {
+   inputs 2
+   operation absminus
+   maskChannelInput -rgba.alpha
+   name Merge2
+   tile_color 0x7171c600
+   xpos -565
+   ypos 45
+  }
+  Merge {
+   inputs 2
+   operation plus
+   maskChannelInput -rgba.alpha
+   name Merge4
+   tile_color 0x7171c600
+   xpos -714
+   ypos 45
+  }
+push $Nab4c5000
+push $Nab4c5000
+  GodRays {
+   channels {-rgba.red -rgba.green rgba.blue none}
+   scale {{(parent.blue*.25)+1}}
+   center {{input.width/2} {input.height/2}}
+   maskChannelInput depth.Z
+   invert_mask true
+   name GodRays3
+   tile_color 0x5991c600
+   xpos -351
+   ypos 95
+  }
+  Crop {
+   box {{curve} {curve} {width} {height}}
+   name Crop1
+   xpos -351
+   ypos 135
+  }
+  Merge {
+   inputs 2
+   operation absminus
+   maskChannelInput -rgba.alpha
+   name Merge3
+   tile_color 0x7171c600
+   xpos -571
+   ypos 124
+  }
+  Merge {
+   inputs 2
+   operation plus
+   maskChannelInput -rgba.alpha
+   name Merge5
+   tile_color 0x7171c600
+   xpos -714
+   ypos 124
+  }
+  Reformat {
+   type scale
+   format "1920 1080 0 0 1920 1080 1 HD_1080"
+   scale {{1/parent.quality}}
+   filter Mitchell
+   name Reformat2
+   tile_color 0x8e388e00
+   xpos -714
+   ypos 212
+  }
+set Nab508c00 [stack 0]
+push $Nb5a3fc00
+push $Nab508c00
+push $Nb5a3f800
+  Dot {
+   name Dot2
+   xpos -91
+   ypos -40
+  }
+  Merge {
+   inputs 2
+   operation plus
+   maskChannelInput -rgba.alpha
+   name Merge6
+   tile_color 0x7171c600
+   xpos -119
+   ypos 212
+  }
+  Dot {
+   name Dot3
+   xpos -91
+   ypos 338
+  }
+  Copy {
+   inputs 2
+   from0 depth.Z
+   to0 depth.Z
+   maskChannelInput -rgba.alpha
+   name Copy1
+   xpos -818
+   ypos 333
+  }
+  Switch {
+   inputs 3
+   which {{parent.out}}
+   name Switch1
+   label output
+   xpos 19
+   ypos 529
+  }
+  Output {
+   name Output1
+   xpos 19
+   ypos 691
+  }
+push $Nb5a6d400
+  Viewer {
+   frame_range 1,300
+   input_process_node FA5219_Viewer_Input1
+   name Viewer1
+   tile_color 0xff00ff00
+   xpos -700
+   ypos -730
+   hide_input true
+  }
+ end_group
+push $Nb5a3f000
+ Dissolve {
+  inputs 2
+  which {{parent.chroma}}
+  maskChannelInput -rgba.alpha
+  name Dissolve1
+  tile_color 0x4b5ec600
+  xpos -15
+  ypos 67
+ }
+ Multiply {
+  channels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  value {{parent.amount}}
+  name Multiply1
+  xpos -15
+  ypos 117
+ }
+ Merge {
+  inputs 2
+  A {rgba.red rgba.green rgba.blue rgba.red}
+  operation stencil
+  bbox B
+  mix {{parent.scratches}}
+  name Merge1
+  tile_color 0x7171c600
+  note_font_size 16
+  xpos -15
+  ypos 191
+ }
+set Nab56d800 [stack 0]
+ Radial {
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  replace true
+  area {{curve} {curve} {input.width} {input.height}}
+  softness 0
+  name Radial1
+  xpos -156
+  ypos 251
+ }
+ Transform {
+  scale {{parent.size+1}}
+  center {960 540}
+  name Transform1
+  xpos -156
+  ypos 277
+ }
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  size {{parent.spread}}
+  quality 10
+  maskChannelInput -rgba.alpha
+  name Blur2
+  xpos -156
+  ypos 309
+ }
+ Crop {
+  box {{curve} {curve} {root.width} {root.height}}
+  name Crop3
+  xpos -156
+  ypos 349
+ }
+set Neede800 [stack 0]
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name RedToRGBA1
+  tile_color 0xc6717100
+  xpos -156
+  ypos 441
+ }
+push $Neede800
+push $Nab56d800
+ Merge {
+  inputs 2
+  A {rgba.red rgba.green rgba.blue rgba.red}
+  operation stencil
+  maskChannelInput -rgba.alpha
+  name Merge2
+  tile_color 0x7171c600
+  xpos -15
+  ypos 380
+ }
+ Crop {
+  box {{curve i} {curve i} {input.width i} {input.height}}
+  name Crop1
+  xpos -15
+  ypos 406
+ }
+set Needf400 [stack 0]
+push $Needf400
+push $Nb59f4000
+ Merge {
+  inputs 2
+  operation plus
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  bbox B
+  name Plus
+  tile_color 0x7171c600
+  note_font_size 16
+  xpos 186
+  ypos 465
+ }
+ Switch {
+  inputs 3
+  which {{parent.out}}
+  name Switch1
+  xpos 186
+  ypos 610
+ }
+ Output {
+  name Output1
+  xpos 186
+  ypos 663
+ }
+end_group

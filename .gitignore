@@ -26,3 +26,5 @@ Thumbs.db
 *.db
 config.json
 config.json
+nuke/fxpipenukescripts/createconjuringoutput.py
+nuke/fxpipenukescripts/createOutput.py

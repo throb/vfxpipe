@@ -1,0 +1,181 @@
+#! D:/ARCHIVOS/PROGRAMAS/Nuke13.0v4/nuke-13.0.4.dll -nx
+version 13.0 v4
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {20 test l Dots n 1}
+ addUserKnob {41 rows l Repeat T DotTiling.rows}
+ addUserKnob {41 scale l Scale T DotScale.scale}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {41 range l Range T LuminanceRange.range}
+ addUserKnob {26 ""}
+ addUserKnob {41 format l "Output Format" T OutputReformat.format}
+}
+ Input {
+  inputs 0
+  name source
+  xpos 507
+  ypos 41
+ }
+ Keyer {
+  operation "luminance key"
+  name LuminanceRange
+  xpos 507
+  ypos 168
+ }
+ Invert {
+  name InvertMask
+  xpos 507
+  ypos 222
+ }
+ Dot {
+  name Dot3
+  xpos 541
+  ypos 327
+ }
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width 1000
+  box_height 1000
+  box_fixed true
+  resize distort
+  black_outside true
+  pbb true
+  name InitBBox
+  xpos 185
+  ypos 144
+ }
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width 1000
+  box_height 1000
+  box_fixed true
+  resize distort
+  black_outside true
+  pbb true
+  name InitBox
+  xpos 328
+  ypos 39
+ }
+ Roto {
+  output alpha
+  cliptype bbox
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x43fa0000 x43fa0000 0
+     {{1 0}}
+     {{1 0}}    0 0 0 0
+     {{1 1}}
+     {{1 1}}}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {xc32c5016 0}
+        {x43970000 x43970000}
+        {x432c5016 0}
+        {0 xc32c5016}
+        {x44198000 x44198000}
+        {0 x432c5018}
+        {x432c5016 0}
+        {x43970000 x44678000}
+        {xc32c5016 0}
+        {0 x432c5018}
+        {xc1200000 x44198000}
+        {0 xc32c5016}}}     idem}
+     {tx 1 x43970000 x44198000 0
+      {{x43460000 -}}
+      {{xc2e40000 -}}     0 0 0 0
+      {{x3fc00000 -}}
+      {{x3fc00000 -}}}
+     {a osw x41200000 osf 0 str 1 spx x43fa0000 spy x43fa0000 sb 1 tt x40e00000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 7 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {500 500}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name DotRoto
+  xpos 328
+  ypos 69
+ }
+ Transform {
+  center {500 500}
+  name DotScale
+  xpos 328
+  ypos 111
+ }
+set Ne2c39400 [stack 0]
+ CopyBBox {
+  inputs 2
+  name ResetBBox
+  selected true
+  xpos 325
+  ypos 144
+ }
+ Tile {
+  rows 100
+  columns {{rows}}
+  name DotTiling
+  xpos 325
+  ypos 226
+ }
+ Reformat {
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  name OutputReformat
+  xpos 325
+  ypos 268
+ }
+ Dot {
+  name Dot4
+  xpos 359
+  ypos 327
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels alpha
+  Bchannels alpha
+  output alpha
+  name MaskMerge
+  xpos 415
+  ypos 318
+ }
+ Output {
+  name Output1
+  xpos 415
+  ypos 418
+ }
+push $Ne2c39400
+ Viewer {
+  frame_range 1-100
+  viewerProcess "sRGB (ACES)"
+  name Viewer1
+  xpos 435
+  ypos 148
+ }
+end_group

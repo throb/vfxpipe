@@ -1,0 +1,46 @@
+#! /Applications/Nuke14.0v5/Nuke14.0v5.app/Contents/MacOS/libnuke-14.0.5.dylib -nx
+version 14.0 v5
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {7 xo l "X Offset" R -10 10}
+ addUserKnob {7 yo l "Y Offset" R -10 10}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 260
+  ypos 27
+ }
+ Invert {
+  name Invert1
+  xpos 260
+  ypos 67
+ }
+ SoftClip {
+  conversion "logarithmic compress"
+  softclip_min 0.9985
+  name SoftClip1
+  xpos 260
+  ypos 99
+ }
+ Invert {
+  name Invert2
+  xpos 260
+  ypos 123
+ }
+ Expression {
+  expr0 isnan(r)?r(x+xo,y+yo):r
+  expr1 isnan(g)?r(x+xo,y+yo):g
+  expr2 isnan(b)?r(x+xo,y+yo):b
+  expr3 isnan(a)?r(x+xo,y+yo):a
+  name Expression1
+  selected true
+  xpos 260
+  ypos 155
+ }
+ Output {
+  name Output1
+  xpos 260
+  ypos 223
+ }
+end_group

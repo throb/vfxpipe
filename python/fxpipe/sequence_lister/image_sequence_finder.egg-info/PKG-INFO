@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: image-sequence-finder
+Version: 0.1
+Summary: A python module that searches a given directory for image sequence files and returns an array of dicts containing the list of sequences found.
+Author: Robert Nederhorst
+Author-email: throb@throb.net
+Keywords: image sequence finder
+License-File: LICENSE
