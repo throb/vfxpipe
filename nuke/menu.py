@@ -45,7 +45,7 @@ dddMenu.addCommand('Rename imported abc\/fbx node names with original names', 'f
 dddMenu.addCommand('Turn Axis\/TransformGeo into Lights', 'fxpipenukescripts.locatorsToLights()')
 m.addSeparator()
 showMenu = m.addMenu('Show')
-showMenu.addCommand('C Output','fxpipenukescripts.createconjuringoutput.output()')
+#showMenu.addCommand('C Output','fxpipenukescripts.createconjuringoutput.output()')
 showMenu.addCommand('RC h264','fxpipenukescripts.createOutput.processOutput()')
 #m.addCommand('Submit Shot to Client','fxpipenukescripts.submitShotToClient.processWriteNode()')
 #toolbar = nuke.menu('Nuke')

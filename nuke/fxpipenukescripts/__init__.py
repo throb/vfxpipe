@@ -28,6 +28,6 @@ from getMinMax import *
 from autoShuffleReads import *
 from locatorsToLights import *
 
-from createconjuringoutput import *
+#from createconjuringoutput import *
 from createOutput import *
 import rv_flipbook
