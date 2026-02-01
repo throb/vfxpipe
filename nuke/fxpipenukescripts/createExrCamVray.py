@@ -15,7 +15,7 @@ def createExrCamVray( node ):
     ### TODO : add progress bar (even though it's really not needed here) that works
     
     mDat = node.metadata()
-    reqFields = ['exr/camera%s' % i for i in ('FocalLength', 'Aperture', 'Transform')]
+    reqFields = ['exr/camera%s' % i for i in ('Fov', 'Aperture', 'Transform')]
     if not set( reqFields ).issubset( mDat ):
         print ('no metdata for camera found')
         return
